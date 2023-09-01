@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  password       String
+  name           String
+  role           String // Enum type should be defined separately in Prisma
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+  createdRuangan Ruangan[]
+  // Viatikum   Viatikum[]
+}
+
+model Ruangan {
+  noRuangan        String   @id @default(cuid())
+  namaRuangan      String
+  kapasitasRuangan String
+  fasilitasRuangan String[]
+  jadwal           String
+  statusRuangan    String   @default("Available")
+  user             User?    @relation(fields: [userId], references: [id])
+  userId           Int?
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+}
+
+model Gudang {
+  no_gudang             Int    @id @default(autoincrement())
+  kapasitas_gudang      String
+  kodefikasi_isi_gudang String
+}
+
+model Multimedia {
+  id_multimedia         Int    @id @default(autoincrement())
+  kodefikasi_multimedia String
+  nama                  String
+  jenis                 String
+  kapasitas             String
+  deskripsi             String
+  letak                 String
+  jumlah                Int
+}
+
+model AsetLain {
+  id_aset_lain         Int    @id @default(autoincrement())
+  kodefikasi_aset_lain String
+  nama                 String
+  jenis                String
+  kapasitas            String
+  deskripsi            String
+  letak                String
+  jumlah               Int
+}
+
+model SuratMasuk {
+  no_srt_msk    Int      @id @default(autoincrement())
+  tanggal_masuk DateTime
+  tanggal_surat DateTime
+  dari          String
+  perihal       String
+  event         String
+  disposisi     String
+}
+
+model SuratKeluar {
+  no_surat        String   @id
+  tanggal_srt_klr DateTime
+  tujuan          String
+  perihal         String
+}
+
+model AdministrasiKeuangan {
+  no      Int      @id @default(autoincrement())
+  tanggal DateTime
+  uraian  String
+  debit   Boolean
+  kredit  Boolean
+  nominal Int
+}
+
+model PengelolaanProgramKerja {
+  no                Int      @id @default(autoincrement())
+  kode_program      String   @unique
+  komisi            String
+  nama_program      String
+  penanggung_jwb    String
+  tujuan_kegiatan   String
+  target_peserta    String
+  tgl_pelaksanaan   String
+  rincian_rencana   String[]
+  nominal_rencana   Int[]
+  anggaran_diajukan Int
+  total_anggaran    Int
+  realisasi         Int
+}
+
+model Viatikum {
+  id               Int      @id @default(autoincrement())
+  nama             String
+  kelompok         String[]
+  periode          String
+  nominal_viatikum Int
+  nominal_total    Int
+  keterangan       String
+  id_user          Int
+  // user             User     @relation(fields: [userId], references: [id])
+  // userId           Int
+}
