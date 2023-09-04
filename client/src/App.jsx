@@ -31,6 +31,9 @@ import { loader as statsLoader } from "./pages/Stats";
 import ErrorElement from "./components/ErrorElement";
 import Ruangan from "./pages/Ruangan";
 
+// new action
+import { action as ruanganAction } from "./pages/Ruangan";
+
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
   document.body.classList.toggle("dark-theme", isDarkTheme);
@@ -78,13 +81,12 @@ const router = createBrowserRouter([
             action: addJobAction(queryClient),
           },
           {
-            path: 'ruangan',
+            path: "ruangan",
             element: <Ruangan />,
-            loader: statsLoader(queryClient),
-            errorElement: <ErrorElement />,
+            action: ruanganAction(),
           },
           {
-            path: 'all-jobs',
+            path: "all-jobs",
             element: <AllJobs />,
             loader: allJobsLoader(queryClient),
             errorElement: <ErrorElement />,

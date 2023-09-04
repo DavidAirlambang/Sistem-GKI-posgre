@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const allJobsQuery = (params) => {
   const { search, jobStatus, jobType, sort, page } = params;
-  return {
+  return { 
     queryKey: [
       'jobs',
       search ?? '',

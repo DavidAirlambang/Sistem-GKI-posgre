@@ -13,6 +13,7 @@ export const getAllRuangan = async (req, res) => {
 export const createRuangan = async (req, res) => {
   console.log(req.user.userId)
 
+  req.body.fasilitasRuangan = req.body.fasilitasRuangan.split(',')
   req.body.user = { connect: { id: req.user.userId } }
   const ruang = await prisma.ruangan.create({
     data: req.body
