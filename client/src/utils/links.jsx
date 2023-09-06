@@ -13,8 +13,8 @@ const links = [
     icon: <FaWpforms />,
   },
   {
-    text: "Ruangan",
-    path: "ruangan",
+    text: "Booking Ruangan",
+    path: "ruang",
     icon: <FaWpforms />,
   },
   {

@@ -9,17 +9,12 @@ export const validateRuangInput = withValidationErrors([
   body('kapasitasRuangan')
     .notEmpty()
     .withMessage('kapasitas ruangan is required'),
-  body('jadwal').notEmpty().withMessage('jadwal is required'),
   body('statusRuangan')
     .isIn(Object.values(RUANGAN_STATUS))
     .withMessage('invalid status ruangan')
 ])
 
 export const validateRuangUpdateInput = withValidationErrors([
-  body('namaRuangan').notEmpty().withMessage('nama ruangan is required'),
-  body('kapasitasRuangan')
-    .notEmpty()
-    .withMessage('kapasitas ruangan is required'),
   body('jadwal').notEmpty().withMessage('jadwal is required'),
   body('statusRuangan')
     .isIn(Object.values(RUANGAN_STATUS))
@@ -29,7 +24,7 @@ export const validateRuangUpdateInput = withValidationErrors([
 export const validateIdRuangParam = withValidationErrors([
   param('id').custom(async (value, { req }) => {
     // Periksa apakah id adalah id yang valid dalam Prisma
-    
+
     const ruangan = await prisma.ruangan.findUnique({
       where: {
         noRuangan: value // Pastikan Anda mengonversi id ke tipe yang benar sesuai dengan model Anda

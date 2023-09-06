@@ -29,10 +29,13 @@ import { loader as adminLoader } from "./pages/Admin";
 import { action as profileAction } from "./pages/Profile";
 import { loader as statsLoader } from "./pages/Stats";
 import ErrorElement from "./components/ErrorElement";
-import Ruangan from "./pages/Ruangan";
 
 // new action
 import { action as ruanganAction } from "./pages/Ruangan";
+import { loader as ruanganLoader } from "./pages/Ruang";
+
+import Ruang from "./pages/Ruang";
+import BookingRuangan from "./pages/BookingRuangan";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -81,9 +84,15 @@ const router = createBrowserRouter([
             action: addJobAction(queryClient),
           },
           {
-            path: "ruangan",
-            element: <Ruangan />,
+            path: "booking/:id",
+            element: <BookingRuangan />,
             action: ruanganAction(),
+            // loader: bookingLoader(),
+          },
+          {
+            path: "ruang",
+            element: <Ruang />,
+            loader: ruanganLoader,
           },
           {
             path: "all-jobs",

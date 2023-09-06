@@ -22,11 +22,21 @@ export const action = () => {
   };
 };
 
-const Ruangan = () => {
+// export const loader = async ({ params }) => {
+//   try {
+//     const { data } = await customFetch.get(`/ruangs/${params.id}`);
+//     return data;
+//   } catch (error) {
+//     toast.error(error.response.data.msg);
+//     return redirect("/dashboard/ruangan");
+//   }
+// };
+
+const BookingRuangan = () => {
   return (
     <Wrapper>
       <Form method="post" className="form">
-        <h4 className="form-title">Tambah Ruangan</h4>
+        <h4 className="form-title">Booking Ruangan</h4>
         <div className="form-center">
           <FormRow type="text" name="noRuangan" labelText="no ruangan" />
           <FormRow type="text" name="namaRuangan" labelText="nama ruangan" />
@@ -57,4 +67,4 @@ const Ruangan = () => {
     </Wrapper>
   );
 };
-export default Ruangan;
+export default BookingRuangan;

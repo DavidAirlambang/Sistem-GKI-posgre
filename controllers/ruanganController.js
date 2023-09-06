@@ -13,7 +13,6 @@ export const getAllRuangan = async (req, res) => {
 export const createRuangan = async (req, res) => {
   console.log(req.user.userId)
 
-  req.body.fasilitasRuangan = req.body.fasilitasRuangan.split(',')
   req.body.user = { connect: { id: req.user.userId } }
   const ruang = await prisma.ruangan.create({
     data: req.body
@@ -21,7 +20,12 @@ export const createRuangan = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ ruang })
 }
 
-export const getRuangan = async (req, res) => {}
+export const getRuangan = async (req, res) => {
+  const ruang = await prisma.ruangan.findUnique({
+    where: { noRuangan: req.params.id }
+  })
+  res.status(StatusCodes.OK).json({ ruang })
+}
 
 export const updateRuangan = async (req, res) => {
   req.body.noRuangan = req.params.id
@@ -37,4 +41,29 @@ export const deleteRuangan = async (req, res) => {
     where: { noRuangan: req.params.id }
   })
   res.status(StatusCodes.OK).json({ ruang })
+}
+
+export const bookingRuangan = async (req, res) => {
+  const ruang = await prisma.ruangan.findUnique({
+    where: { noRuangan: req.params.id }
+  })
+  if (ruang.keteranganProjector == '-' && ruang.keteranganSoundSystem == '-') {
+    const booking = await prisma.ruangan.update({
+      where: { noRuangan: req.params.id },
+      data: req.body
+    })
+    res.status(StatusCodes.OK).json({ booking })
+  } else {
+    const reset = {
+      jadwal: '-',
+      keteranganProjector: '-',
+      keteranganSoundSystem: '-',
+      statusRuangan: 'available'
+    }
+    const booking = await prisma.ruangan.update({
+      where: { noRuangan: req.params.id },
+      data: reset
+    })
+    res.status(StatusCodes.OK).json({ booking })
+  }
 }

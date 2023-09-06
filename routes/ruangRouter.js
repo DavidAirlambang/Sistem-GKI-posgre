@@ -2,6 +2,7 @@ import { Router } from 'express'
 const router = Router()
 
 import {
+  bookingRuangan,
   createRuangan,
   deleteRuangan,
   getAllRuangan,
@@ -18,7 +19,8 @@ router.route('/').get(getAllRuangan).post(validateRuangInput, createRuangan)
 
 router
   .route('/:id')
-  .patch(validateRuangUpdateInput, validateIdRuangParam, updateRuangan)
+  // .patch(validateRuangUpdateInput, validateIdRuangParam, updateRuangan)
+  .patch(validateIdRuangParam, bookingRuangan)
   .delete(validateIdRuangParam, deleteRuangan)
 
 export default router

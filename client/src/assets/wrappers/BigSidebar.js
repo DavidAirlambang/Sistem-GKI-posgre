@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Wrapper = styled.aside`
   display: none;
@@ -58,5 +58,5 @@ const Wrapper = styled.aside`
       background: var(--background-color);
     }
   }
-`;
-export default Wrapper;
+`
+export default Wrapper

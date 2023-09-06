@@ -1,11 +1,26 @@
 export const ROLE = {
   ADMIN: 'admin',
-  KANTOR: 'kantor'
+  KOMISI_ANAK: 'komisi anak',
+  KOMISI_REMAJA: 'komisi remaja',
+  KOMISI_PEMUDA: 'komisi pemuda',
+  KOMISI_DEWASA: 'komisi dewasa',
+  KOMISI_USIA_LANJUT: 'komisi usia lanjut',
+  KOMISI_KESENIAN: 'komisi kesenian',
+  KOMISI_MULTIMEDIA: 'komisi multimedia',
+  U1: 'U1',
+  U2: 'U2',
+  U3: 'U3',
+  U4: 'U4',
+  U5: 'U5',
+  U6: 'U6',
+  U7: 'U7',
+  U8: 'U8'
 }
 
-export const RUANGAN_STATUS = { 
+export const RUANGAN_STATUS = {
   AVAILABLE: 'Available',
-  OCCUPIED: 'Occupied'
+  OCCUPIED: 'Occupied',
+  WAITING: 'Waiting'
 }
 
 export const JOB_STATUS = {

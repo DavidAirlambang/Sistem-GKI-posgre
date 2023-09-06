@@ -47,7 +47,7 @@ const AllJobs = () => {
     </AllJobsContext.Provider>
   );
 };
-
+ 
 export const useAllJobsContext = () => useContext(AllJobsContext);
 
 export default AllJobs;
