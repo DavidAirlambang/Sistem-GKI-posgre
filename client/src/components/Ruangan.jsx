@@ -6,7 +6,7 @@ import {
   BsFillPersonFill,
   BsFillMicFill,
 } from "react-icons/bs";
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useLoaderData, useOutletContext } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Ruangan";
 import JobInfo from "./JobInfo";
 
@@ -14,6 +14,7 @@ import JobInfo from "./JobInfo";
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { RUANGAN_STATUS } from "../../../utils/constants";
+import { useState } from "react";
 day.extend(advancedFormat);
 
 const Ruangan = ({
@@ -27,7 +28,7 @@ const Ruangan = ({
   komisi,
 }) => {
   const date = day(jadwal).format("DD MM YYYY HH:mm").replace("T", " ");
-  console.log(date);
+  const { user } = useOutletContext();
 
   let button;
   if (statusRuangan === RUANGAN_STATUS.AVAILABLE) {
@@ -35,7 +36,11 @@ const Ruangan = ({
   } else if (statusRuangan === RUANGAN_STATUS.OCCUPIED) {
     button = "Selesai";
   } else {
-    button = "waiting";
+    if (user.role === "admin") {
+      button = "approve";
+    } else {
+      button = "waiting";
+    }
   }
 
   const showButton = () => {
@@ -48,7 +53,6 @@ const Ruangan = ({
         </Form>
       );
     } else if (button === "Booking") {
-      console.log(noRuangan);
       return (
         <Link to={`../booking/${noRuangan}`} className="btn edit-btn">
           {button}
@@ -57,7 +61,11 @@ const Ruangan = ({
     } else {
       return (
         <Form method="post" action={`../approve/${noRuangan}`}>
-          <button type="submit" className="btn delete-btn">
+          <button
+            type="submit"
+            className="btn delete-btn"
+            disabled={user.role === "admin" ? false : true}
+          >
             {button}
           </button>
         </Form>

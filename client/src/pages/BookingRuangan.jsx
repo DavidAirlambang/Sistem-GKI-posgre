@@ -41,7 +41,8 @@ export const action = () => {
 };
 
 const BookingRuangan = () => {
-  // const { ruangans } = useLoaderData();
+  const { user } = useOutletContext();
+  console.log(user);
   return (
     <Wrapper>
       <Form method="post" className="form">
@@ -50,7 +51,7 @@ const BookingRuangan = () => {
           <FormRowSelect
             labelText="komisi/Majelis Jemaat"
             name="komisi"
-            list={Object.values(ROLE)}
+            list={user.role === 'admin' ? Object.values(ROLE) : user.role}
           />
           <FormRow type="datetime-local" name="jadwal" />
           <FormRow

@@ -20,7 +20,6 @@ const AllRuangsContext = createContext();
 const Ruang = () => {
   const { data } = useLoaderData();
   const { ruangans } = data;
-  console.log(data);
   if (ruangans.length === 0) {
     return (
       <Wrapper>

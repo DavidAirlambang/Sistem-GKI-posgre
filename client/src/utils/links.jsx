@@ -7,21 +7,21 @@ import { ImProfile } from "react-icons/im";
 import { MdAdminPanelSettings } from "react-icons/md";
 
 const links = [
+  // {
+  //   text: "Add jobs",
+  //   path: ".",
+  //   icon: <FaWpforms />,
+  // },
   {
-    text: "Add jobs",
-    path: ".",
-    icon: <FaWpforms />,
-  },
-  {
-    text: "Booking Ruangan",
+    text: "Ruangan",
     path: "ruangs",
     icon: <FaWpforms />,
   },
-  {
-    text: "all jobs",
-    path: "all-jobs",
-    icon: <MdQueryStats />,
-  },
+  // {
+  //   text: "all jobs",
+  //   path: "all-jobs",
+  //   icon: <MdQueryStats />,
+  // },
   // {
   //   text: 'stats',
   //   path: 'stats',
