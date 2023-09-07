@@ -14,7 +14,7 @@ const links = [
   },
   {
     text: "Booking Ruangan",
-    path: "ruang",
+    path: "ruangs",
     icon: <FaWpforms />,
   },
   {

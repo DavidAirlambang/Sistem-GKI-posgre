@@ -1,20 +1,38 @@
+/* eslint-disable no-unused-vars */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { Link, useOutletContext, useSubmit } from "react-router-dom";
-import { RUANGAN_STATUS } from "../../../utils/constants";
+import {
+  Link,
+  useParams,
+  useOutletContext,
+  useSubmit,
+  useLoaderData,
+} from "react-router-dom";
+import { ROLE, RUANGAN_STATUS } from "../../../utils/constants";
 import { Form, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 
+export const loader = async ({ params }) => {
+  try {
+    const { data } = await customFetch.get(
+      `/ruangs/booking/${params.noRuangan}`
+    );
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.msg);
+    return redirect("/dashboard/ruangan");
+  }
+};
+
 export const action = () => {
-  return async ({ request }) => {
+  return async ({ request, params }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      await customFetch.post("/ruangs", data);
-      // queryClient.invalidateQueries(["ruangs"]);
-      // window.location.reload();
-      return toast.success("Ruangan added successfully ");
+      await customFetch.patch(`/ruangs/booking/${params.noRuangan}`, data);
+      toast.success("Ruangan Booked");
+      return redirect("/dashboard/ruangs");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
       return error;
@@ -22,45 +40,34 @@ export const action = () => {
   };
 };
 
-// export const loader = async ({ params }) => {
-//   try {
-//     const { data } = await customFetch.get(`/ruangs/${params.id}`);
-//     return data;
-//   } catch (error) {
-//     toast.error(error.response.data.msg);
-//     return redirect("/dashboard/ruangan");
-//   }
-// };
-
 const BookingRuangan = () => {
+  // const { ruangans } = useLoaderData();
   return (
     <Wrapper>
       <Form method="post" className="form">
         <h4 className="form-title">Booking Ruangan</h4>
         <div className="form-center">
-          <FormRow type="text" name="noRuangan" labelText="no ruangan" />
-          <FormRow type="text" name="namaRuangan" labelText="nama ruangan" />
-
-          <FormRow
-            type="text"
-            name="kapasitasRuangan"
-            labelText="kapasitas ruangan"
-          />
-          <FormRow
-            type="text"
-            name="fasilitasRuangan"
-            labelText="fasilitas ruangan"
-          />
           <FormRowSelect
-            labelText="status"
-            name="statusRuangan"
-            defaultValue={RUANGAN_STATUS.AVAILABLE}
-            list={Object.values(RUANGAN_STATUS)}
+            labelText="komisi/Majelis Jemaat"
+            name="komisi"
+            list={Object.values(ROLE)}
           />
-          <FormRow type="text" name="jadwal" />
+          <FormRow type="datetime-local" name="jadwal" />
+          <FormRow
+            type="text"
+            name="keteranganSoundSystem"
+            labelText="keterangan sound system"
+            placeholder='isikan "-" jika tidak ada keterangan'
+          />
+          <FormRow
+            type="text"
+            name="keteranganProjector"
+            labelText="keterangan projector"
+            placeholder='isikan "-" jika tidak ada keterangan'
+          />
           <SubmitBtn formBtn />
-          <Link to="/dashboard/ruangan" className="btn form-btn delete-btn">
-            Clear
+          <Link to="/dashboard/ruangs" className="btn form-btn delete-btn">
+            Back
           </Link>
         </div>
       </Form>

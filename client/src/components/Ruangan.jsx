@@ -26,7 +26,8 @@ const Ruangan = ({
   jadwal,
   komisi,
 }) => {
-  const date = day(jadwal).format("MMM Do, YYYY");
+  const date = day(jadwal).format("DD MM YYYY HH:mm").replace("T", " ");
+  console.log(date);
 
   let button;
   if (statusRuangan === RUANGAN_STATUS.AVAILABLE) {
@@ -40,13 +41,14 @@ const Ruangan = ({
   const showButton = () => {
     if (button === "Selesai") {
       return (
-        <Form method="post" action={`../delete-job/${noRuangan}`}>
+        <Form method="post" action={`../reset/${noRuangan}`}>
           <button type="submit" className="btn delete-btn">
             {button}
           </button>
         </Form>
       );
     } else if (button === "Booking") {
+      console.log(noRuangan);
       return (
         <Link to={`../booking/${noRuangan}`} className="btn edit-btn">
           {button}
@@ -54,9 +56,11 @@ const Ruangan = ({
       );
     } else {
       return (
-        <button type="submit" className="btn delete-btn" disabled>
-          {button}
-        </button>
+        <Form method="post" action={`../approve/${noRuangan}`}>
+          <button type="submit" className="btn delete-btn">
+            {button}
+          </button>
+        </Form>
       );
     }
   };
@@ -66,7 +70,6 @@ const Ruangan = ({
       <header>
         <div className="info">
           <h3>{namaRuangan}</h3>
-          <p>{jadwal}</p>
         </div>
       </header>
       <div className="content">
@@ -81,17 +84,7 @@ const Ruangan = ({
           <JobInfo icon={<BsFillMicFill />} text={keteranganSoundSystem} />
         </div>
 
-        <footer className="actions">
-          {/* <Link to={`../booking/${noRuangan}`} className="btn edit-btn">
-            {button}
-          </Link>
-          <Form method="post" action={`../delete-job/${noRuangan}`}>
-            <button type="submit" className="btn delete-btn">
-              Selesai
-            </button>
-          </Form> */}
-          {showButton()}
-        </footer>
+        <footer className="actions">{showButton()}</footer>
       </div>
     </Wrapper>
   );

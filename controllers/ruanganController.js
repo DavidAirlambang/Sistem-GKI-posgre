@@ -4,6 +4,7 @@ import { comparePassword, hashPassword } from '../utils/passwordUtils.js'
 import { UnauthenticatedError } from '../errors/customErrors.js'
 import { createJWT } from '../utils/tokenUtils.js'
 import prisma from '../utils/prisma.js'
+import { RUANGAN_STATUS } from '../utils/constants.js'
 
 export const getAllRuangan = async (req, res) => {
   const ruangans = await prisma.ruangan.findMany()
@@ -44,26 +45,45 @@ export const deleteRuangan = async (req, res) => {
 }
 
 export const bookingRuangan = async (req, res) => {
-  const ruang = await prisma.ruangan.findUnique({
-    where: { noRuangan: req.params.id }
+  console.log(req.params)
+  // const ruang = await prisma.ruangan.findUnique({
+  //   where: { noRuangan: req.params.id }
+  // })
+  // if (ruang) {
+  //   console.log(ruang)
+  // } else {
+  //   console.log('gk tw')
+  // }
+  // res.status(StatusCodes.OK).json({ ruang })
+
+  req.body.statusRuangan = RUANGAN_STATUS.WAITING
+  const booking = await prisma.ruangan.update({
+    where: { noRuangan: req.params.id },
+    data: req.body
   })
-  if (ruang.keteranganProjector == '-' && ruang.keteranganSoundSystem == '-') {
-    const booking = await prisma.ruangan.update({
-      where: { noRuangan: req.params.id },
-      data: req.body
-    })
-    res.status(StatusCodes.OK).json({ booking })
-  } else {
-    const reset = {
-      jadwal: '-',
-      keteranganProjector: '-',
-      keteranganSoundSystem: '-',
-      statusRuangan: 'available'
-    }
-    const booking = await prisma.ruangan.update({
-      where: { noRuangan: req.params.id },
-      data: reset
-    })
-    res.status(StatusCodes.OK).json({ booking })
+  res.status(StatusCodes.OK).json({ booking })
+}
+
+export const approveRuangan = async (req, res) => {
+  req.body.statusRuangan = RUANGAN_STATUS.OCCUPIED
+  const booking = await prisma.ruangan.update({
+    where: { noRuangan: req.params.id },
+    data: req.body
+  })
+  res.status(StatusCodes.OK).json({ booking })
+}
+
+export const resetRuangan = async (req, res) => {
+  const reset = {
+    jadwal: '-',
+    keteranganProjector: '-',
+    keteranganSoundSystem: '-',
+    statusRuangan: RUANGAN_STATUS.AVAILABLE,
+    komisi: '-'
   }
+  const booking = await prisma.ruangan.update({
+    where: { noRuangan: req.params.id },
+    data: reset
+  })
+  res.status(StatusCodes.OK).json({ booking })
 }

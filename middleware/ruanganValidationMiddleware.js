@@ -21,6 +21,13 @@ export const validateRuangUpdateInput = withValidationErrors([
     .withMessage('invalid status ruangan')
 ])
 
+export const validateBookingRuangInput = withValidationErrors([
+  body('jadwal').notEmpty().withMessage('jadwal is required'),
+  // body('statusRuangan')
+  //   .isIn(Object.values(RUANGAN_STATUS))
+  //   .withMessage('invalid status ruangan')
+])
+
 export const validateIdRuangParam = withValidationErrors([
   param('id').custom(async (value, { req }) => {
     // Periksa apakah id adalah id yang valid dalam Prisma

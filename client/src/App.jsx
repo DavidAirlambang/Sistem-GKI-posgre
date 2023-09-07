@@ -31,8 +31,11 @@ import { loader as statsLoader } from "./pages/Stats";
 import ErrorElement from "./components/ErrorElement";
 
 // new action
-import { action as ruanganAction } from "./pages/Ruangan";
 import { loader as ruanganLoader } from "./pages/Ruang";
+import { action as ruanganAction } from "./pages/BookingRuangan";
+import { action as approveAction } from "./pages/ApproveRuangan";
+import { action as resetRuanganAction } from "./pages/ResetRuangan";
+// import { loader as bookingLoader } from "./pages/BookingRuangan";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -84,22 +87,24 @@ const router = createBrowserRouter([
             action: addJobAction(queryClient),
           },
           {
-            path: "booking/:id",
+            path: "booking/:noRuangan",
             element: <BookingRuangan />,
             action: ruanganAction(),
             // loader: bookingLoader(),
           },
           {
-            path: "ruang",
+            path: "ruangs",
             element: <Ruang />,
             loader: ruanganLoader,
           },
-          {
-            path: "all-jobs",
-            element: <AllJobs />,
-            loader: allJobsLoader(queryClient),
-            errorElement: <ErrorElement />,
-          },
+          { path: "approve/:noRuangan", action: approveAction },
+          { path: "reset/:noRuangan", action: resetRuanganAction },
+          // {
+          //   path: "all-jobs",
+          //   element: <AllJobs />,
+          //   loader: allJobsLoader(queryClient),
+          //   errorElement: <ErrorElement />,
+          // },
           // {
           //   path: 'profile',
           //   element: <Profile />,
