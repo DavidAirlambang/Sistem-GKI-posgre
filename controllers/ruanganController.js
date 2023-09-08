@@ -1,8 +1,4 @@
 import { StatusCodes } from 'http-status-codes'
-import User from '../models/UserModel.js'
-import { comparePassword, hashPassword } from '../utils/passwordUtils.js'
-import { UnauthenticatedError } from '../errors/customErrors.js'
-import { createJWT } from '../utils/tokenUtils.js'
 import prisma from '../utils/prisma.js'
 import { RUANGAN_STATUS } from '../utils/constants.js'
 
@@ -12,8 +8,6 @@ export const getAllRuangan = async (req, res) => {
 }
 
 export const createRuangan = async (req, res) => {
-  console.log(req.user.userId)
-
   req.body.user = { connect: { id: req.user.userId } }
   const ruang = await prisma.ruangan.create({
     data: req.body

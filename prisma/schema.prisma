@@ -37,9 +37,13 @@ model Ruangan {
 }
 
 model Gudang {
-  no_gudang             Int    @id @default(autoincrement())
-  kapasitas_gudang      String
-  kodefikasi_isi_gudang String
+  noBarang     Int      @id @default(autoincrement())
+  namaBarang   String
+  jumlahBarang Int
+  lokasiGudang String
+  keterangan   String   @default("-")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Multimedia {
