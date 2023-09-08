@@ -83,20 +83,21 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <AddJob />,
-            action: addJobAction(queryClient),
+            path: "ruangs",
+            element: <Ruang />,
+            loader: ruanganLoader,
           },
+          // {
+          //   element: <AddJob />,
+          //   action: addJobAction(queryClient),
+          // },
           {
             path: "booking/:noRuangan",
             element: <BookingRuangan />,
             action: ruanganAction(),
             // loader: bookingLoader(),
           },
-          {
-            path: "ruangs",
-            element: <Ruang />,
-            loader: ruanganLoader,
-          },
+
           { path: "approve/:noRuangan", action: approveAction },
           { path: "reset/:noRuangan", action: resetRuanganAction },
           // {
