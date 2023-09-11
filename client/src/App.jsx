@@ -39,6 +39,7 @@ import { action as resetRuanganAction } from "./pages/ResetRuangan";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
+import Gudang from "./pages/Gudang";
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem("darkTheme") === "true";
@@ -64,18 +65,20 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Landing />,
+        // element: <Landing />,
+        element: <Login />,
+        action: loginAction(queryClient),
       },
       {
         path: "register",
         element: <Register />,
         action: registerAction,
       },
-      {
-        path: "login",
-        element: <Login />,
-        action: loginAction(queryClient),
-      },
+      // {
+      //   path: "login",
+      //   element: <Login />,
+      //   action: loginAction(queryClient),
+      // },
       {
         path: "dashboard",
         element: <DashboardLayout queryClient={queryClient} />,
@@ -96,6 +99,12 @@ const router = createBrowserRouter([
             element: <BookingRuangan />,
             action: ruanganAction(),
             // loader: bookingLoader(),
+          },
+          {
+            path: "gudang",
+            element: <Gudang />,
+            // action: gudangAction(),
+            // loader: gudangLoader(),
           },
 
           { path: "approve/:noRuangan", action: approveAction },

@@ -27,7 +27,7 @@ const Ruangan = ({
   jadwal,
   komisi,
 }) => {
-  const date = day(jadwal).format("DD MM YYYY HH:mm").replace("T", " ");
+  const date = day(jadwal).format("DD/MM/YYYY HH:mm").replace("T", " ");
   const { user } = useOutletContext();
 
   let button;
@@ -43,11 +43,17 @@ const Ruangan = ({
     }
   }
 
-  const showButton = () => {
+  const showButton = (buatan) => {
     if (button === "Selesai") {
       return (
         <Form method="post" action={`../reset/${noRuangan}`}>
-          <button type="submit" className="btn delete-btn">
+          <button
+            type="submit"
+            className="btn delete-btn"
+            hidden={
+              user.role === "admin" || user.role === buatan ? false : true
+            }
+          >
             {button}
           </button>
         </Form>
@@ -82,7 +88,7 @@ const Ruangan = ({
       </header>
       <div className="content">
         <div className="content-center">
-          <JobInfo icon={<FaCalendarAlt />} text={date} />
+          <JobInfo icon={<FaCalendarAlt />} text={jadwal != "-" ? date : "-"} />
           <div className={`status ${statusRuangan.toLowerCase()}`}>
             {statusRuangan}
           </div>

@@ -9,7 +9,10 @@ export const createBarangGudang = async (req, res) => {
 }
 
 export const getAllBarangGudang = async (req, res) => {
-  const barangs = await prisma.gudang.findMany()
+  const lokasiGudang = req.lokasiGudang
+  const barangs = await prisma.gudang.findMany({
+    where: { lokasiGudang }
+  })
   res.status(StatusCodes.OK).json({ barangs })
 }
 
