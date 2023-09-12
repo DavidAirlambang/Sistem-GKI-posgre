@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import prisma from '../utils/prisma.js'
 
 export const createBarangGudang = async (req, res) => {
+  req.body.jumlahBarang = parseInt(req.body.jumlahBarang)
   const barangGudang = await prisma.gudang.create({
     data: req.body
   })

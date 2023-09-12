@@ -35,7 +35,7 @@ import { loader as ruanganLoader } from "./pages/Ruang";
 import { action as ruanganAction } from "./pages/BookingRuangan";
 import { action as approveAction } from "./pages/ApproveRuangan";
 import { action as resetRuanganAction } from "./pages/ResetRuangan";
-// import { loader as bookingLoader } from "./pages/BookingRuangan";
+import { action as gudangAction } from "./pages/Gudang";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
           {
             path: "gudang",
             element: <Gudang />,
-            // action: gudangAction(),
+            action: gudangAction(),
             // loader: gudangLoader(),
           },
 
