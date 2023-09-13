@@ -2,9 +2,13 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
+  SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -17,6 +21,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import React from "react";
+import { Input } from "@/components/ui/input";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -27,15 +33,48 @@ export function GudangDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  // bikin hook sorting
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  // filter
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    // kalo ada perubahan panggil set sorting
+    onSortingChange: setSorting,
+    // kalo ada filter panggil set column filter
+    onColumnFiltersChange: setColumnFilters,
+    // define sorting state
+    state: {
+      sorting,
+      columnFilters,
+    },
   });
 
   return (
-    <div className="mt-10">
+    <div className="mt-5">
+      {/* input */}
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Cari nama barang"
+          value={
+            (table.getColumn("namaBarang")?.getFilterValue() as string) || ""
+          }
+          onChange={(e) => {
+            console.log(e.target.value);
+
+            table.getColumn("namaBarang")?.setFilterValue(e.target.value);
+          }}
+          className="max-w-sm bg-transparent"
+        />
+      </div>
       {/* table */}
       <div className="rounded-md border">
         <Table>
