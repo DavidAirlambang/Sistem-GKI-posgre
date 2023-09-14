@@ -16,6 +16,9 @@ import GudangTable, { GudangDataTable } from "../app/gudang/data-table";
 import { useContext, createContext } from "react";
 
 import { columns } from "../app/gudang/columns";
+
+import { ThemeProvider } from "../components/ThemeProvider";
+
 export const loader = async () => {
   try {
     const { data } = await customFetch.get("/gudang");
@@ -88,7 +91,9 @@ const Gudang = () => {
           </div>
         </Form>
       </Wrapper>
-      <GudangDataTable columns={columns} data={barangs} />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <GudangDataTable columns={columns} data={barangs} />
+      </ThemeProvider>
       {/* data={data} */}
     </AllGudangContext.Provider>
   );

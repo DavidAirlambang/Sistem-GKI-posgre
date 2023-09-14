@@ -39,7 +39,19 @@ export const columns: ColumnDef<Barang>[] = [
     accessorKey: "jumlahBarang",
   },
   {
-    header: "Lokasi Gudang",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          Lokasi Gudang
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     accessorKey: "lokasiGudang",
   },
   {
@@ -74,12 +86,20 @@ export const columns: ColumnDef<Barang>[] = [
             </DropdownMenuLabel>
             {/* ganti jdi action yang diinginkan */}
             <DropdownMenuItem
-              className="pb-2 hover:backdrop-blur-sm"
+              className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={() => {
                 navigator.clipboard.writeText(noBarang.toString());
               }}
             >
-              copy barang
+              edit barang
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(noBarang.toString());
+              }}
+            >
+              delete barang
             </DropdownMenuItem>
             {/* sampe sini */}
           </DropdownMenuContent>

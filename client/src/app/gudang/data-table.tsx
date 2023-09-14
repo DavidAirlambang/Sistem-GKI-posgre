@@ -30,6 +30,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
+import { ModeToggle } from "@/components/ModeToggle";
+import { downloadToExcel } from "@/lib/xlsx";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -85,17 +87,24 @@ export function GudangDataTable<TData, TValue>({
 
             table.getColumn("namaBarang")?.setFilterValue(e.target.value);
           }}
-          className="max-w-sm"
+          className="max-w-sm text-black form-input"
         />
+
+        {/* <ModeToggle /> */}
+
+        {/* export */}
+        <Button onClick={() => downloadToExcel(data)} className="ml-4">
+          Export to Excel
+        </Button>
 
         {/* visibility */}
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4">
+            <Button variant="outline" className="ml-4 text-black btn">
               Columns
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="rounded bg-slate-100">
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
@@ -103,7 +112,7 @@ export function GudangDataTable<TData, TValue>({
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
                     checked={column.getIsVisible()}
                     onCheckedChange={(value: boolean) => {
                       column.toggleVisibility(!!value);
@@ -123,10 +132,10 @@ export function GudangDataTable<TData, TValue>({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => {
               return (
-                <TableRow key={headerGroup.id}>
+                <TableRow key={headerGroup.id} >
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead key={header.id}>
+                      <TableHead key={header.id} className="text-blue">
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext()
@@ -161,6 +170,7 @@ export function GudangDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+
       {/* pagination */}
       <div className="flex items-center justify-start space-x-2 py-4">
         <Button
@@ -170,6 +180,7 @@ export function GudangDataTable<TData, TValue>({
             table.previousPage();
           }}
           disabled={!table.getCanPreviousPage()}
+          className="text-black btn"
         >
           Previous
         </Button>
@@ -180,6 +191,7 @@ export function GudangDataTable<TData, TValue>({
             table.nextPage();
           }}
           disabled={!table.getCanNextPage()}
+          className="text-black btn"
         >
           Next
         </Button>
