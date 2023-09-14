@@ -111,7 +111,7 @@ const router = createBrowserRouter([
 
           { path: "approve/:noRuangan", action: approveAction },
           { path: "reset/:noRuangan", action: resetRuanganAction },
-          { path: "gudang/:noBarang", action: gudangDelete },
+          { path: "delete-gudang/:noBarang", action: gudangDelete },
           // {
           //   path: "all-jobs",
           //   element: <AllJobs />,

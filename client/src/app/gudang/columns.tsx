@@ -1,5 +1,8 @@
 "use client";
 
+import { toast } from "react-toastify";
+import customFetch from "../../utils/customFetch";
+import { Link, Form, redirect } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
 import { Barang } from "../tabletype";
 import { Button } from "@/components/ui/button";
@@ -15,6 +18,21 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
 } from "@radix-ui/react-dropdown-menu";
+
+async function deleteGudangItem(noBarang: any) {
+  try {
+    await customFetch.delete(`/gudang/${noBarang}`);
+    toast.success("Item deleted successfully");
+    return redirect("/dashboard/gudang");
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.msg) {
+      toast.error(error.response.data.msg);
+    } else {
+      toast.error("An error occurred while deleting the item.");
+    }
+    return error;
+  }
+}
 
 export const columns: ColumnDef<Barang>[] = [
   {
@@ -95,8 +113,8 @@ export const columns: ColumnDef<Barang>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(noBarang.toString());
+              onClick={async () => {
+                deleteGudangItem(noBarang);
               }}
             >
               delete barang
