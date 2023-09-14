@@ -15,6 +15,7 @@ import {
   Profile,
   Admin,
   EditJob,
+  EditGudang,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -37,6 +38,8 @@ import { action as approveAction } from "./pages/ApproveRuangan";
 import { action as resetRuanganAction } from "./pages/ResetRuangan";
 import { action as gudangAction } from "./pages/Gudang";
 import { loader as gudangLoader } from "./pages/Gudang";
+import { loader as gudangEditLoader } from "./pages/EditGudang";
+import { action as gudangEditAction } from "./pages/EditGudang";
 import { action as gudangDelete } from "./pages/DeleteGudang";
 
 import Ruang from "./pages/Ruang";
@@ -100,13 +103,18 @@ const router = createBrowserRouter([
             path: "booking/:noRuangan",
             element: <BookingRuangan />,
             action: ruanganAction(),
-            // loader: bookingLoader(),
           },
           {
             path: "gudang",
             element: <Gudang />,
             action: gudangAction(),
             loader: gudangLoader,
+          },
+          {
+            path: "gudang/:noBarang",
+            element: <EditGudang />,
+            action: gudangEditAction(),
+            loader: gudangEditLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

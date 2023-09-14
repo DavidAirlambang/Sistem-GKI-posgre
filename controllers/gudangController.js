@@ -25,6 +25,7 @@ export const getBarangGudang = async (req, res) => {
 }
 
 export const editBarangGudang = async (req, res) => {
+  req.body.jumlahBarang = parseInt(req.body.jumlahBarang)
   const barang = await prisma.gudang.update({
     where: { noBarang: parseInt(req.params.noBarang) },
     data: req.body

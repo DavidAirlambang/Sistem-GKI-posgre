@@ -109,7 +109,7 @@ export const columns: ColumnDef<Barang>[] = [
                 navigator.clipboard.writeText(noBarang.toString());
               }}
             >
-              edit barang
+              <Link to={`../gudang/${noBarang}`}>edit item</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
@@ -117,7 +117,7 @@ export const columns: ColumnDef<Barang>[] = [
                 deleteGudangItem(noBarang);
               }}
             >
-              delete barang
+              delete item
             </DropdownMenuItem>
             {/* sampe sini */}
           </DropdownMenuContent>

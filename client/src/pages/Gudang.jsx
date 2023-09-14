@@ -59,7 +59,7 @@ const Gudang = () => {
   };
 
   return (
-    <AllGudangContext.Provider value={{ data }}>
+    <AllGudangContext.Provider value={{ data }}> 
       <Wrapper>
         <Form method="post" className="form">
           <h4 className="form-title">Barang Gudang</h4>

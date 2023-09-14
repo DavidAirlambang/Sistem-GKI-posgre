@@ -132,7 +132,7 @@ export function GudangDataTable<TData, TValue>({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => {
               return (
-                <TableRow key={headerGroup.id} >
+                <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id} className="text-blue">
