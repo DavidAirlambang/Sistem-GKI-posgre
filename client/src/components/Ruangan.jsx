@@ -50,9 +50,12 @@ const Ruangan = ({
           <button
             type="submit"
             className="btn delete-btn"
-            hidden={
-              user.role === "admin" || user.role === buatan ? false : true
-            }
+            style={{
+              display:
+                user.role === "admin" || user.role === buatan
+                  ? "block"
+                  : "none",
+            }}
           >
             {button}
           </button>
@@ -98,7 +101,7 @@ const Ruangan = ({
           <JobInfo icon={<BsFillMicFill />} text={keteranganSoundSystem} />
         </div>
 
-        <footer className="actions">{showButton()}</footer>
+        <footer className="actions">{showButton(komisi)}</footer>
       </div>
     </Wrapper>
   );
