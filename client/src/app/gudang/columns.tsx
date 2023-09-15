@@ -2,10 +2,12 @@
 
 import { toast } from "react-toastify";
 import customFetch from "../../utils/customFetch";
-import { Link, Form, redirect } from "react-router-dom";
+import { Link, Form, redirect, useOutletContext } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
 import { Barang } from "../tabletype";
 import { Button } from "@/components/ui/button";
+
+import { useAllGudangContext } from "../../pages/Gudang";
 
 import {
   DropdownMenu,
@@ -91,6 +93,16 @@ export const columns: ColumnDef<Barang>[] = [
     cell: ({ row }) => {
       const barang = row.original;
       const noBarang = barang.noBarang;
+      const { setDataTable } = useAllGudangContext();
+
+      // fetch ulang
+      const refreshTable = async () => {
+        const { data } = await customFetch.get("/gudang");
+        const { barangs } = data;
+        console.log(barangs);
+        setDataTable(barangs);
+      };
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -109,12 +121,27 @@ export const columns: ColumnDef<Barang>[] = [
                 navigator.clipboard.writeText(noBarang.toString());
               }}
             >
+              {" "}
               <Link to={`../gudang/${noBarang}`}>edit item</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={async () => {
-                deleteGudangItem(noBarang);
+                try {
+                  await deleteGudangItem(noBarang);
+                  refreshTable();
+                } catch (error: any) {
+                  if (
+                    error.response &&
+                    error.response.data &&
+                    error.response.data.msg
+                  ) {
+                    toast.error(error.response.data.msg);
+                  } else {
+                    toast.error("An error occurred while deleting the item.");
+                  }
+                  return error;
+                }
               }}
             >
               delete item

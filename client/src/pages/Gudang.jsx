@@ -13,7 +13,7 @@ import { Form, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import GudangTable, { GudangDataTable } from "../app/gudang/data-table";
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
 
 import { columns } from "../app/gudang/columns";
 
@@ -51,6 +51,8 @@ const Gudang = () => {
   const { data } = useLoaderData();
   const { barangs } = data;
 
+  const [dataTable, setDataTable] = useState(barangs);
+
   const reset = () => {
     document.getElementById("namaBarang").reset();
     document.getElementById("jumlahBarang").reset();
@@ -59,7 +61,7 @@ const Gudang = () => {
   };
 
   return (
-    <AllGudangContext.Provider value={{ data }}> 
+    <AllGudangContext.Provider value={{ data, dataTable, setDataTable }}>
       <Wrapper>
         <Form method="post" className="form">
           <h4 className="form-title">Barang Gudang</h4>
@@ -92,7 +94,7 @@ const Gudang = () => {
         </Form>
       </Wrapper>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <GudangDataTable columns={columns} data={barangs} />
+        <GudangDataTable columns={columns} data={dataTable} />
       </ThemeProvider>
       {/* data={data} */}
     </AllGudangContext.Provider>

@@ -32,6 +32,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { ModeToggle } from "@/components/ModeToggle";
 import { downloadToExcel } from "@/lib/xlsx";
+import { useAllGudangContext } from "@/pages/Gudang";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -84,7 +85,7 @@ export function GudangDataTable<TData, TValue>({
           }
           onChange={(e) => {
             console.log(e.target.value);
-
+            console.log(sorting);
             table.getColumn("namaBarang")?.setFilterValue(e.target.value);
           }}
           className="max-w-sm text-black form-input"
