@@ -17,6 +17,11 @@ const links = [
     path: "gudang",
     icon: <FaWpforms />,
   },
+  {
+    text: "Multimedia",
+    path: "multimedia",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",

@@ -16,6 +16,7 @@ import {
   Admin,
   EditJob,
   EditGudang,
+  Multimedia,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -41,6 +42,7 @@ import { loader as gudangLoader } from "./pages/Gudang";
 import { loader as gudangEditLoader } from "./pages/EditGudang";
 import { action as gudangEditAction } from "./pages/EditGudang";
 import { action as gudangDelete } from "./pages/DeleteGudang";
+import { action as multimediaAction } from "./pages/Multimedia";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -115,6 +117,12 @@ const router = createBrowserRouter([
             element: <EditGudang />,
             action: gudangEditAction(),
             loader: gudangEditLoader,
+          },
+          {
+            path: "multimedia",
+            element: <Multimedia />,
+            action: multimediaAction(),
+            // loader: multimediaLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },
