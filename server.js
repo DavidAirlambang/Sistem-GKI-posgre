@@ -15,9 +15,10 @@ import jobRouter from './routes/jobRouter.js'
 import authRouter from './routes/authRouter.js'
 import userRouter from './routes/userRouter.js'
 
-// new routers 
+// new routers
 import ruangRouter from './routes/ruangRouter.js'
 import gudangRouter from './routes/gudangRouter.js'
+import multimediaRouter from './routes/multimediaRouter.js'
 
 // public
 import { dirname } from 'path'
@@ -59,6 +60,7 @@ app.use('/api/v1/auth', authRouter)
 // new
 app.use('/api/v1/ruangs', authenticateUser, ruangRouter)
 app.use('/api/v1/gudang', authenticateUser, gudangRouter)
+app.use('/api/v1/multimedia', authenticateUser, multimediaRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))

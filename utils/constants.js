@@ -28,6 +28,11 @@ export const GUDANG = {
   GUDANG_B: 'gudang B'
 }
 
+export const MULTIMEDIA = {
+  MULTIMEDIA_A: 'multimedia A',
+  MULTIMEDIA_B: 'multimedia B'
+}
+
 export const JOB_STATUS = {
   PENDING: 'pending',
   INTERVIEW: 'interview',

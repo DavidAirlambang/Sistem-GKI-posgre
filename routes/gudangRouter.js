@@ -4,7 +4,7 @@ const router = Router()
 import {
   createBarangGudang,
   getAllBarangGudang,
-  getBarangGudang,
+  getBarangGudang, 
   editBarangGudang,
   deleteBarangGudang
 } from '../controllers/gudangController.js'
@@ -14,7 +14,7 @@ router
   .route('/')
   .get(getAllBarangGudang)
   .post(validateGudangInput, createBarangGudang)
-
+ 
 router
   .route('/:noBarang')
   .get(getBarangGudang)
