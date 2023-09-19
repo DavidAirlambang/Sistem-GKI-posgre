@@ -10,6 +10,16 @@ import { useContext, createContext, useState } from "react";
 
 import { columns } from "../app/gudang/columns";
 
+export const loader = async () => {
+  try {
+    const { data } = await customFetch.get("/multimedia");
+    return { data };
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
+};
+
 export const action = () => {
   return async ({ request }) => {
     const formData = await request.formData();
@@ -27,6 +37,11 @@ export const action = () => {
 
 const AllMultimediaContext = createContext();
 const Multimedia = () => {
+  const { data } = useLoaderData();
+  const { multimedia } = data;
+
+  const [dataTable, setDataTable] = useState(multimedia);
+
   const reset = () => {
     document.getElementById("namaMultimedia").reset();
     document.getElementById("jumlahMultimedia").reset();
@@ -36,7 +51,7 @@ const Multimedia = () => {
   };
 
   return (
-    <AllMultimediaContext.Provider>
+    <AllMultimediaContext.Provider value={{ data, dataTable, setDataTable }}>
       <Wrapper>
         <Form method="post" className="form">
           <h4 className="form-title">Multimedia</h4>

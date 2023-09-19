@@ -43,6 +43,7 @@ import { loader as gudangEditLoader } from "./pages/EditGudang";
 import { action as gudangEditAction } from "./pages/EditGudang";
 import { action as gudangDelete } from "./pages/DeleteGudang";
 import { action as multimediaAction } from "./pages/Multimedia";
+import { loader as multimediaLoader } from "./pages/Multimedia";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -122,7 +123,7 @@ const router = createBrowserRouter([
             path: "multimedia",
             element: <Multimedia />,
             action: multimediaAction(),
-            // loader: multimediaLoader,
+            loader: multimediaLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },
