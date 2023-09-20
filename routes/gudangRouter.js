@@ -4,21 +4,27 @@ const router = Router()
 import {
   createBarangGudang,
   getAllBarangGudang,
-  getBarangGudang, 
+  getBarangGudang,
   editBarangGudang,
-  deleteBarangGudang
+  deleteBarangGudang,
+  CreateManyBarangGudang
 } from '../controllers/gudangController.js'
-import { validateGudangInput } from '../middleware/gudangValidationMiddleware.js'
+import {
+  validateGudangCSV,
+  validateGudangInput
+} from '../middleware/gudangValidationMiddleware.js'
 
 router
   .route('/')
   .get(getAllBarangGudang)
   .post(validateGudangInput, createBarangGudang)
- 
+
 router
   .route('/:noBarang')
   .get(getBarangGudang)
   .patch(validateGudangInput, editBarangGudang)
   .delete(deleteBarangGudang)
+
+router.route('/upload').post(validateGudangCSV, CreateManyBarangGudang)
 
 export default router

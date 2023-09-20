@@ -20,6 +20,7 @@
     "cloudinary": "^1.37.3",
     "concurrently": "^8.0.1",
     "cookie-parser": "^1.4.6",
+    "csv-parser": "^3.0.0",
     "datauri": "^4.1.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
