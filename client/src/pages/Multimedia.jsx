@@ -2,13 +2,14 @@
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useLoaderData } from "react-router-dom";
-import { GUDANG, MULTIMEDIA } from "../../../utils/constants";
+import { MULTIMEDIA } from "../../../utils/constants";
 import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
 
-import { columns } from "../app/gudang/columns";
+import { columns } from "../app/multimedia/columns";
+import MultimediaDataTable from "@/app/multimedia/data-table";
 
 export const loader = async () => {
   try {
@@ -39,6 +40,7 @@ const AllMultimediaContext = createContext();
 const Multimedia = () => {
   const { data } = useLoaderData();
   const { multimedia } = data;
+  // console.log(multimedia);
 
   const [dataTable, setDataTable] = useState(multimedia);
 
@@ -89,7 +91,10 @@ const Multimedia = () => {
           </div>
         </Form>
       </Wrapper>
+      <MultimediaDataTable columns={columns} data={dataTable} />
     </AllMultimediaContext.Provider>
   );
 };
+
+export const useAllMultimediaContext = () => useContext(AllMultimediaContext);
 export default Multimedia;

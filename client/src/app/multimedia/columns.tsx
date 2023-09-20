@@ -4,10 +4,10 @@ import { toast } from "react-toastify";
 import customFetch from "../../utils/customFetch";
 import { Link, Form, redirect, useOutletContext } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
-import { Barang } from "../tabletype";
+import { Multimedia } from "../tabletype";
 import { Button } from "@/components/ui/button";
 
-import { useAllGudangContext } from "../../pages/Gudang";
+import { useAllMultimediaContext } from "../../pages/Multimedia";
 
 import {
   DropdownMenu,
@@ -21,11 +21,11 @@ import {
   DropdownMenuLabel,
 } from "@radix-ui/react-dropdown-menu";
 
-async function deleteGudangItem(noBarang: any) {
+async function deleteMultimediaItem(noMultimedia: any) {
   try {
-    await customFetch.delete(`/gudang/${noBarang}`);
+    await customFetch.delete(`/multimedia/${noMultimedia}`);
     toast.success("Item deleted successfully");
-    return redirect("/dashboard/gudang");
+    return redirect("/dashboard/multimedia");
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.msg) {
       toast.error(error.response.data.msg);
@@ -36,7 +36,7 @@ async function deleteGudangItem(noBarang: any) {
   }
 }
 
-export const columns: ColumnDef<Barang>[] = [
+export const columns: ColumnDef<Multimedia>[] = [
   {
     // sort by name
     header: ({ column }) => {
@@ -47,16 +47,16 @@ export const columns: ColumnDef<Barang>[] = [
             column.toggleSorting(column.getIsSorted() === "asc");
           }}
         >
-          Nama Barang
+          Nama Multimedia
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    accessorKey: "namaBarang",
+    accessorKey: "namaMultimedia",
   },
   {
-    header: "Jumlah Barang",
-    accessorKey: "jumlahBarang",
+    header: "Jumlah Multimedia",
+    accessorKey: "jumlahMultimedia",
   },
   {
     header: ({ column }) => {
@@ -67,16 +67,16 @@ export const columns: ColumnDef<Barang>[] = [
             column.toggleSorting(column.getIsSorted() === "asc");
           }}
         >
-          Lokasi Gudang
+          Lokasi Multimedia
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    accessorKey: "lokasiGudang",
+    accessorKey: "lokasiMultimedia",
   },
   {
     header: "Keterangan",
-    accessorKey: "keterangan",
+    accessorKey: "deskripsiMultimedia",
   },
   {
     header: "Last Update",
@@ -91,16 +91,16 @@ export const columns: ColumnDef<Barang>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const barang = row.original;
-      const noBarang = barang.noBarang;
-      const { setDataTable } = useAllGudangContext();
+      const Multimedia = row.original;
+      const noMultimedia = Multimedia.noMultimedia;
+      const { setDataTable } = useAllMultimediaContext();
 
       // fetch ulang
       const refreshTable = async () => {
-        const { data } = await customFetch.get("/gudang");
-        const { barangs } = data;
-        // console.log(barangs);
-        setDataTable(barangs);
+        const { data } = await customFetch.get("/multimedia");
+        const { multimedia } = data;
+        // console.log(multimedia);
+        setDataTable(multimedia);
       };
 
       return (
@@ -118,17 +118,17 @@ export const columns: ColumnDef<Barang>[] = [
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={() => {
-                navigator.clipboard.writeText(noBarang.toString());
+                navigator.clipboard.writeText(noMultimedia.toString());
               }}
             >
               {" "}
-              <Link to={`../gudang/${noBarang}`}>edit item</Link>
+              <Link to={`../multimedia/${noMultimedia}`}>edit item</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={async () => {
                 try {
-                  await deleteGudangItem(noBarang);
+                  await deleteMultimediaItem(noMultimedia);
                   refreshTable();
                 } catch (error: any) {
                   if (
