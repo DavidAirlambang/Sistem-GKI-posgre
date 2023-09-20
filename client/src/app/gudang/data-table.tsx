@@ -33,6 +33,7 @@ import {
 import { ModeToggle } from "@/components/ModeToggle";
 import { downloadToExcel } from "@/lib/xlsx";
 import { useAllGudangContext } from "@/pages/Gudang";
+import { CSVUploader } from "@/lib/csv";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -97,6 +98,9 @@ export function GudangDataTable<TData, TValue>({
         <Button onClick={() => downloadToExcel(data)} className="ml-4">
           Export to Excel
         </Button>
+
+        {/* import */}
+        <CSVUploader path="/gudang/upload" />
 
         {/* visibility */}
         <DropdownMenu>

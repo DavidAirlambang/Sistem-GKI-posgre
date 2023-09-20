@@ -18,7 +18,8 @@ const validateRow = [
 export const validateGudangInput = withValidationErrors(validateRow)
 
 export const validateGudangCSV = (req, res, next) => {
-  const jsonData = req.body
+  const { jsonData } = req.body
+  console.log(jsonData)
 
   // Validasi setiap baris data
   for (const row of jsonData) {

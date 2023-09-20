@@ -25,6 +25,6 @@ router
   .patch(validateGudangInput, editBarangGudang)
   .delete(deleteBarangGudang)
 
-router.route('/upload').post(validateGudangCSV, CreateManyBarangGudang)
+router.route('/upload').post(CreateManyBarangGudang)
 
 export default router

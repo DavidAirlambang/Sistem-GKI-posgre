@@ -1,6 +1,8 @@
 import { StatusCodes } from 'http-status-codes'
 import prisma from '../utils/prisma.js'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
+import multer from 'multer'
+import path from 'path'
 
 export const createBarangGudang = async (req, res) => {
   req.body.jumlahBarang = parseInt(req.body.jumlahBarang)
@@ -41,19 +43,54 @@ export const deleteBarangGudang = async (req, res) => {
   res.status(StatusCodes.OK).json({ barang })
 }
 
-export const CreateManyBarangGudang = async (req, res) => {
-  function customRowFormat (row) {
-    return {
-      namaBarang: row['Nama Barang'],
-      jumlahBarang: parseInt(row['Jumlah Barang']),
-      keterangan: row['Keterangan'],
-      lokasiGudang: row['Lokasi Gudang']
-    }
+// storage destination
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'file') // Simpan file di direktori 'file'
+  },
+  filename: (req, file, cb) => {
+    const extname = path.extname(file.originalname)
+    cb(null, `gudang.csv`) // Nama file yang diunggah: 'gudang.csv'
   }
+})
 
-  const jsonData = await convertCSVtoJSON('file/gudang.csv', customRowFormat)
-  const upToPrisma = await prisma.gudang.createMany({
-    data: jsonData
-  })
-  res.status(StatusCodes.CREATED).json({ upToPrisma })
+const upload = multer({ storage })
+
+export const CreateManyBarangGudang = async (req, res) => {
+  try {
+    // Menggunakan middleware 'upload.single' untuk menangani unggahan file
+    upload.single('file')(req, res, async err => {
+      if (err) {
+        console.error('Error uploading file:', err)
+        return res
+          .status(400)
+          .json({ error: 'Terjadi kesalahan saat mengunggah file.' })
+      }
+
+      // Setelah file diunggah, Anda dapat menggunakan file 'file/gudang.csv'
+      function customRowFormat (row) {
+        return {
+          namaBarang: row['Nama Barang'],
+          jumlahBarang: parseInt(row['Jumlah Barang']),
+          keterangan: row['Keterangan'],
+          lokasiGudang: row['Lokasi Gudang']
+        }
+      }
+
+      const jsonData = await convertCSVtoJSON(
+        'file/gudang.csv',
+        customRowFormat
+      )
+      const upToPrisma = await prisma.gudang.createMany({
+        data: jsonData
+      })
+
+      res.status(StatusCodes.CREATED).json({ upToPrisma })
+    })
+  } catch (error) {
+    console.error('Error handling CSV import:', error)
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: 'Internal server error' })
+  }
 }
