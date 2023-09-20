@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import customFetch from "@/utils/customFetch";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -35,8 +36,13 @@ export function CSVUploader({ path }: CSVUploaderProps) {
   };
 
   return (
-    <div>
-      <input type="file" accept=".csv" onChange={handleFileChange} />
+    <div className="ml-5 grid grid-flow-col max-w-sm items-center gap-1.5 formInput">
+      <Input
+        type="file"
+        accept=".csv"
+        onChange={handleFileChange}
+        className="text-black"
+      />
       <Button onClick={handleUpload}>Unggah File</Button>
     </div>
   );

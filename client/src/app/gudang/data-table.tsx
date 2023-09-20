@@ -96,7 +96,7 @@ export function GudangDataTable<TData, TValue>({
 
         {/* export */}
         <Button onClick={() => downloadToExcel(data)} className="ml-4">
-          Export to Excel
+          Export
         </Button>
 
         {/* import */}
