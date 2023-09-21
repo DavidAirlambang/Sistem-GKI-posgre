@@ -55,8 +55,16 @@ export const columns: ColumnDef<Multimedia>[] = [
     accessorKey: "namaMultimedia",
   },
   {
+    header: "Jenis Multimedia",
+    accessorKey: "jenisMultimedia",
+  },
+  {
     header: "Jumlah Multimedia",
     accessorKey: "jumlahMultimedia",
+  },
+  {
+    header: "Peminjam Multimedia",
+    accessorKey: "peminjamMultimedia",
   },
   {
     header: ({ column }) => {
@@ -78,16 +86,16 @@ export const columns: ColumnDef<Multimedia>[] = [
     header: "Keterangan",
     accessorKey: "deskripsiMultimedia",
   },
-  {
-    header: "Last Update",
-    accessorKey: "updatedAt",
-    // modif
-    cell: ({ row }) => {
-      const updatedAt = row.getValue("updatedAt");
-      const formatted = new Date(updatedAt as string).toLocaleString();
-      return <div className="font-medium">{formatted}</div>;
-    },
-  },
+  // {
+  //   header: "Last Update",
+  //   accessorKey: "updatedAt",
+  //   // modif
+  //   cell: ({ row }) => {
+  //     const updatedAt = row.getValue("updatedAt");
+  //     const formatted = new Date(updatedAt as string).toLocaleString();
+  //     return <div className="font-medium">{formatted}</div>;
+  //   },
+  // },
   {
     id: "actions",
     cell: ({ row }) => {

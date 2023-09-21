@@ -43,7 +43,7 @@ export function CSVUploader({ path }: CSVUploaderProps) {
         onChange={handleFileChange}
         className="text-black"
       />
-      <Button onClick={handleUpload}>Unggah File</Button>
+      <Button onClick={handleUpload}>Upload File</Button>
     </div>
   );
 }

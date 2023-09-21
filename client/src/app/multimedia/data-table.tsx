@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { ModeToggle } from "@/components/ModeToggle";
-import { downloadToExcel } from "@/lib/xlsx";
+import { downloadToExcelMultimedia as downloadToExcel } from "@/lib/xlsx";
 import { useAllGudangContext } from "@/pages/Gudang";
 import { CSVUploader } from "@/lib/csv";
 
@@ -101,7 +101,7 @@ export function MultimediaDataTable<TData, TValue>({
         </Button>
 
         {/* import */}
-        {/* <CSVUploader path="/multimedia/upload" /> */}
+        <CSVUploader path="/multimedia/upload" />
 
         {/* visibility */}
         <DropdownMenu>

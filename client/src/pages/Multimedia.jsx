@@ -40,7 +40,7 @@ const AllMultimediaContext = createContext();
 const Multimedia = () => {
   const { data } = useLoaderData();
   const { multimedia } = data;
-  // console.log(multimedia);
+  console.log(multimedia);
 
   const [dataTable, setDataTable] = useState(multimedia);
 
@@ -51,7 +51,7 @@ const Multimedia = () => {
     document.getElementById("peminjamMultimedia").reset();
     document.getElementById("lokasiMultimedia").reset();
   };
-
+ 
   return (
     <AllMultimediaContext.Provider value={{ data, dataTable, setDataTable }}>
       <Wrapper>

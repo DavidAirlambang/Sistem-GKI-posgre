@@ -4,17 +4,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import {
   HomeLayout,
-  Landing,
   Register,
   Login,
   DashboardLayout,
   Error,
-  AddJob,
-  Stats,
-  AllJobs,
-  Profile,
-  Admin,
-  EditJob,
   EditGudang,
   Multimedia,
 } from "./pages";
@@ -22,14 +15,6 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
-import { action as addJobAction } from "./pages/AddJob";
-import { loader as allJobsLoader } from "./pages/AllJobs";
-import { loader as editJobLoader } from "./pages/EditJob";
-import { action as editJobAction } from "./pages/EditJob";
-import { action as deleteJobAction } from "./pages/DeleteJob";
-import { loader as adminLoader } from "./pages/Admin";
-import { action as profileAction } from "./pages/Profile";
-import { loader as statsLoader } from "./pages/Stats";
 import ErrorElement from "./components/ErrorElement";
 
 // new action
@@ -44,6 +29,10 @@ import { action as gudangEditAction } from "./pages/EditGudang";
 import { action as gudangDelete } from "./pages/DeleteGudang";
 import { action as multimediaAction } from "./pages/Multimedia";
 import { loader as multimediaLoader } from "./pages/Multimedia";
+import EditMultimedia, {
+  loader as multimediaEditLoader,
+} from "./pages/EditMultimedia";
+import { action as multimediaEditAction } from "./pages/EditMultimedia";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -124,6 +113,12 @@ const router = createBrowserRouter([
             element: <Multimedia />,
             action: multimediaAction(),
             loader: multimediaLoader,
+          },
+          {
+            path: "multimedia/:noMultimedia",
+            element: <EditMultimedia />,
+            action: multimediaEditAction(),
+            loader: multimediaEditLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

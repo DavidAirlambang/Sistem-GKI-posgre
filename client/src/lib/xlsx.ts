@@ -1,5 +1,5 @@
 import xlsx, { IJsonSheet } from "json-as-xlsx";
-export function downloadToExcel(data: any) {
+export function downloadToExcelGudang(data: any) {
   let columns: IJsonSheet[] = [
     {
       sheet: "Barang",
@@ -8,10 +8,6 @@ export function downloadToExcel(data: any) {
         { label: "Jumlah Barang", value: "jumlahBarang" },
         { label: "Keterangan", value: "keterangan" },
         { label: "Lokasi Gudang", value: "lokasiGudang" },
-        {
-          label: "Last Update",
-          value: (row) => new Date(row.updatedAt).toLocaleString(),
-        },
       ],
       content: data,
     },
@@ -19,6 +15,29 @@ export function downloadToExcel(data: any) {
 
   let settings = {
     fileName: "Gudang Excel",
+  };
+
+  xlsx(columns, settings);
+}
+
+export function downloadToExcelMultimedia(data: any) {
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "Multimedia",
+      columns: [
+        { label: "Nama Multimedia", value: "namaMultimedia" },
+        { label: "Jenis Multimedia", value: "jenisMultimedia" },
+        { label: "Jumlah Multimedia", value: "jumlahMultimedia" },
+        { label: "Peminjam Multimedia", value: "peminjamMultimedia" },
+        { label: "Keterangan", value: "deskripsiMultimedia" },
+        { label: "Lokasi Multimedia", value: "lokasiMultimedia" },
+      ],
+      content: data,
+    },
+  ];
+
+  let settings = {
+    fileName: "Multimedia Excel",
   };
 
   xlsx(columns, settings);
