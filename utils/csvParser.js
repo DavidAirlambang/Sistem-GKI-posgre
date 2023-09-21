@@ -1,21 +1,21 @@
-import fs from 'fs';
-import csvParser from 'csv-parser';
+import fs from 'fs'
+import csvParser from 'csv-parser'
 
-export function convertCSVtoJSON(csvFilePath, rowFormat) {
+export function convertCSVtoJSON (csvFilePath, rowFormat) {
   return new Promise((resolve, reject) => {
-    const jsonData = [];
+    const jsonData = []
 
     fs.createReadStream(csvFilePath)
       .pipe(csvParser({ separator: ';' }))
-      .on('data', (row) => {
-        const formattedRow = rowFormat(row);
-        jsonData.push(formattedRow);
+      .on('data', row => {
+        const formattedRow = rowFormat(row)
+        jsonData.push(formattedRow)
       })
       .on('end', () => {
-        resolve(jsonData);
+        resolve(jsonData)
       })
-      .on('error', (error) => {
-        reject(error);
-      });
-  });
+      .on('error', error => {
+        reject(error)
+      })
+  })
 }
