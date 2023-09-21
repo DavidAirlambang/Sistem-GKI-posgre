@@ -33,7 +33,9 @@ import {
 import { ModeToggle } from "@/components/ModeToggle";
 import { downloadToExcelMultimedia as downloadToExcel } from "@/lib/xlsx";
 import { useAllGudangContext } from "@/pages/Gudang";
-import { CSVUploader } from "@/lib/csv";
+import { CSVUploader } from "@/lib/CSVUploader";
+import { useAllMultimediaContext } from "@/pages/Multimedia";
+import customFetch from "@/utils/customFetch";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -75,6 +77,15 @@ export function MultimediaDataTable<TData, TValue>({
     },
   });
 
+  // state table
+  const { setDataTable } = useAllMultimediaContext();
+
+  const refreshTable = async () => {
+    const { data } = await customFetch.get("multimedia");
+    const { multimedia } = data;
+    setDataTable(multimedia);
+  };
+
   return (
     <div className="mt-5">
       {/* input */}
@@ -101,7 +112,7 @@ export function MultimediaDataTable<TData, TValue>({
         </Button>
 
         {/* import */}
-        <CSVUploader path="/multimedia/upload" />
+        <CSVUploader path="/multimedia/upload" refresh={() => refreshTable()} />
 
         {/* visibility */}
         <DropdownMenu>

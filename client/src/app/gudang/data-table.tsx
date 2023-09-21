@@ -33,7 +33,8 @@ import {
 import { ModeToggle } from "@/components/ModeToggle";
 import { downloadToExcelGudang as downloadToExcel } from "@/lib/xlsx";
 import { useAllGudangContext } from "@/pages/Gudang";
-import { CSVUploader } from "@/lib/csv";
+import { CSVUploader } from "@/lib/CSVUploader";
+import customFetch from "@/utils/customFetch";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -75,6 +76,15 @@ export function GudangDataTable<TData, TValue>({
     },
   });
 
+  // state table
+  const { setDataTable } = useAllGudangContext();
+
+  const refreshTable = async () => {
+    const { data } = await customFetch.get("gudang");
+    const { barangs } = data;
+    setDataTable(barangs);
+  };
+
   return (
     <div className="mt-5">
       {/* input */}
@@ -100,7 +110,7 @@ export function GudangDataTable<TData, TValue>({
         </Button>
 
         {/* import */}
-        <CSVUploader path="/gudang/upload" />
+        <CSVUploader path="/gudang/upload" refresh={() => refreshTable()} />
 
         {/* visibility */}
         <DropdownMenu>

@@ -1,16 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAllMultimediaContext } from "@/pages/Multimedia";
 import customFetch from "@/utils/customFetch";
 import { useState } from "react";
 import { toast } from "react-toastify";
+// import { CSVUploaderProps } from "./csv";
+import { useAllMultimediaContext } from "@/pages/Multimedia";
 
-interface CSVUploaderProps {
-  path: string;
-}
+export function CSVUploader({ path, refresh }: any) {
+  // upload state
 
-export function CSVUploader({ path }: CSVUploaderProps) {
-  // file state
   const [selectedFile, setSelectedFile] = useState(null);
   const [jsonData, setJsonData] = useState(null);
 
@@ -30,6 +28,7 @@ export function CSVUploader({ path }: CSVUploaderProps) {
 
     try {
       await customFetch.post(path, formData);
+      refresh();
       return toast.success("Item added successfully ");
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
