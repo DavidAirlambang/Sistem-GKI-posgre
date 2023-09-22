@@ -57,23 +57,22 @@ model Multimedia {
   deskripsiMultimedia String @default("-")
 }
 
+model AsetLain {
+  noAsetLain        Int    @id @default(autoincrement())
+  namaAsetLain      String
+  jenisAsetLain     String
+  lokasiAsetLain    String
+  jumlahAsetLain    Int
+  peminjamAsetLain  String @default("-")
+  deskripsiAsetLain String @default("-")
+}
+
 // model Log {
 //   noLog      Int    @id @default(autoincrement())
 //   TanggalLog String
 //   User       User?  @relation(fields: [userId], references: [id])
 //   userId     Int?
 // }
-
-model AsetLain {
-  id_aset_lain         Int    @id @default(autoincrement())
-  kodefikasi_aset_lain String
-  nama                 String
-  jenis                String
-  kapasitas            String
-  deskripsi            String
-  letak                String
-  jumlah               Int
-}
 
 model SuratMasuk {
   no_srt_msk    Int      @id @default(autoincrement())

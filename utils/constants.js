@@ -33,6 +33,11 @@ export const MULTIMEDIA = {
   MULTIMEDIA_B: 'multimedia B'
 }
 
+export const ASETLAIN = {
+  ASETLAIN_A: 'aset lain A',
+  ASETLAIN_B: 'aset lain B'
+}
+
 export const JOB_STATUS = {
   PENDING: 'pending',
   INTERVIEW: 'interview',

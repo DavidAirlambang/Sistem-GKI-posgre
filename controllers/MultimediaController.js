@@ -3,7 +3,7 @@ import prisma from '../utils/prisma.js'
 import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
-
+ 
 export const createMultimedia = async (req, res) => {
   req.body.jumlahMultimedia = parseInt(req.body.jumlahMultimedia)
   const multimedia = await prisma.multimedia.create({
