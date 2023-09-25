@@ -32,10 +32,10 @@ export const editSuratMasuk = async (req, res) => {
 }
 
 export const deleteSuratMasuk = async (req, res) => {
-  const getAllSuratMasuk = await prisma.getAllSuratMasuk.delete({
+  const suratMasuk = await prisma.suratMasuk.delete({
     where: { noSuratMasuk: req.params.noSuratMasuk }
   })
-  res.status(StatusCodes.OK).json({ getAllSuratMasuk })
+  res.status(StatusCodes.OK).json({ suratMasuk })
 }
 
 // csv

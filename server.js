@@ -20,6 +20,7 @@ import ruangRouter from './routes/ruangRouter.js'
 import gudangRouter from './routes/gudangRouter.js'
 import multimediaRouter from './routes/multimediaRouter.js'
 import asetLainRouter from './routes/asetLainRouter.js'
+import suratMasukRouter from './routes/suratMasukRouter.js'
 
 // public
 import { dirname } from 'path'
@@ -63,6 +64,7 @@ app.use('/api/v1/ruangs', authenticateUser, ruangRouter)
 app.use('/api/v1/gudang', authenticateUser, gudangRouter)
 app.use('/api/v1/multimedia', authenticateUser, multimediaRouter)
 app.use('/api/v1/asetLain', authenticateUser, asetLainRouter)
+app.use('/api/v1/suratMasuk', authenticateUser, suratMasukRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))
@@ -77,7 +79,6 @@ app.use(errorHandlerMiddleware)
 const port = process.env.PORT || 5100
 
 try {
-  await mongoose.connect(process.env.MONGO_URL)
   app.listen(port, () => {
     console.log(`server running on PORT ${port}...`)
   })
