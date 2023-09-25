@@ -40,7 +40,7 @@ export const validateJobInput = withValidationErrors([
   body('company').notEmpty().withMessage('company is required'),
   body('position').notEmpty().withMessage('position is required'),
   body('jobLocation').notEmpty().withMessage('job location is required'),
-  body('jobStatus') 
+  body('jobStatus')
     .isIn(Object.values(JOB_STATUS))
     .withMessage('invalid status value'),
   body('jobType')
@@ -61,7 +61,6 @@ export const validateIdParam = withValidationErrors([
       throw new UnauthorizedError('not authorized to access this route')
   })
 ])
-
 
 // export const validateIdParam = withValidationErrors([
 //   param('id').custom(async (value, { req }) => {
@@ -104,7 +103,7 @@ export const validateRegisterInput = withValidationErrors([
   body('role')
     .isIn(Object.values(ROLE))
     .withMessage('invalid role value')
-    .notEmpty(),
+    .notEmpty()
   // body('lastName').notEmpty().withMessage('last name is required')
 ])
 

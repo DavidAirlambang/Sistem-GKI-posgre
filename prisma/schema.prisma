@@ -75,20 +75,20 @@ model AsetLain {
 // }
 
 model SuratMasuk {
-  no_srt_msk    Int      @id @default(autoincrement())
-  tanggal_masuk DateTime
-  tanggal_surat DateTime
-  dari          String
-  perihal       String
-  event         String
-  disposisi     String
+  noSuratMasuk      String   @id @default(cuid())
+  tanggalMasuk      DateTime
+  tanggalSuratMasuk DateTime
+  pengirimMasuk     String
+  perihalMasuk      String
+  eventMasuk        String
+  disposisiMasuk    String
 }
 
 model SuratKeluar {
-  no_surat        String   @id
-  tanggal_srt_klr DateTime
-  tujuan          String
-  perihal         String
+  noSuratKeluar      String   @id @default(cuid())
+  tanggalSuratKeluar DateTime
+  tujuanKeluar       String
+  perihalKeluar      String
 }
 
 model AdministrasiKeuangan {
