@@ -3,18 +3,18 @@
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useLoaderData } from "react-router-dom";
-import { MULTIMEDIA } from "../../../utils/constants";
 import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
+import { ASETLAIN } from "../../../utils/constants";
 
-import { columns } from "../app/multimedia/columns";
-import MultimediaDataTable from "@/app/multimedia/data-table";
+import { columns } from "../app/asetLain/columns";
+import MultimediaDataTable from "@/app/asetLain/data-table";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.get("/multimedia");
+    const { data } = await customFetch.get("/asetLain");
     return { data };
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -28,7 +28,7 @@ export const action = () => {
     const data = Object.fromEntries(formData);
 
     try {
-      await customFetch.post("/multimedia", data);
+      await customFetch.post("/asetLain", data);
       return toast.success("Item added successfully ");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
@@ -37,51 +37,48 @@ export const action = () => {
   };
 };
 
-const AllMultimediaContext = createContext();
-const Multimedia = () => {
+const AllAsetLainContext = createContext();
+const AsetLain = () => {
   const { data } = useLoaderData();
-  const { multimedia } = data;
-  // console.log(multimedia);
+  const { asetLain } = data;
+  console.log(asetLain);
 
-  const [dataTable, setDataTable] = useState(multimedia);
+  const [dataTable, setDataTable] = useState(asetLain);
 
   const reset = () => {
-    document.getElementById("namaMultimedia").reset();
-    document.getElementById("jumlahMultimedia").reset();
-    document.getElementById("deskripsiMultimedia").reset();
-    document.getElementById("peminjamMultimedia").reset();
-    document.getElementById("lokasiMultimedia").reset();
+    document.getElementById("namaAsetLain").reset();
+    document.getElementById("jumlahAsetLain").reset();
+    document.getElementById("deskripsiAsetLain").reset();
+    document.getElementById("peminjamAsetLain").reset();
+    document.getElementById("lokasiAsetLain").reset();
   };
- 
+
   return (
-    <AllMultimediaContext.Provider value={{ data, dataTable, setDataTable }}>
+    <AllAsetLainContext.Provider value={{ data, dataTable, setDataTable }}>
       <Wrapper>
         <Form method="post" className="form">
-          <h4 className="form-title">Multimedia</h4>
+          <h4 className="form-title">Aset Lain</h4>
           <div className="form-center">
-            <FormRow labelText="nama Multimedia" name="namaMultimedia" />
-            <FormRow labelText="jenis Multimedia" name="jenisMultimedia" />
-            <FormRow labelText="jumlah Multimedia" name="jumlahMultimedia" />
+            <FormRow labelText="nama aset lain" name="namaAsetLain" />
+            <FormRow labelText="jenis aset lain" name="jenisAsetLain" />
+            <FormRow labelText="jumlah aset lain" name="jumlahAsetLain" />
             <FormRowSelect
               labelText="lokasi"
-              name="lokasiMultimedia"
-              list={Object.values(MULTIMEDIA)}
+              name="lokasiAsetLain"
+              list={Object.values(ASETLAIN)}
             />
             <FormRow
               type="text"
-              name="deskripsiMultimedia"
+              name="deskripsiAsetLain"
               labelText="deskripsi"
               placeholder='isikan "-" jika tidak ada deskripsi'
             />
             <FormRow
-              labelText="peminjam Multimedia"
-              name="peminjamMultimedia"
+              labelText="peminjam aset lain"
+              name="peminjamAsetLain"
               placeholder='isikan "-" jika tidak ada yang pinjam'
             />
             <SubmitBtn formBtn />
-            {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
-        Back
-      </Link> */}
             <button
               className="btn form-btn delete-btn"
               type="reset"
@@ -92,10 +89,10 @@ const Multimedia = () => {
           </div>
         </Form>
       </Wrapper>
-      <MultimediaDataTable columns={columns} data={dataTable} />
-    </AllMultimediaContext.Provider>
+      {/* <MultimediaDataTable columns={columns} data={dataTable} /> */}
+    </AllAsetLainContext.Provider>
   );
 };
 
-export const useAllMultimediaContext = () => useContext(AllMultimediaContext);
-export default Multimedia;
+export const useAllAsetLainContext = () => useContext(AllAsetLainContext);
+export default AsetLain;

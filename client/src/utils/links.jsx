@@ -22,6 +22,11 @@ const links = [
     path: "multimedia",
     icon: <FaWpforms />,
   },
+  {
+    text: "Aset Lain",
+    path: "asetLain",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",

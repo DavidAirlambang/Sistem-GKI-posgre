@@ -15,7 +15,7 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
-import ErrorElement from "./components/ErrorElement";
+// import ErrorElement from "./components/ErrorElement";
 
 // new action
 import { loader as ruanganLoader } from "./pages/Ruang";
@@ -33,6 +33,12 @@ import EditMultimedia, {
   loader as multimediaEditLoader,
 } from "./pages/EditMultimedia";
 import { action as multimediaEditAction } from "./pages/EditMultimedia";
+import AsetLain, { action as asetLainAction } from "./pages/AsetLain";
+import { loader as asetLainLoader } from "./pages/AsetLain";
+import EditAsetLain, {
+  loader as asetLainEditLoader,
+} from "./pages/EditAsetLain";
+import { action as asetLainEditAction } from "./pages/EditAsetLain";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -119,6 +125,18 @@ const router = createBrowserRouter([
             element: <EditMultimedia />,
             action: multimediaEditAction(),
             loader: multimediaEditLoader,
+          },
+          {
+            path: "asetLain",
+            element: <AsetLain />,
+            action: asetLainAction(),
+            loader: asetLainLoader,
+          },
+          {
+            path: "asetLain/:noAsetLain",
+            element: <EditAsetLain />,
+            action: asetLainEditAction(),
+            loader: asetLainEditLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

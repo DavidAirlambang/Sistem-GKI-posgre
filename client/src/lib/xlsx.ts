@@ -42,3 +42,26 @@ export function downloadToExcelMultimedia(data: any) {
 
   xlsx(columns, settings);
 }
+
+export function downloadToExcelAsetLain(data: any) {
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "AsetLain",
+      columns: [
+        { label: "Nama AsetLain", value: "namaAsetLain" },
+        { label: "Jenis AsetLain", value: "jenisAsetLain" },
+        { label: "Jumlah AsetLain", value: "jumlahAsetLain" },
+        { label: "Peminjam AsetLain", value: "peminjamAsetLain" },
+        { label: "Keterangan", value: "deskripsiAsetLain" },
+        { label: "Lokasi AsetLain", value: "lokasiAsetLain" },
+      ],
+      content: data,
+    },
+  ];
+
+  let settings = {
+    fileName: "Aset Lain Excel",
+  };
+
+  xlsx(columns, settings);
+}

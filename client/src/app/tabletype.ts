@@ -19,3 +19,15 @@ export type Multimedia = {
   deskripsiMultimedia: string;
   lokasiMultimedia: string;
 };
+
+export type AsetLain = {
+  createdAt: string;
+  updatedAt: string;
+  noAsetLain: number;
+  namaAsetLain: string;
+  jenisAsetLain: string;
+  jumlahAsetLain: number;
+  peminjamAsetLain: string;
+  deskripsiAsetLain: string;
+  lokasiAsetLain: string;
+};
