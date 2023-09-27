@@ -42,10 +42,57 @@ const SuratMasuk = () => {
   const { data } = useLoaderData();
   const { suratMasuk } = data;
   console.log(suratMasuk);
+
+  const [dataTable, setDataTable] = useState(suratMasuk);
+
+  const reset = () => {
+    document.getElementById("noSuratMasuk").reset();
+    document.getElementById("tanggalMasuk").reset();
+    document.getElementById("tanggalSuratMasuk").reset();
+    document.getElementById("pengirimMasuk").reset();
+    document.getElementById("perihalMasuk").reset();
+    document.getElementById("eventMasuk").reset();
+    document.getElementById("disposisiMasuk").reset();
+  };
+
   return (
-    <AllSuratMasukContext.Provider>
-      <h2>Surat Masuk</h2>
+    <AllSuratMasukContext.Provider value={{ data, dataTable, setDataTable }}>
+      <Wrapper>
+        <Form method="post" className="form">
+          <h4 className="form-title">Surat Masuk</h4>
+          <div className="form-center">
+            <FormRow labelText="no Surat" name="noSuratMasuk" />
+            <FormRow
+              type={"date"}
+              labelText="tanggal Masuk"
+              name="tanggalMasuk"
+            />
+            <FormRow
+              type={"date"}
+              labelText="tanggal Surat"
+              name="tanggalSuratMasuk"
+            />
+            <FormRow labelText="pengirim Surat" name="pengirimMasuk" />
+            <FormRow name="perihalMasuk" labelText="perihal" />
+            <FormRow labelText="event" name="eventMasuk" />
+            <FormRow labelText="disposisi" name="disposisiMasuk" />
+            <SubmitBtn formBtn />
+            {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
+        Back
+      </Link> */}
+            <button
+              className="btn form-btn delete-btn"
+              type="reset"
+              onClick={() => reset()}
+            >
+              clear
+            </button>
+          </div>
+        </Form>
+      </Wrapper>
     </AllSuratMasukContext.Provider>
   );
 };
+
+export const useAllSuratMasukContext = () => useContext(AllSuratMasukContext);
 export default SuratMasuk;

@@ -76,8 +76,8 @@ model AsetLain {
 
 model SuratMasuk {
   noSuratMasuk      String   @id @default(cuid())
-  tanggalMasuk      DateTime @default(now())
-  tanggalSuratMasuk DateTime @default(now())
+  tanggalMasuk      DateTime @default(now()) @db.Date
+  tanggalSuratMasuk DateTime @default(now()) @db.Date
   pengirimMasuk     String
   perihalMasuk      String
   eventMasuk        String
