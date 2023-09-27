@@ -80,9 +80,9 @@ export function SuratMasukDataTable<TData, TValue>({
   const { setDataTable } = useAllSuratMasukContext();
 
   const refreshTable = async () => {
-    const { data } = await customFetch.get("asetLain");
-    const { asetLain } = data;
-    setDataTable(asetLain);
+    const { data } = await customFetch.get("suratMasuk");
+    const { suratMasuk } = data;
+    setDataTable(suratMasuk);
   };
 
   return (
@@ -106,7 +106,7 @@ export function SuratMasukDataTable<TData, TValue>({
         </Button>
 
         {/* import */}
-        <CSVUploader path="/asetLain/upload" refresh={() => refreshTable()} />
+        <CSVUploader path="/suratMasuk/upload" refresh={() => refreshTable()} />
 
         {/* visibility */}
         <DropdownMenu>

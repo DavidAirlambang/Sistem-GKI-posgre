@@ -66,8 +66,8 @@ export const CreateManySuratMasuk = async (req, res) => {
       function customRowFormat (row) {
         return {
           noSuratMasuk: row['No Surat'],
-          tanggalMasuk: row['Tanggal Masuk'],
-          tanggalSuratMasuk: row['Tanggal Surat'],
+          tanggalMasuk: `${row['Tanggal Masuk']}T00:00:00Z`,
+          tanggalSuratMasuk: `${row['Tanggal Surat']}T00:00:00Z`,
           pengirimMasuk: row['Pengirim'],
           perihalMasuk: row['Perihal'],
           eventMasuk: row['Event'],
@@ -80,7 +80,7 @@ export const CreateManySuratMasuk = async (req, res) => {
         customRowFormat
       )
       console.log(jsonData)
-      const upToPrisma = await prisma.asetLain.createMany({
+      const upToPrisma = await prisma.suratMasuk.createMany({
         data: jsonData
       })
 

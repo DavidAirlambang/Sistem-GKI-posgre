@@ -1,5 +1,2 @@
-Nama AsetLain;Jenis AsetLain;Jumlah AsetLain;Peminjam AsetLain;Keterangan;Lokasi AsetLain
-aset lain import;kursi cheetose;100;Komisi Anak;-;aset lain B
-aset 2;jenis A;100;-;-;aset lain A
-aset 3;jenis B;10;peminjam A;-;aset lain B
-aset 4;jenis b;100;-;-;aset lain A
+No Surat Masuk;Tanggal Masuk;Tanggal Surat Masuk;Pengirim Masuk;Perihal Masuk;Event Masuk;Disposisi Masuk
+XX1;2023-09-25;2023-09-25;bapak B;perihal B;event B;disposisi B
