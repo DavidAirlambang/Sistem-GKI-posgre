@@ -65,17 +65,18 @@ export const CreateManySuratMasuk = async (req, res) => {
 
       function customRowFormat (row) {
         return {
-          namaAsetLain: row['Nama AsetLain'],
-          jenisAsetLain: row['Jenis AsetLain'],
-          jumlahAsetLain: parseInt(row['Jumlah AsetLain']),
-          peminjamAsetLain: row['Peminjam AsetLain'],
-          deskripsiAsetLain: row['Keterangan'],
-          lokasiAsetLain: row['Lokasi AsetLain']
+          noSuratMasuk: row['No Surat'],
+          tanggalMasuk: row['Tanggal Masuk'],
+          tanggalSuratMasuk: row['Tanggal Surat'],
+          pengirimMasuk: row['Pengirim'],
+          perihalMasuk: row['Perihal'],
+          eventMasuk: row['Event'],
+          disposisiMasuk: row['Disposisi']
         }
       }
 
       const jsonData = await convertCSVtoJSON(
-        'file/asetLain.csv',
+        'file/suratMasuk.csv',
         customRowFormat
       )
       console.log(jsonData)

@@ -3,14 +3,13 @@
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useLoaderData } from "react-router-dom";
-import { MULTIMEDIA } from "../../../utils/constants";
 import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
 
-import { columns } from "../app/multimedia/columns";
-import MultimediaDataTable from "@/app/multimedia/data-table";
+import { columns } from "../app/suratMasuk/column";
+import SuratMasukDataTable from "@/app/suratMasuk/data-table";
 
 export const loader = async () => {
   try {
@@ -90,6 +89,7 @@ const SuratMasuk = () => {
           </div>
         </Form>
       </Wrapper>
+      <SuratMasukDataTable columns={columns} data={dataTable} />
     </AllSuratMasukContext.Provider>
   );
 };

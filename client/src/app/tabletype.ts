@@ -31,3 +31,13 @@ export type AsetLain = {
   deskripsiAsetLain: string;
   lokasiAsetLain: string;
 };
+
+export type SuratMasuk = {
+  noSuratMasuk: string;
+  tanggalMasuk: string;
+  tanggalSuratMasuk: string;
+  pengirimMasuk: string;
+  perihalMasuk: string;
+  eventMasuk: string;
+  disposisiMasuk: string;
+};

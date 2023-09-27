@@ -65,3 +65,41 @@ export function downloadToExcelAsetLain(data: any) {
 
   xlsx(columns, settings);
 }
+export function downloadToExcelSuratMasuk(data: any) {
+  // Fungsi untuk mengonversi tipe DateTime menjadi string tanggal dalam format "yyyy-mm-dd"
+  function formatDateToYyyyMmDd(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  // Mengonversi nilai tanggalMasuk dan tanggalSuratMasuk dalam data
+  data = data.map((item: any) => ({
+    ...item,
+    tanggalMasuk: formatDateToYyyyMmDd(new Date(item.tanggalMasuk)),
+    tanggalSuratMasuk: formatDateToYyyyMmDd(new Date(item.tanggalSuratMasuk)),
+  }));
+
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "SuratMasuk",
+      columns: [
+        { label: "No Surat", value: "noSuratMasuk" },
+        { label: "Tanggal Masuk", value: "tanggalMasuk" },
+        { label: "Tanggal Surat", value: "tanggalSuratMasuk" },
+        { label: "Pengirim", value: "pengirimMasuk" },
+        { label: "Perihal", value: "perihalMasuk" },
+        { label: "Event", value: "eventMasuk" },
+        { label: "Disposisi", value: "disposisiMasuk" },
+      ],
+      content: data,
+    },
+  ];
+
+  let settings = {
+    fileName: "Surat Masuk Excel",
+  };
+
+  xlsx(columns, settings);
+}

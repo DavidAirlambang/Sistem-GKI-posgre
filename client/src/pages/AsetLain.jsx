@@ -10,7 +10,7 @@ import { useContext, createContext, useState } from "react";
 import { ASETLAIN } from "../../../utils/constants";
 
 import { columns } from "../app/asetLain/columns";
-import MultimediaDataTable from "@/app/asetLain/data-table";
+import AsetLainDataTable from "@/app/asetLain/data-table";
 
 export const loader = async () => {
   try {
@@ -88,7 +88,7 @@ const AsetLain = () => {
           </div>
         </Form>
       </Wrapper>
-      <MultimediaDataTable columns={columns} data={dataTable} />
+      <AsetLainDataTable columns={columns} data={dataTable} />
     </AllAsetLainContext.Provider>
   );
 };
