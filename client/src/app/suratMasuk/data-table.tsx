@@ -35,6 +35,7 @@ import { downloadToExcelSuratMasuk as downloadToExcel } from "@/lib/xlsx";
 import { CSVUploader } from "@/lib/CSVUploader";
 import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
 import customFetch from "@/utils/customFetch";
+import { toast } from "react-toastify";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -101,7 +102,16 @@ export function SuratMasukDataTable<TData, TValue>({
         /> */}
 
         {/* export */}
-        <Button onClick={() => downloadToExcel(data)} className="ml-4">
+        <Button
+          onClick={() => {
+            try {
+              downloadToExcel(data);
+            } catch (error:any) {
+              toast.error(error.response.data.msg);
+            }
+          }}
+          className="ml-4"
+        >
           Export
         </Button>
 

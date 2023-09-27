@@ -75,7 +75,7 @@ model AsetLain {
 // }
 
 model SuratMasuk {
-  noSuratMasuk      String   @id @default(cuid())
+  noSuratMasuk      String   @id @unique @default(cuid())
   tanggalMasuk      DateTime @default(now()) @db.Date
   tanggalSuratMasuk DateTime @default(now()) @db.Date
   pengirimMasuk     String

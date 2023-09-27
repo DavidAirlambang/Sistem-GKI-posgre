@@ -3,6 +3,7 @@ import prisma from '../utils/prisma.js'
 import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
+import { promisify } from 'util'
 
 export const createSuratMasuk = async (req, res) => {
   req.body.tanggalMasuk = `${req.body.tanggalMasuk}T00:00:00Z`
@@ -55,37 +56,46 @@ const upload = multer({ storage })
 
 export const CreateManySuratMasuk = async (req, res) => {
   try {
-    upload.single('file')(req, res, async err => {
-      if (err) {
-        console.error('Error uploading file:', err)
-        return res
-          .status(400)
-          .json({ error: 'Terjadi kesalahan saat mengunggah file.' })
-      }
+    const uploadSingleAsync = promisify(upload.single('file'))
 
-      function customRowFormat (row) {
-        return {
-          noSuratMasuk: row['No Surat'],
-          tanggalMasuk: `${row['Tanggal Masuk']}T00:00:00Z`,
-          tanggalSuratMasuk: `${row['Tanggal Surat']}T00:00:00Z`,
-          pengirimMasuk: row['Pengirim'],
-          perihalMasuk: row['Perihal'],
-          eventMasuk: row['Event'],
-          disposisiMasuk: row['Disposisi']
-        }
-      }
+    await uploadSingleAsync(req, res)
 
-      const jsonData = await convertCSVtoJSON(
-        'file/suratMasuk.csv',
-        customRowFormat
+    if (!req.file) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ error: 'File tidak ditemukan.' })
+    }
+
+    function customRowFormat (row) {
+      return {
+        noSuratMasuk: row['No Surat'],
+        tanggalMasuk: `${row['Tanggal Masuk']}T00:00:00Z`,
+        tanggalSuratMasuk: `${row['Tanggal Surat']}T00:00:00Z`,
+        pengirimMasuk: row['Pengirim'],
+        perihalMasuk: row['Perihal'],
+        eventMasuk: row['Event'],
+        disposisiMasuk: row['Disposisi']
+      }
+    }
+
+    const jsonData = await convertCSVtoJSON(
+      'file/suratMasuk.csv',
+      customRowFormat
+    )
+    console.log(jsonData)
+
+    // Gunakan transaksi jika diperlukan
+    const upToPrisma = await prisma.$transaction(
+      jsonData.map(data =>
+        prisma.suratMasuk.upsert({
+          where: { noSuratMasuk: data.noSuratMasuk },
+          create: data,
+          update: data
+        })
       )
-      console.log(jsonData)
-      const upToPrisma = await prisma.suratMasuk.createMany({
-        data: jsonData
-      })
+    )
 
-      res.status(StatusCodes.CREATED).json({ upToPrisma })
-    })
+    res.status(StatusCodes.CREATED).json({ upToPrisma })
   } catch (error) {
     console.error('Error handling CSV import:', error)
     res

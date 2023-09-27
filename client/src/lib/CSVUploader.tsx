@@ -31,8 +31,7 @@ export function CSVUploader({ path, refresh }: any) {
       refresh();
       return toast.success("Item added successfully ");
     } catch (error: any) {
-      toast.error(error?.response?.data?.msg);
-      return error;
+      return toast.error(error?.response?.data?.msg);
     }
   };
 
