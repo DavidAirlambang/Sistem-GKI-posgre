@@ -27,6 +27,11 @@ const links = [
     path: "asetLain",
     icon: <FaWpforms />,
   },
+  {
+    text: "Surat Masuk",
+    path: "suratMasuk",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",

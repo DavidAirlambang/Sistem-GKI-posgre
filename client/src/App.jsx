@@ -39,6 +39,12 @@ import EditAsetLain, {
   loader as asetLainEditLoader,
 } from "./pages/EditAsetLain";
 import { action as asetLainEditAction } from "./pages/EditAsetLain";
+import SuratMasuk, { action as suratMasukAction } from "./pages/SuratMasuk";
+import { loader as suratMasukLoader } from "./pages/SuratMasuk";
+// import EditAsetLain, {
+//   loader as asetLainEditLoader,
+// } from "./pages/EditAsetLain";
+// import { action as asetLainEditAction } from "./pages/EditAsetLain";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -138,6 +144,18 @@ const router = createBrowserRouter([
             action: asetLainEditAction(),
             loader: asetLainEditLoader,
           },
+          {
+            path: "suratMasuk",
+            element: <SuratMasuk />,
+            action: suratMasukAction(),
+            loader: suratMasukLoader,
+          },
+          // {
+          //   path: "suratMasuk/:noSuratMasuk",
+          //   element: <EditSuratMasuk />,
+          //   action: suratMasukEditAction(),
+          //   loader: suratMasukEditLoader,
+          // },
 
           { path: "approve/:noRuangan", action: approveAction },
           { path: "reset/:noRuangan", action: resetRuanganAction },

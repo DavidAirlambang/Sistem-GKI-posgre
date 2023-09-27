@@ -41,7 +41,6 @@ const AllAsetLainContext = createContext();
 const AsetLain = () => {
   const { data } = useLoaderData();
   const { asetLain } = data;
-  console.log(asetLain);
 
   const [dataTable, setDataTable] = useState(asetLain);
 
@@ -89,7 +88,7 @@ const AsetLain = () => {
           </div>
         </Form>
       </Wrapper>
-      {/* <MultimediaDataTable columns={columns} data={dataTable} /> */}
+      <MultimediaDataTable columns={columns} data={dataTable} />
     </AllAsetLainContext.Provider>
   );
 };

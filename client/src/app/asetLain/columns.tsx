@@ -98,7 +98,6 @@ export const columns: ColumnDef<AsetLain>[] = [
       const refreshTable = async () => {
         const { data } = await customFetch.get("/asetLain");
         const { asetLain } = data;
-        console.log(asetLain);
         setDataTable(asetLain);
       };
 

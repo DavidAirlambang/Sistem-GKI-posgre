@@ -96,8 +96,6 @@ export function AsetLainDataTable<TData, TValue>({
             (table.getColumn("namaAsetLain")?.getFilterValue() as string) || ""
           }
           onChange={(e) => {
-            console.log(e.target.value);
-            console.log(sorting);
             table.getColumn("namaAsetLain")?.setFilterValue(e.target.value);
           }}
           className="max-w-sm text-black form-input"
