@@ -40,6 +40,8 @@ export const getSuratMasuk = async (req, res) => {
 }
 
 export const editSuratMasuk = async (req, res) => {
+  req.body.tanggalMasuk = `${req.body.tanggalMasuk}T00:00:00Z`
+  req.body.tanggalSuratMasuk = `${req.body.tanggalSuratMasuk}T00:00:00Z`
   const suratMasuk = await prisma.suratMasuk.update({
     where: { noSuratMasuk: req.params.noSuratMasuk },
     data: req.body

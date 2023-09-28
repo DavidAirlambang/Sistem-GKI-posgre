@@ -78,16 +78,7 @@ export const columns: ColumnDef<Barang>[] = [
     header: "Keterangan",
     accessorKey: "keterangan",
   },
-  // {
-  //   header: "Last Update",
-  //   accessorKey: "updatedAt",
-  //   // modif
-  //   cell: ({ row }) => {
-  //     const updatedAt = row.getValue("updatedAt");
-  //     const formatted = new Date(updatedAt as string).toLocaleString();
-  //     return <div className="font-medium">{formatted}</div>;
-  //   },
-  // },
+
   {
     id: "actions",
     cell: ({ row }) => {

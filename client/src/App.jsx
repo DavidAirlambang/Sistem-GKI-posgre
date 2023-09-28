@@ -10,6 +10,7 @@ import {
   Error,
   EditGudang,
   Multimedia,
+  EditSuratMasuk,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -41,10 +42,8 @@ import EditAsetLain, {
 import { action as asetLainEditAction } from "./pages/EditAsetLain";
 import SuratMasuk, { action as suratMasukAction } from "./pages/SuratMasuk";
 import { loader as suratMasukLoader } from "./pages/SuratMasuk";
-// import EditAsetLain, {
-//   loader as asetLainEditLoader,
-// } from "./pages/EditAsetLain";
-// import { action as asetLainEditAction } from "./pages/EditAsetLain";
+import { loader as suratMasukEditLoader } from "./pages/EditSuratMasuk";
+import { action as suratMasukEditAction } from "./pages/EditSuratMasuk";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -150,12 +149,12 @@ const router = createBrowserRouter([
             action: suratMasukAction(),
             loader: suratMasukLoader,
           },
-          // {
-          //   path: "suratMasuk/:noSuratMasuk",
-          //   element: <EditSuratMasuk />,
-          //   action: suratMasukEditAction(),
-          //   loader: suratMasukEditLoader,
-          // },
+          {
+            path: "suratMasuk/:noSuratMasuk",
+            element: <EditSuratMasuk />,
+            action: suratMasukEditAction(),
+            loader: suratMasukEditLoader,
+          },
 
           { path: "approve/:noRuangan", action: approveAction },
           { path: "reset/:noRuangan", action: resetRuanganAction },
