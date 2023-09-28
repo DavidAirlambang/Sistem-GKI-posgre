@@ -1,29 +1,57 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { addDays, format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { DateRange } from "react-day-picker"
+import * as React from "react";
+import { addDays, format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { DateRange } from "react-day-picker";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
+import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
+import customFetch from "@/utils/customFetch";
+import { toast } from "react-toastify";
 
 export function DatePickerWithRange({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  })
+  const [date, setDate] = React.useState<DateRange | undefined>();
+
+  // sementara
+  const { setDataTable } = useAllSuratMasukContext();
+
+  const refreshTable = async () => {
+    const start = format(date!.from!, "yyyy-MM-dd");
+    const end = format(date!.to!, "yyyy-MM-dd");
+    try {
+      const { data } = await customFetch.post("/suratMasuk/filter", {
+        startDate: start,
+        endDate: end,
+      });
+      const { suratMasuk } = data;
+      console.log(start, end);
+
+      console.log(suratMasuk);
+      setDataTable(suratMasuk);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  };
+
+  const resetTable = async () => {
+    const { data } = await customFetch.get("suratMasuk");
+    const { suratMasuk } = data;
+    setDataTable(suratMasuk);
+  };
 
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div className={cn("grid gap-2 text-black  grid grid-flow-col", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -34,7 +62,7 @@ export function DatePickerWithRange({
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="mr-2 h-4 w-4 text-black " />
             {date?.from ? (
               date.to ? (
                 <>
@@ -60,6 +88,18 @@ export function DatePickerWithRange({
           />
         </PopoverContent>
       </Popover>
+      <Button className="delete-btn btn" onClick={() => refreshTable()}>
+        Filter
+      </Button>
+      <Button
+        className="delete-btn btn"
+        onClick={() => {
+          setDate(undefined);
+          resetTable();
+        }}
+      >
+        Reset
+      </Button>
     </div>
-  )
+  );
 }

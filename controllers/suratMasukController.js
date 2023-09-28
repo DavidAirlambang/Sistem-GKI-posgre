@@ -19,6 +19,19 @@ export const getAllSuratMasuk = async (req, res) => {
   res.status(StatusCodes.OK).json({ suratMasuk })
 }
 
+export const getAllSuratMasukDateRange = async (req, res) => {
+  const suratMasuk = await prisma.suratMasuk.findMany({
+    where: {
+      // sementara tanggal surat masuk
+      tanggalSuratMasuk: {
+        gte: new Date(req.body.startDate), // "gte" berarti lebih besar dari atau sama dengan tanggal awal
+        lte: new Date(req.body.endDate) // "lte" berarti kurang dari atau sama dengan tanggal akhir
+      }
+    }
+  })
+  res.status(StatusCodes.OK).json({ suratMasuk })
+}
+
 export const getSuratMasuk = async (req, res) => {
   const suratMasuk = await prisma.suratMasuk.findUnique({
     where: { noSuratMasuk: req.params.noSuratMasuk }

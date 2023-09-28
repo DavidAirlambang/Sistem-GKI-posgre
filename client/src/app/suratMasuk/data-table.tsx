@@ -36,6 +36,7 @@ import { CSVUploader } from "@/lib/CSVUploader";
 import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
+import { DatePickerWithRange } from "@/components/DateRangePicker";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -90,27 +91,19 @@ export function SuratMasukDataTable<TData, TValue>({
     <div className="mt-5">
       {/* input */}
       <div className="flex items-center py-4">
-        {/* <Input
-          placeholder="Cari nama Aset Lain"
-          value={
-            (table.getColumn("namaAsetLain")?.getFilterValue() as string) || ""
-          }
-          onChange={(e) => {
-            table.getColumn("namaAsetLain")?.setFilterValue(e.target.value);
-          }}
-          className="max-w-sm text-black form-input"
-        /> */}
+        {/* <Input*/}
+        <DatePickerWithRange />
 
         {/* export */}
         <Button
           onClick={() => {
             try {
               downloadToExcel(data);
-            } catch (error:any) {
+            } catch (error: any) {
               toast.error(error.response.data.msg);
             }
           }}
-          className="ml-4"
+          className="ml-6 mr-2"
         >
           Export
         </Button>

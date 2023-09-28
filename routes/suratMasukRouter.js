@@ -7,7 +7,8 @@ import {
   getAllSuratMasuk,
   createSuratMasuk,
   editSuratMasuk,
-  getSuratMasuk
+  getSuratMasuk,
+  getAllSuratMasukDateRange
 } from '../controllers/suratMasukController.js'
 
 import { validateSuratMasukInput } from '../middleware/suratMasukValidationMiddleware.js'
@@ -23,5 +24,6 @@ router
   .delete(deleteSuratMasuk)
 
 router.route('/upload').post(CreateManySuratMasuk)
+router.route('/filter').post(getAllSuratMasukDateRange)
 
 export default router
