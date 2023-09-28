@@ -17,15 +17,14 @@ import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 
-export function DatePickerWithRange({
-  className,
-}: React.HTMLAttributes<HTMLDivElement>) {
+export function DatePickerWithRange({ className, filterFor }: any) {
   const [date, setDate] = React.useState<DateRange | undefined>();
 
   // sementara
   const { setDataTable } = useAllSuratMasukContext();
 
-  const refreshTable = async () => {
+  // surat Masuk
+  const refreshTableSuratMasuk = async () => {
     const start = format(date!.from!, "yyyy-MM-dd");
     const end = format(date!.to!, "yyyy-MM-dd");
     try {
@@ -34,9 +33,7 @@ export function DatePickerWithRange({
         endDate: end,
       });
       const { suratMasuk } = data;
-      console.log(start, end);
 
-      console.log(suratMasuk);
       setDataTable(suratMasuk);
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
@@ -44,14 +41,14 @@ export function DatePickerWithRange({
     }
   };
 
-  const resetTable = async () => {
+  const resetTableSuratMasuk = async () => {
     const { data } = await customFetch.get("suratMasuk");
     const { suratMasuk } = data;
     setDataTable(suratMasuk);
   };
 
   return (
-    <div className={cn("grid gap-2 text-black  grid grid-flow-col", className)}>
+    <div className={cn("gap-2 text-black  grid grid-flow-col", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -88,14 +85,19 @@ export function DatePickerWithRange({
           />
         </PopoverContent>
       </Popover>
-      <Button className="delete-btn btn" onClick={() => refreshTable()}>
+      <Button
+        className="delete-btn btn"
+        onClick={() => {
+          if (filterFor === "suratMasuk") refreshTableSuratMasuk();
+        }}
+      >
         Filter
       </Button>
       <Button
         className="delete-btn btn"
         onClick={() => {
           setDate(undefined);
-          resetTable();
+          if (filterFor === "suratMasuk") resetTableSuratMasuk();
         }}
       >
         Reset

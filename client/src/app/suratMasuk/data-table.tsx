@@ -92,7 +92,7 @@ export function SuratMasukDataTable<TData, TValue>({
       {/* input */}
       <div className="flex items-center py-4">
         {/* <Input*/}
-        <DatePickerWithRange />
+        <DatePickerWithRange filterFor="suratMasuk" />
 
         {/* export */}
         <Button

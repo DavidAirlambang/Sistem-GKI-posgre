@@ -95,7 +95,7 @@ export const CreateManySuratMasuk = async (req, res) => {
       'file/suratMasuk.csv',
       customRowFormat
     )
-    console.log(jsonData)
+    // console.log(jsonData)
 
     // Gunakan transaksi jika diperlukan
     const upToPrisma = await prisma.$transaction(

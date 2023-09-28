@@ -40,7 +40,7 @@ const AllSuratMasukContext = createContext();
 const SuratMasuk = () => {
   const { data } = useLoaderData();
   const { suratMasuk } = data;
-  console.log(suratMasuk);
+  // console.log(suratMasuk);
 
   const [dataTable, setDataTable] = useState(suratMasuk);
 
