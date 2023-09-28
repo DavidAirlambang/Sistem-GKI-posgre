@@ -72,7 +72,19 @@ export const columns: ColumnDef<SuratMasuk>[] = [
     // modif
     cell: ({ row }) => {
       const tanggalMasuk = row.getValue("tanggalMasuk");
-      const formatted = new Date(tanggalMasuk as string).toLocaleDateString();
+      const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+
+      // Konversi tanggal menjadi objek Date
+      const tanggalObj = new Date(tanggalMasuk as string);
+
+      // Ekstrak day, month, dan year dari tanggalObj
+      const day = String(tanggalObj.getDate()).padStart(2, "0");
+      const month = String(tanggalObj.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0, jadi perlu ditambahkan 1
+      const year = tanggalObj.getFullYear();
+
+      // Format tanggal sesuai dengan "dd/mm/yyyy"
+      const formatted = `${day}/${month}/${year}`;
+
       return <div className="font-medium">{formatted}</div>;
     },
   },
