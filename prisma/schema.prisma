@@ -86,7 +86,7 @@ model SuratMasuk {
 
 model SuratKeluar {
   noSuratKeluar      String   @id @default(cuid())
-  tanggalSuratKeluar DateTime
+  tanggalSuratKeluar DateTime @default(now()) @db.Date
   tujuanKeluar       String
   perihalKeluar      String
 }

@@ -2,7 +2,7 @@ import { Router } from 'express'
 const router = Router()
 
 import {
-  CreateManySuratMasuk,
+  CreateManySuratMasuk, 
   deleteSuratMasuk,
   getAllSuratMasuk,
   createSuratMasuk,

@@ -4,7 +4,7 @@ import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
 import { promisify } from 'util'
-
+ 
 export const createSuratMasuk = async (req, res) => {
   req.body.tanggalMasuk = `${req.body.tanggalMasuk}T00:00:00Z`
   req.body.tanggalSuratMasuk = `${req.body.tanggalSuratMasuk}T00:00:00Z`
