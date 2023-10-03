@@ -32,6 +32,11 @@ const links = [
     path: "suratMasuk",
     icon: <FaWpforms />,
   },
+  {
+    text: "Surat Keluar",
+    path: "suratKeluar",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",

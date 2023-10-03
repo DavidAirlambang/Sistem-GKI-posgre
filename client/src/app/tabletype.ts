@@ -6,7 +6,7 @@ export type Barang = {
   noBarang: number;
   createdAt: string;
   updatedAt: string;
-};
+}; 
 
 export type Multimedia = {
   createdAt: string;
