@@ -1,5 +1,5 @@
 "use client";
- 
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -31,9 +31,9 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { ModeToggle } from "@/components/ModeToggle";
-import { downloadToExcelSuratMasuk as downloadToExcel } from "@/lib/xlsx";
+import { downloadToExcelSuratKeluar as downloadToExcel } from "@/lib/xlsx";
 import { CSVUploader } from "@/lib/CSVUploader";
-import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
+import { useAllSuratKeluarContext } from "@/pages/SuratKeluar";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { DatePickerWithRange } from "@/components/DateRangePicker";
@@ -43,7 +43,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function SuratMasukDataTable<TData, TValue>({
+export function SuratKeluarDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -79,12 +79,12 @@ export function SuratMasukDataTable<TData, TValue>({
   });
 
   // state table
-  const { setDataTable } = useAllSuratMasukContext();
+  const { setDataTable } = useAllSuratKeluarContext();
 
   const refreshTable = async () => {
-    const { data } = await customFetch.get("suratMasuk");
-    const { suratMasuk } = data;
-    setDataTable(suratMasuk);
+    const { data } = await customFetch.get("suratKeluar");
+    const { suratKeluar } = data;
+    setDataTable(suratKeluar);
   };
 
   return (
@@ -92,7 +92,7 @@ export function SuratMasukDataTable<TData, TValue>({
       {/* input */}
       <div className="flex items-center py-4">
         {/* <Input*/}
-        <DatePickerWithRange filterFor="suratMasuk" />
+        <DatePickerWithRange filterFor="suratKeluar" />
 
         {/* export */}
         <Button
@@ -109,7 +109,10 @@ export function SuratMasukDataTable<TData, TValue>({
         </Button>
 
         {/* import */}
-        <CSVUploader path="/suratMasuk/upload" refresh={() => refreshTable()} />
+        <CSVUploader
+          path="/suratKeluar/upload"
+          refresh={() => refreshTable()}
+        />
 
         {/* visibility */}
         <DropdownMenu>
@@ -214,4 +217,4 @@ export function SuratMasukDataTable<TData, TValue>({
   );
 }
 
-export default SuratMasukDataTable;
+export default SuratKeluarDataTable;

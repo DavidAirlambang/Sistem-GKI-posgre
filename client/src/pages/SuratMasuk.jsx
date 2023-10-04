@@ -34,7 +34,7 @@ export const action = () => {
       return error;
     }
   };
-};
+}; 
 
 const AllSuratMasukContext = createContext();
 const SuratMasuk = () => {

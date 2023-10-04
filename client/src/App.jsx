@@ -48,8 +48,8 @@ import { loader as suratMasukEditLoader } from "./pages/EditSuratMasuk";
 import { action as suratMasukEditAction } from "./pages/EditSuratMasuk";
 import { action as suratKeluarAction } from "./pages/SuratKeluar";
 import { loader as suratKeluarLoader } from "./pages/SuratKeluar";
-// import { loader as suratKeluarEditLoader } from "./pages/EditSuratKeluar";
-// import { action as suratKeluarEditAction } from "./pages/EditSuratKeluar";
+import { loader as suratKeluarEditLoader } from "./pages/EditSuratKeluar";
+import { action as suratKeluarEditAction } from "./pages/EditSuratKeluar"; 
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -170,8 +170,8 @@ const router = createBrowserRouter([
           {
             path: "suratKeluar/:noSuratKeluar",
             element: <EditSuratKeluar />,
-            // action: suratKeluarEditAction(),
-            // loader: suratKeluarEditLoader,
+            action: suratKeluarEditAction(),
+            loader: suratKeluarEditLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

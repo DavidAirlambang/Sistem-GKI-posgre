@@ -6,7 +6,7 @@ export type Barang = {
   noBarang: number;
   createdAt: string;
   updatedAt: string;
-}; 
+};
 
 export type Multimedia = {
   createdAt: string;
@@ -40,4 +40,11 @@ export type SuratMasuk = {
   perihalMasuk: string;
   eventMasuk: string;
   disposisiMasuk: string;
+};
+
+export type SuratKeluar = {
+  noSuratKeluar: string;
+  tanggalSuratKeluar: string;
+  tujuanKeluar: string;
+  perihalKeluar: string;
 };

@@ -16,12 +16,18 @@ import {
 import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
+import { useAllSuratKeluarContext } from "@/pages/SuratKeluar";
 
 export function DatePickerWithRange({ className, filterFor }: any) {
   const [date, setDate] = React.useState<DateRange | undefined>();
 
-  // sementara
-  const { setDataTable } = useAllSuratMasukContext();
+  // jenis table
+  const { setDataTable } =
+    filterFor === "suratMasuk"
+      ? useAllSuratMasukContext()
+      : filterFor === "suratKeluar"
+      ? useAllSuratKeluarContext()
+      : null;
 
   // surat Masuk
   const refreshTableSuratMasuk = async () => {
@@ -45,6 +51,30 @@ export function DatePickerWithRange({ className, filterFor }: any) {
     const { data } = await customFetch.get("suratMasuk");
     const { suratMasuk } = data;
     setDataTable(suratMasuk);
+  };
+
+  // surat Keluar
+  const refreshTableSuratKeluar = async () => {
+    const start = format(date!.from!, "yyyy-MM-dd");
+    const end = format(date!.to!, "yyyy-MM-dd");
+    try {
+      const { data } = await customFetch.post("/suratKeluar/filter", {
+        startDate: start,
+        endDate: end,
+      });
+      const { suratKeluar } = data;
+
+      setDataTable(suratKeluar);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  };
+
+  const resetTableSuratKeluar = async () => {
+    const { data } = await customFetch.get("suratKeluar");
+    const { suratKeluar } = data;
+    setDataTable(suratKeluar);
   };
 
   return (
@@ -88,7 +118,11 @@ export function DatePickerWithRange({ className, filterFor }: any) {
       <Button
         className="delete-btn btn"
         onClick={() => {
-          if (filterFor === "suratMasuk") refreshTableSuratMasuk();
+          filterFor === "suratMasuk"
+            ? refreshTableSuratMasuk()
+            : filterFor === "suratKeluar"
+            ? refreshTableSuratKeluar()
+            : null;
         }}
       >
         Filter
@@ -97,7 +131,11 @@ export function DatePickerWithRange({ className, filterFor }: any) {
         className="delete-btn btn"
         onClick={() => {
           setDate(undefined);
-          if (filterFor === "suratMasuk") resetTableSuratMasuk();
+          filterFor === "suratMasuk"
+            ? resetTableSuratMasuk()
+            : filterFor === "suratKeluar"
+            ? resetTableSuratKeluar()
+            : null;
         }}
       >
         Reset
