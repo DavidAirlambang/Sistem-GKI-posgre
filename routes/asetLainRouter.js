@@ -1,7 +1,7 @@
 import { Router } from 'express'
 const router = Router()
 
-import {
+import { 
   createAsetLain,
   getAllAsetLain,
   getAsetLain,

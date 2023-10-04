@@ -11,7 +11,6 @@ import helmet from 'helmet'
 import mongoSanitize from 'express-mongo-sanitize'
 
 // routers
-import jobRouter from './routes/jobRouter.js'
 import authRouter from './routes/authRouter.js'
 import userRouter from './routes/userRouter.js'
 
@@ -22,6 +21,7 @@ import multimediaRouter from './routes/multimediaRouter.js'
 import asetLainRouter from './routes/asetLainRouter.js'
 import suratMasukRouter from './routes/suratMasukRouter.js'
 import suratKeluarRouter from './routes/suratKeluarRouter.js'
+import administrasiRouter from './routes/administrasiRouter.js'
 
 // public
 import { dirname } from 'path'
@@ -66,6 +66,7 @@ app.use('/api/v1/multimedia', authenticateUser, multimediaRouter)
 app.use('/api/v1/asetLain', authenticateUser, asetLainRouter)
 app.use('/api/v1/suratMasuk', authenticateUser, suratMasukRouter)
 app.use('/api/v1/suratKeluar', authenticateUser, suratKeluarRouter)
+app.use('/api/v1/administrasi', authenticateUser, administrasiRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))

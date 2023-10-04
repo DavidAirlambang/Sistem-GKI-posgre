@@ -38,6 +38,11 @@ export const ASETLAIN = {
   ASETLAIN_B: 'aset lain B'
 }
 
+export const ADMINISTRASI = {
+  DEBIT: 'debit',
+  KREDIT: 'kredit'
+}
+
 export const JOB_STATUS = {
   PENDING: 'pending',
   INTERVIEW: 'interview',

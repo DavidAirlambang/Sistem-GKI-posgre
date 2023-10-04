@@ -3,7 +3,7 @@ import prisma from '../utils/prisma.js'
 import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
-
+ 
 export const createAsetLain = async (req, res) => {
   req.body.jumlahAsetLain = parseInt(req.body.jumlahAsetLain)
   const asetLain = await prisma.asetLain.create({

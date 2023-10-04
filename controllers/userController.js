@@ -1,6 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
 import User from '../models/UserModel.js'
-import Job from '../models/JobModel.js'
 import cloudinary from 'cloudinary'
 import { formatImage } from '../middleware/multerMiddleware.js'
 import prisma from '../utils/prisma.js'
@@ -15,11 +14,11 @@ export const getCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: userWithoutPassword })
 }
 
-export const getApplicationStats = async (req, res) => {
-  const users = await User.countDocuments()
-  const jobs = await Job.countDocuments()
-  res.status(StatusCodes.OK).json({ users, jobs })
-}
+// export const getApplicationStats = async (req, res) => {
+//   const users = await User.countDocuments()
+//   const jobs = await Job.countDocuments()
+//   res.status(StatusCodes.OK).json({ users, jobs })
+// }
 export const updateUser = async (req, res) => {
   const newUser = { ...req.body }
   delete newUser.password

@@ -92,12 +92,12 @@ model SuratKeluar {
 }
 
 model AdministrasiKeuangan {
-  no      Int      @id @default(autoincrement())
-  tanggal DateTime
-  uraian  String
-  debit   Boolean
-  kredit  Boolean
-  nominal Int
+  noAdministrasi       Int      @id @default(autoincrement())
+  tanggalAdministrasi  DateTime @default(now()) @db.Date
+  nominalAdministrasi  Int
+  tipeAdministrasi     String
+  penerimaAdministrasi String
+  uraianAdministrasi   String   @default("")
 }
 
 model PengelolaanProgramKerja {
