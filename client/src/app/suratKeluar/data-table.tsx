@@ -79,7 +79,7 @@ export function SuratKeluarDataTable<TData, TValue>({
   });
 
   // state table
-  const { setDataTable } = useAllSuratKeluarContext();
+  const { dataTable, setDataTable } = useAllSuratKeluarContext();
 
   const refreshTable = async () => {
     const { data } = await customFetch.get("suratKeluar");
@@ -98,7 +98,7 @@ export function SuratKeluarDataTable<TData, TValue>({
         <Button
           onClick={() => {
             try {
-              downloadToExcel(data);
+              downloadToExcel(dataTable);
             } catch (error: any) {
               toast.error(error.response.data.msg);
             }

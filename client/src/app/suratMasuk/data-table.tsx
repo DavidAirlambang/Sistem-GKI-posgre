@@ -1,5 +1,5 @@
 "use client";
-  
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -79,7 +79,7 @@ export function SuratMasukDataTable<TData, TValue>({
   });
 
   // state table
-  const { setDataTable } = useAllSuratMasukContext();
+  const { dataTable, setDataTable } = useAllSuratMasukContext();
 
   const refreshTable = async () => {
     const { data } = await customFetch.get("suratMasuk");
@@ -98,7 +98,7 @@ export function SuratMasukDataTable<TData, TValue>({
         <Button
           onClick={() => {
             try {
-              downloadToExcel(data);
+              downloadToExcel(dataTable);
             } catch (error: any) {
               toast.error(error.response.data.msg);
             }

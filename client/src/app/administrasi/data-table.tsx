@@ -79,7 +79,7 @@ export function AdministrasiDataTable<TData, TValue>({
   });
 
   // state table
-  const { setDataTable } = useAllAdministrasiContext();
+  const { dataTable, setDataTable } = useAllAdministrasiContext();
 
   const refreshTable = async () => {
     const { data } = await customFetch.get("administrasi");
@@ -98,7 +98,7 @@ export function AdministrasiDataTable<TData, TValue>({
         <Button
           onClick={() => {
             try {
-              downloadToExcel(data);
+              downloadToExcel(dataTable);
             } catch (error: any) {
               toast.error(error.response.data.msg);
             }

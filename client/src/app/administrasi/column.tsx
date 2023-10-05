@@ -69,7 +69,6 @@ export const columns: ColumnDef<Administrasi>[] = [
     accessorKey: "nominalAdministrasi",
     cell: ({ row }) => {
       const nominalAdministrasi = row.getValue("nominalAdministrasi");
-      console.log(nominalAdministrasi);
 
       const formattedMoney = new Intl.NumberFormat("id-ID", {
         style: "currency",
