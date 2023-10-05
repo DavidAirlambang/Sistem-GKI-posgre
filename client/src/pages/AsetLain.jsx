@@ -20,7 +20,7 @@ export const loader = async () => {
     toast.error(error?.response?.data?.msg);
     return error;
   }
-};
+}; 
 
 export const action = () => {
   return async ({ request }) => {

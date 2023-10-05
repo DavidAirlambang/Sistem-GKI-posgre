@@ -3,6 +3,7 @@ import prisma from '../utils/prisma.js'
 import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
+import { promisify } from 'util'
 
 export const createAdministrasi = async (req, res) => {
   req.body.nominalAdministrasi = parseInt(req.body.nominalAdministrasi)
@@ -94,15 +95,9 @@ export const CreateManyAdministrasi = async (req, res) => {
       customRowFormat
     )
 
-    const upToPrisma = await prisma.$transaction(
-      jsonData.map(data =>
-        prisma.administrasiKeuangan.upsert({
-          where: { noAdministrasi: data.noAdministrasi },
-          create: data,
-          update: data
-        })
-      )
-    )
+    const upToPrisma = await prisma.administrasiKeuangan.createMany({
+      data: jsonData
+    })
 
     res.status(StatusCodes.CREATED).json({ upToPrisma })
   } catch (error) {

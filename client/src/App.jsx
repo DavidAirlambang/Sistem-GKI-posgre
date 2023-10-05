@@ -13,6 +13,8 @@ import {
   EditSuratMasuk,
   SuratKeluar,
   EditSuratKeluar,
+  Administrasi,
+  EditAdministrasi,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -49,7 +51,11 @@ import { action as suratMasukEditAction } from "./pages/EditSuratMasuk";
 import { action as suratKeluarAction } from "./pages/SuratKeluar";
 import { loader as suratKeluarLoader } from "./pages/SuratKeluar";
 import { loader as suratKeluarEditLoader } from "./pages/EditSuratKeluar";
-import { action as suratKeluarEditAction } from "./pages/EditSuratKeluar"; 
+import { action as suratKeluarEditAction } from "./pages/EditSuratKeluar";
+import { action as administrasiAction } from "./pages/Administrasi";
+import { loader as administrasiLoader } from "./pages/Administrasi";
+import { loader as administrasiEditLoader } from "./pages/EditAdministrasi";
+import { action as administrasiEditAction } from "./pages/EditAdministrasi";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -172,6 +178,18 @@ const router = createBrowserRouter([
             element: <EditSuratKeluar />,
             action: suratKeluarEditAction(),
             loader: suratKeluarEditLoader,
+          },
+          {
+            path: "administrasi",
+            element: <Administrasi />,
+            action: administrasiAction(),
+            loader: administrasiLoader,
+          },
+          {
+            path: "administrasi/:noAdministrasi",
+            element: <EditAdministrasi />,
+            action: administrasiEditAction(),
+            loader: administrasiEditLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

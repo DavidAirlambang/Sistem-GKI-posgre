@@ -48,3 +48,12 @@ export type SuratKeluar = {
   tujuanKeluar: string;
   perihalKeluar: string;
 };
+
+export type Administrasi = {
+  noAdministrasi: number;
+  tanggalAdministrasi: string;
+  nominalAdministrasi: number;
+  tipeAdministrasi: string;
+  penerimaAdministrasi: string;
+  uraianAdministrasi: string;
+};

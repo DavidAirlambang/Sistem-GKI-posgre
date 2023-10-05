@@ -105,7 +105,6 @@ export function downloadToExcelSuratMasuk(data: any) {
 }
 
 export function downloadToExcelSuratKeluar(data: any) {
-  // Fungsi untuk mengonversi tipe DateTime menjadi string tanggal dalam format "yyyy-mm-dd"
   function formatDateToYyyyMmDd(date: Date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -113,7 +112,6 @@ export function downloadToExcelSuratKeluar(data: any) {
     return `${year}-${month}-${day}`;
   }
 
-  // Mengonversi nilai tanggalKeluar dan tanggalSuratKeluar dalam data
   data = data.map((item: any) => ({
     ...item,
     tanggalSuratKeluar: formatDateToYyyyMmDd(new Date(item.tanggalSuratKeluar)),
@@ -134,6 +132,42 @@ export function downloadToExcelSuratKeluar(data: any) {
 
   let settings = {
     fileName: "Surat Keluar Excel",
+  };
+
+  xlsx(columns, settings);
+}
+
+export function downloadToExcelAdministrasi(data: any) {
+  function formatDateToYyyyMmDd(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  data = data.map((item: any) => ({
+    ...item,
+    tanggalAdministrasi: formatDateToYyyyMmDd(
+      new Date(item.tanggalAdministrasi)
+    ),
+  }));
+
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "Administrasi",
+      columns: [
+        { label: "Tanggal", value: "tanggalAdministrasi" },
+        { label: "Nominal", value: "nominalAdministrasi" },
+        { label: "Tipe", value: "tipeAdministrasi" },
+        { label: "Penerima", value: "penerimaAdministrasi" },
+        { label: "Uraian", value: "uraianAdministrasi" },
+      ],
+      content: data,
+    },
+  ];
+
+  let settings = {
+    fileName: "Administrasi Excel",
   };
 
   xlsx(columns, settings);

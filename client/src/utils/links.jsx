@@ -37,6 +37,11 @@ const links = [
     path: "suratKeluar",
     icon: <FaWpforms />,
   },
+  {
+    text: "Administrasi Keuangan",
+    path: "administrasi",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",

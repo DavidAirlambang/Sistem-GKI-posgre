@@ -17,6 +17,7 @@ import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { useAllSuratKeluarContext } from "@/pages/SuratKeluar";
+import { useAllAdministrasiContext } from "@/pages/Administrasi";
 
 export function DatePickerWithRange({ className, filterFor }: any) {
   const [date, setDate] = React.useState<DateRange | undefined>();
@@ -27,6 +28,8 @@ export function DatePickerWithRange({ className, filterFor }: any) {
       ? useAllSuratMasukContext()
       : filterFor === "suratKeluar"
       ? useAllSuratKeluarContext()
+      : filterFor === "administrasi"
+      ? useAllAdministrasiContext()
       : null;
 
   // surat Masuk
@@ -77,6 +80,30 @@ export function DatePickerWithRange({ className, filterFor }: any) {
     setDataTable(suratKeluar);
   };
 
+  // administrasi
+  const refreshTableAdministrasi = async () => {
+    const start = format(date!.from!, "yyyy-MM-dd");
+    const end = format(date!.to!, "yyyy-MM-dd");
+    try {
+      const { data } = await customFetch.post("/administrasi/filter", {
+        startDate: start,
+        endDate: end,
+      });
+      const { administrasi } = data;
+
+      setDataTable(administrasi);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  };
+
+  const resetTableAdministrasi = async () => {
+    const { data } = await customFetch.get("administrasi");
+    const { administrasi } = data;
+    setDataTable(administrasi);
+  };
+
   return (
     <div className={cn("gap-2 text-black  grid grid-flow-col", className)}>
       <Popover>
@@ -122,6 +149,8 @@ export function DatePickerWithRange({ className, filterFor }: any) {
             ? refreshTableSuratMasuk()
             : filterFor === "suratKeluar"
             ? refreshTableSuratKeluar()
+            : filterFor === "administrasi"
+            ? refreshTableAdministrasi()
             : null;
         }}
       >
@@ -135,6 +164,8 @@ export function DatePickerWithRange({ className, filterFor }: any) {
             ? resetTableSuratMasuk()
             : filterFor === "suratKeluar"
             ? resetTableSuratKeluar()
+            : filterFor === "administrasi"
+            ? resetTableAdministrasi()
             : null;
         }}
       >
