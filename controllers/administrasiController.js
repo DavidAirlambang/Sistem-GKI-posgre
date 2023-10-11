@@ -21,7 +21,7 @@ export const getAllAdministrasi = async (req, res) => {
 
 export const getAllAdministrasiDateRange = async (req, res) => {
   const administrasi = await prisma.administrasiKeuangan.findMany({
-    where: {
+    where: { 
       tanggalAdministrasi: {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)

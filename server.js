@@ -22,6 +22,7 @@ import asetLainRouter from './routes/asetLainRouter.js'
 import suratMasukRouter from './routes/suratMasukRouter.js'
 import suratKeluarRouter from './routes/suratKeluarRouter.js'
 import administrasiRouter from './routes/administrasiRouter.js'
+import prokerRouter from './routes/prokerRouter.js'
 
 // public
 import { dirname } from 'path'
@@ -67,6 +68,7 @@ app.use('/api/v1/asetLain', authenticateUser, asetLainRouter)
 app.use('/api/v1/suratMasuk', authenticateUser, suratMasukRouter)
 app.use('/api/v1/suratKeluar', authenticateUser, suratKeluarRouter)
 app.use('/api/v1/administrasi', authenticateUser, administrasiRouter)
+app.use('/api/v1/proker', authenticateUser, prokerRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))

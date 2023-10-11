@@ -23,6 +23,12 @@ export const RUANGAN_STATUS = {
   WAITING: 'Waiting'
 }
 
+export const PROGRAM_KERJA = {
+  APPROVE: 'Approve',
+  PENDING: 'Pending',
+  DENIED: 'Denied'
+}
+
 export const GUDANG = {
   GUDANG_A: 'gudang A',
   GUDANG_B: 'gudang B'

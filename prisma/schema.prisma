@@ -100,20 +100,19 @@ model AdministrasiKeuangan {
   uraianAdministrasi   String   @default("")
 }
 
-model PengelolaanProgramKerja {
-  no                Int      @id @default(autoincrement())
-  kode_program      String   @unique
-  komisi            String
-  nama_program      String
-  penanggung_jwb    String
-  tujuan_kegiatan   String
-  target_peserta    String
-  tgl_pelaksanaan   String
-  rincian_rencana   String[]
-  nominal_rencana   Int[]
-  anggaran_diajukan Int
-  total_anggaran    Int
-  realisasi         Int
+model ProgramKerja {
+  noProker         Int      @id @default(autoincrement())
+  komisi           String
+  namaProgram      String
+  penanggungJawab  String
+  tujuanKegiatan   String
+  targetPeserta    String
+  waktuPelaksanaan String
+  rincianRencana   String   @default("")
+  totalAnggaran    Int
+  realisasi        Int      @default(0)
+  statusProker     String   @default("Pending")
+  tanggalProker    DateTime @default(now()) @db.Date
 }
 
 model Viatikum {
@@ -125,6 +124,4 @@ model Viatikum {
   nominal_total    Int
   keterangan       String
   id_user          Int
-  // user             User     @relation(fields: [userId], references: [id])
-  // userId           Int
 }

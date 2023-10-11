@@ -1,10 +1,10 @@
 import { Router } from 'express'
 const router = Router()
 
-import {
+import { 
   createAdministrasi,
   getAllAdministrasi,
-  getAdministrasi,
+  getAdministrasi, 
   editAdministrasi,
   deleteAdministrasi,
   CreateManyAdministrasi,
