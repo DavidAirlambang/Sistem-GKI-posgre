@@ -81,12 +81,12 @@ export function ProgramKerjaDataTable<TData, TValue>({
   });
 
   // state table
-  const { dataTable, setDataTable } = useAllProgramKerjaContext();
+  const { dataTable, setDataTable, tableRole } = useAllProgramKerjaContext();
 
   const refreshTable = async () => {
-    const { data } = await customFetch.get("ProgramKerja");
-    const { ProgramKerja } = data;
-    setDataTable(ProgramKerja);
+    const { data } = await customFetch.post("/proker", { komisi: tableRole });
+    const { programKerja } = data;
+    setDataTable(programKerja);
   };
 
   // ambil role
@@ -96,7 +96,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
     <div className="mt-5">
       {/* input */}
       <div className="flex items-center py-4">
-        <SelectItems komisi={user.role}/>
+        <SelectItems komisi={user.role} />
         {/* <Input*/}
         {/* <DatePickerWithRange filterFor="ProgramKerja" /> */}
 
@@ -104,7 +104,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
         <Button
           onClick={() => {
             try {
-              downloadToExcel(dataTable, "");
+              downloadToExcel(dataTable, tableRole);
             } catch (error: any) {
               toast.error(error.response.data.msg);
             }
@@ -116,7 +116,8 @@ export function ProgramKerjaDataTable<TData, TValue>({
 
         {/* import */}
         <CSVUploader
-          path="/ProgramKerja/upload"
+          komisi={tableRole}
+          path="/proker/upload"
           refresh={() => refreshTable()}
         />
 

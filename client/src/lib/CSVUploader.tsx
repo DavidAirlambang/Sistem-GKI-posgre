@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 // import { CSVUploaderProps } from "./csv";
 import { useAllMultimediaContext } from "@/pages/Multimedia";
 
-export function CSVUploader({ path, refresh }: any) {
+export function CSVUploader({ path, refresh, komisi }: any) {
   // upload state
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -25,6 +25,9 @@ export function CSVUploader({ path, refresh }: any) {
 
     const formData = new FormData();
     formData.append("file", selectedFile);
+    if (komisi) {
+      formData.append("komisi", komisi);
+    }
 
     try {
       await customFetch.post(path, formData);

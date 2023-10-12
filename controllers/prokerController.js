@@ -7,7 +7,7 @@ import { promisify } from 'util'
 
 export const createProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
-  req.body.realisasi = parseInt(req.body.realisasi)
+  req.body.realisasi = parseInt(req.body.realisasi) || 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
   const programKerja = await prisma.programKerja.create({
     data: req.body
@@ -76,7 +76,6 @@ const upload = multer({ storage })
 export const CreateManyProgramKerja = async (req, res) => {
   try {
     const uploadSingleAsync = promisify(upload.single('file'))
-
     await uploadSingleAsync(req, res)
 
     if (!req.file) {
@@ -87,17 +86,17 @@ export const CreateManyProgramKerja = async (req, res) => {
 
     function customRowFormat (row) {
       return {
-        komisi: parseInt(row['Komisi']),
         namaProgram: row['Nama Program'],
         penanggungJawab: row['Penanggung Jawab'],
         tujuanKegiatan: row['Tujuan Kegiatan'],
         targetPeserta: row['Target Peserta'],
         waktuPelaksanaan: row['Waktu Pelaksanaan'],
         rincianRencana: row['Rincian Rencana'],
-        totalAnggaran: row['Total Anggaran'],
-        realisasi: row['Realisasi'],
+        totalAnggaran: parseInt(row['Total Anggaran']),
+        realisasi: parseInt(row['Realisasi']),
         statusProker: row['Status'],
-        tanggalProker: `${row['Tanggal Program Kerja']}T00:00:00Z`
+        komisi: req.body.komisi,
+        tanggalProker: `${row['Tanggal']}T00:00:00Z`
       }
     }
 
@@ -105,6 +104,7 @@ export const CreateManyProgramKerja = async (req, res) => {
       'file/programKerja.csv',
       customRowFormat
     )
+    console.log(jsonData)
 
     const upToPrisma = await prisma.programKerja.createMany({
       data: jsonData

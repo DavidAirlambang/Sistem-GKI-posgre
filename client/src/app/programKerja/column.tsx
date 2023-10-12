@@ -24,7 +24,7 @@ import React from "react";
 
 async function deleteProgramKerjaItem(noProker: any) {
   try {
-    await customFetch.delete(`/programKerja/${noProker}`);
+    await customFetch.delete(`/proker/${noProker}`);
     toast.success("Item deleted successfully");
     return redirect("/dashboard/programKerja");
   } catch (error: any) {
@@ -144,11 +144,13 @@ export const columns: ColumnDef<ProgramKerja>[] = [
     cell: ({ row }) => {
       const ProgramKerja = row.original;
       const noProker = ProgramKerja.noProker;
-      const { setDataTable } = useAllProgramKerjaContext();
+      const { setDataTable, tableRole } = useAllProgramKerjaContext();
 
       // fetch ulang
       const refreshTable = async () => {
-        const { data } = await customFetch.get("/programKerja");
+        const { data } = await customFetch.post("/proker", {
+          komisi: tableRole,
+        });
         const { programKerja } = data;
         setDataTable(programKerja);
       };
@@ -171,7 +173,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
               }}
             >
               {" "}
-              <Link to={`../ProgramKerja/${noProker}`}>edit surat</Link>
+              <Link to={`../proker/${noProker}`}>edit program kerja</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"

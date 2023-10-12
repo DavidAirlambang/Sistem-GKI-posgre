@@ -49,15 +49,13 @@ const CreateProgramKerja = () => {
           <FormRow name="targetPeserta" labelText="target peserta" />
           <FormRow name="waktuPelaksanaan" labelText="waktu pelaksanaan" />
           <FormRow name="totalAnggaran" labelText="total anggaran" />
-          <FormRow name="realisasi" labelText="realisasi" />
+          {/* <FormRow name="realisasi" labelText="realisasi" /> */}
           <FormRow type={"date"} name="tanggalProker" labelText="tanggal" />
           <FormRow
             type={"textarea"}
             name="rincianRencana"
             labelText="rincian rencana"
           />
-          <div></div>
-          <div></div>
           <SubmitBtn formBtn />
           <button
             className="btn form-btn delete-btn"

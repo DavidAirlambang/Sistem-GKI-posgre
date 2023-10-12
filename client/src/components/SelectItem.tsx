@@ -16,7 +16,7 @@ export function SelectItems({ komisi }: any) {
   return (
     <Select
       onValueChange={(val) => {
-        console.log(val);
+        // console.log(val);
         setTableRole(val);
       }}
     >

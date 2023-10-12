@@ -183,27 +183,30 @@ export function downloadToExcelProgramKerja(data: any, komisi: string) {
 
   data = data.map((item: any) => ({
     ...item,
-    tanggalProgramKerja: formatDateToYyyyMmDd(
-      new Date(item.tanggalProgramKerja)
-    ),
+    tanggalProker: formatDateToYyyyMmDd(new Date(item.tanggalProker)),
   }));
 
   let columns: IJsonSheet[] = [
     {
       sheet: "ProgramKerja",
       columns: [
-        { label: "Tanggal", value: "tanggalProgramKerja" },
-        { label: "Nominal", value: "nominalProgramKerja" },
-        { label: "Tipe", value: "tipeProgramKerja" },
-        { label: "Penerima", value: "penerimaProgramKerja" },
-        { label: "Uraian", value: "uraianProgramKerja" },
+        { label: "Nama Program", value: "namaProgram" },
+        { label: "Penanggung Jawab", value: "penanggungJawab" },
+        { label: "Tujuan Kegiatan", value: "tujuanKegiatan" },
+        { label: "Target Peserta", value: "targetPeserta" },
+        { label: "Waktu Pelaksanaan", value: "waktuPelaksanaan" },
+        { label: "Rincian Rencana", value: "rincianRencana" },
+        { label: "Total Anggaran", value: "totalAnggaran" },
+        { label: "Realisasi", value: "realisasi" },
+        { label: "Status", value: "statusProker" },
+        { label: "Tanggal", value: "tanggalProker" },
       ],
       content: data,
     },
   ];
 
   let settings = {
-    fileName: `ProgramKerja ${komisi} Excel`,
+    fileName: `Program Kerja ${komisi} Excel`,
   };
 
   xlsx(columns, settings);
