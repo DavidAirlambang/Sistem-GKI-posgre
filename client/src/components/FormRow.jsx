@@ -12,16 +12,27 @@ const FormRow = ({
       <label htmlFor={name} className="form-label">
         {labelText || name}
       </label>
-      <input
-        placeholder={placeholder}
-        type={type}
-        id={name}
-        name={name}
-        className="form-input"
-        defaultValue={defaultValue || ""}
-        onChange={onChange}
-        required
-      />
+      {type === "textarea" ? (
+        <textarea
+          placeholder={placeholder}
+          id={name}
+          name={name}
+          className="form-textarea"
+          defaultValue={defaultValue || ""}
+          required
+        />
+      ) : (
+        <input
+          placeholder={placeholder}
+          type={type}
+          id={name}
+          name={name}
+          className="form-input"
+          defaultValue={defaultValue || ""}
+          onChange={onChange}
+          required
+        />
+      )}
     </div>
   );
 };

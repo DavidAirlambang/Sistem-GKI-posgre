@@ -172,3 +172,39 @@ export function downloadToExcelAdministrasi(data: any) {
 
   xlsx(columns, settings);
 }
+
+export function downloadToExcelProgramKerja(data: any, komisi: string) {
+  function formatDateToYyyyMmDd(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  data = data.map((item: any) => ({
+    ...item,
+    tanggalProgramKerja: formatDateToYyyyMmDd(
+      new Date(item.tanggalProgramKerja)
+    ),
+  }));
+
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "ProgramKerja",
+      columns: [
+        { label: "Tanggal", value: "tanggalProgramKerja" },
+        { label: "Nominal", value: "nominalProgramKerja" },
+        { label: "Tipe", value: "tipeProgramKerja" },
+        { label: "Penerima", value: "penerimaProgramKerja" },
+        { label: "Uraian", value: "uraianProgramKerja" },
+      ],
+      content: data,
+    },
+  ];
+
+  let settings = {
+    fileName: `ProgramKerja ${komisi} Excel`,
+  };
+
+  xlsx(columns, settings);
+}

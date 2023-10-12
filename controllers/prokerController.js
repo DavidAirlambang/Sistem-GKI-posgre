@@ -16,13 +16,16 @@ export const createProgramKerja = async (req, res) => {
 }
 
 export const getAllProgramKerja = async (req, res) => {
-  const programKerja = await prisma.programKerja.findMany()
+  const programKerja = await prisma.programKerja.findMany({
+    where: { komisi: req.body.komisi }
+  })
   res.status(StatusCodes.OK).json({ programKerja })
 }
 
 export const getAllProgramKerjaDateRange = async (req, res) => {
   const programKerja = await prisma.programKerja.findMany({
     where: {
+      where: { komisi: req.body.komisi },
       tanggalProker: {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)

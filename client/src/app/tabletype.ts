@@ -57,3 +57,18 @@ export type Administrasi = {
   penerimaAdministrasi: string;
   uraianAdministrasi: string;
 };
+
+export type ProgramKerja = {
+  noProker: number;
+  komisi: string;
+  namaProgram: string;
+  penanggungJawab: string;
+  tujuanKegiatan: string;
+  targetPeserta: string;
+  waktuPelaksanaan: string;
+  rincianRencana: string;
+  totalAnggaran: number;
+  realisasi: number;
+  statusProker: string;
+  tanggalProker: string;
+};

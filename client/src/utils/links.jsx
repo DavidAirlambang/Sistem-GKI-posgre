@@ -42,6 +42,11 @@ const links = [
     path: "administrasi",
     icon: <FaWpforms />,
   },
+  {
+    text: "Program Kerja",
+    path: "programKerja",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",

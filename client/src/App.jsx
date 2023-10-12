@@ -15,6 +15,9 @@ import {
   EditSuratKeluar,
   Administrasi,
   EditAdministrasi,
+  ProgramKerja,
+  EditProgramKerja,
+  CreateProgramKerja,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -56,6 +59,10 @@ import { action as administrasiAction } from "./pages/Administrasi";
 import { loader as administrasiLoader } from "./pages/Administrasi";
 import { loader as administrasiEditLoader } from "./pages/EditAdministrasi";
 import { action as administrasiEditAction } from "./pages/EditAdministrasi";
+import { loader as programKerjaLoader } from "./pages/ProgramKerja";
+import { action as createProgramKerjaAction } from "./pages/CreateProgramKerja";
+// import { loader as programKerjaEditLoader } from "./pages/EditProgramKerja";
+// import { action as programKerjaEditAction } from "./pages/EditProgramKerja";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -191,6 +198,24 @@ const router = createBrowserRouter([
             action: administrasiEditAction(),
             loader: administrasiEditLoader,
           },
+
+          // program kerja
+          {
+            path: "programKerja",
+            element: <ProgramKerja />,
+            loader: programKerjaLoader,
+          },
+          {
+            path: "createProgramKerja",
+            element: <CreateProgramKerja />,
+            action: createProgramKerjaAction(),
+          },
+          // {
+          //   path: "programKerja/:noProgramKerja",
+          //   element: <EditProgramKerja />,
+          //   action: programKerjaEditAction(),
+          //   loader: programKerjaEditLoader,
+          // },
 
           { path: "approve/:noRuangan", action: approveAction },
           { path: "reset/:noRuangan", action: resetRuanganAction },

@@ -12,10 +12,9 @@ import {
 } from '../controllers/prokerController.js'
 import { validateProgramKerjaInput } from '../middleware/prokerValidationMiddleware.js'
 
-router
-  .route('/')
-  .get(getAllProgramKerja)
-  .post(validateProgramKerjaInput, createProgramKerja)
+router.route('/').post(getAllProgramKerja)
+
+router.route('/create').post(validateProgramKerjaInput, createProgramKerja)
 
 router
   .route('/:noProker')
