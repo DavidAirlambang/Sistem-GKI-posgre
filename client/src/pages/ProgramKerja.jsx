@@ -1,36 +1,39 @@
 /* eslint-disable react-refresh/only-export-components */
-import { FormRow, FormRowSelect, SubmitBtn } from "../components";
-import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { useLoaderData, useOutletContext } from "react-router-dom";
-import { Form } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
-import { useContext, createContext, useState } from "react";
-import { PROGRAM_KERJA } from "../../../utils/constants";
+import { useContext, createContext, useState, useEffect } from "react";
 
 import { columns } from "../app/programKerja/column";
 import ProgramKerjaDataTable from "@/app/programKerja/data-table";
 
-export const loader = async () => {
-  try {
-    const { data } = await customFetch.post("/proker");
-    return { data };
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
-    return error;
-  }
-};
-
 const AllProgramKerjaContext = createContext();
 
 const ProgramKerja = () => {
-  const { data } = useLoaderData();
-  const { programKerja } = data;
+  const { user } = useOutletContext();
+  const [dataTable, setDataTable] = useState([]);
+  const [tableRole, setTableRole] = useState(user.role);
 
-  const [dataTable, setDataTable] = useState(programKerja);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await customFetch.post("/proker", {
+          komisi: tableRole,
+        });
+        const { programKerja } = await data;
+        setDataTable(programKerja);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+    };
+
+    fetchData();
+  }, [tableRole, user.role]);
 
   return (
-    <AllProgramKerjaContext.Provider value={{ data, dataTable, setDataTable }}>
+    <AllProgramKerjaContext.Provider
+      value={{ dataTable, setDataTable, tableRole, setTableRole }}
+    >
       <ProgramKerjaDataTable columns={columns} data={dataTable} />
     </AllProgramKerjaContext.Provider>
   );

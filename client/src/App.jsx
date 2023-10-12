@@ -59,7 +59,7 @@ import { action as administrasiAction } from "./pages/Administrasi";
 import { loader as administrasiLoader } from "./pages/Administrasi";
 import { loader as administrasiEditLoader } from "./pages/EditAdministrasi";
 import { action as administrasiEditAction } from "./pages/EditAdministrasi";
-import { loader as programKerjaLoader } from "./pages/ProgramKerja";
+// import { loader as programKerjaLoader } from "./pages/ProgramKerja";
 import { action as createProgramKerjaAction } from "./pages/CreateProgramKerja";
 // import { loader as programKerjaEditLoader } from "./pages/EditProgramKerja";
 // import { action as programKerjaEditAction } from "./pages/EditProgramKerja";
@@ -203,7 +203,7 @@ const router = createBrowserRouter([
           {
             path: "programKerja",
             element: <ProgramKerja />,
-            loader: programKerjaLoader,
+            // loader: programKerjaLoader,
           },
           {
             path: "createProgramKerja",

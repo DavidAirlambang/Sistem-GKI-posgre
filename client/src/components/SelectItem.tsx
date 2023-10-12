@@ -8,13 +8,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ROLE } from "../../../utils/constants";
+import { useAllProgramKerjaContext } from "@/pages/ProgramKerja";
 
 export function SelectItems({ komisi }: any) {
+  const { setTableRole } = useAllProgramKerjaContext();
   const items = Object.values(ROLE).filter((role) => role !== "admin");
   return (
     <Select
       onValueChange={(val) => {
         console.log(val);
+        setTableRole(val);
       }}
     >
       <SelectTrigger className="w-[180px] text-black">
