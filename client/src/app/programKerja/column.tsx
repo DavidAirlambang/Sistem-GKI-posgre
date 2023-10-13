@@ -37,6 +37,22 @@ async function deleteProgramKerjaItem(noProker: any) {
   }
 }
 
+async function processProgramKerjaItem(status: any, noProker: any) {
+  try {
+    await customFetch.post(`/proker/process/${noProker}`, {
+      statusProker: status,
+    });
+    return toast.success(`berhasil ${status}`);
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.msg) {
+      toast.error(error.response.data.msg);
+    } else {
+      toast.error(`An error occurred while ${status}`);
+    }
+    return error;
+  }
+}
+
 export const columns: ColumnDef<ProgramKerja>[] = [
   {
     header: "Nama Program",
@@ -109,7 +125,19 @@ export const columns: ColumnDef<ProgramKerja>[] = [
     },
   },
   {
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     accessorKey: "statusProker",
   },
   {
@@ -144,16 +172,23 @@ export const columns: ColumnDef<ProgramKerja>[] = [
     cell: ({ row }) => {
       const ProgramKerja = row.original;
       const noProker = ProgramKerja.noProker;
-      const { setDataTable, tableRole } = useAllProgramKerjaContext();
+      const { setDataTable, tableRole, setTotalAnggaran } =
+        useAllProgramKerjaContext();
 
       // fetch ulang
       const refreshTable = async () => {
         const { data } = await customFetch.post("/proker", {
           komisi: tableRole,
         });
-        const { programKerja } = data;
+        const { programKerja, totalAnggaranSemua } = await data;
+        const { _sum } = totalAnggaranSemua;
+        const { totalAnggaran } = _sum;
         setDataTable(programKerja);
+        setTotalAnggaran(totalAnggaran);
       };
+
+      // check role
+      const { user } = useOutletContext() as { user: any };
 
       return (
         <DropdownMenu>
@@ -173,8 +208,60 @@ export const columns: ColumnDef<ProgramKerja>[] = [
               }}
             >
               {" "}
-              <Link to={`../proker/${noProker}`}>edit program kerja</Link>
+              <Link to={`../proker/${noProker}`}>edit</Link>
             </DropdownMenuItem>
+            {/* process */}
+
+            {user.role === "admin" ? (
+              <>
+                <DropdownMenuItem
+                  className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+                  onClick={async () => {
+                    try {
+                      await processProgramKerjaItem("Approved", noProker);
+                      refreshTable();
+                    } catch (error: any) {
+                      if (
+                        error.response &&
+                        error.response.data &&
+                        error.response.data.msg
+                      ) {
+                        toast.error(error.response.data.msg);
+                      } else {
+                        toast.error("An error occurred approving.");
+                      }
+                      return error;
+                    }
+                  }}
+                >
+                  approve
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+                  onClick={async () => {
+                    try {
+                      await processProgramKerjaItem("Denied", noProker);
+                      refreshTable();
+                    } catch (error: any) {
+                      if (
+                        error.response &&
+                        error.response.data &&
+                        error.response.data.msg
+                      ) {
+                        toast.error(error.response.data.msg);
+                      } else {
+                        toast.error("An error occurred denying.");
+                      }
+                      return error;
+                    }
+                  }}
+                >
+                  deny
+                </DropdownMenuItem>
+              </>
+            ) : null}
+
+            {/* delete */}
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={async () => {
@@ -189,13 +276,13 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                   ) {
                     toast.error(error.response.data.msg);
                   } else {
-                    toast.error("An error occurred while deleting surat.");
+                    toast.error("An error occurred while deleting.");
                   }
                   return error;
                 }
               }}
             >
-              delete item
+              delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

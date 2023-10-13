@@ -17,35 +17,73 @@ export const createProgramKerja = async (req, res) => {
 
 export const getAllProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.findMany({
-    where: { komisi: req.body.komisi }
+    where: { komisi: req.body.komisi },
+    orderBy: { tanggalProker: 'asc' }
   })
-  res.status(StatusCodes.OK).json({ programKerja })
+
+  // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
+  const totalAnggaranSemua = await prisma.programKerja.aggregate({
+    _sum: {
+      totalAnggaran: true
+    },
+    where: {
+      komisi: req.body.komisi,
+      statusProker: 'Approved'
+    }
+  })
+
+  res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })
 }
 
 export const getAllProgramKerjaDateRange = async (req, res) => {
   const programKerja = await prisma.programKerja.findMany({
     where: {
-      where: { komisi: req.body.komisi },
+      komisi: req.body.komisi,
+      tanggalProker: {
+        gte: new Date(req.body.startDate),
+        lte: new Date(req.body.endDate)
+      }
+    },
+    orderBy: { tanggalProker: 'asc' }
+  })
+
+  // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
+  const totalAnggaranSemua = await prisma.programKerja.aggregate({
+    _sum: {
+      totalAnggaran: true
+    },
+    where: {
+      komisi: req.body.komisi,
+      statusProker: 'Approved',
       tanggalProker: {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)
       }
     }
   })
-  res.status(StatusCodes.OK).json({ programKerja })
+
+  res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })
 }
 
 export const getProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.findUnique({
     where: { noProker: parseInt(req.params.noProker) }
   })
-  res.status(StatusCodes.OK).json({ programKerja })
+  res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })
 }
 
 export const editProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
   req.body.realisasi = parseInt(req.body.realisasi)
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
+  const programKerja = await prisma.programKerja.update({
+    where: { noProker: parseInt(req.params.noProker) },
+    data: req.body
+  })
+  res.status(StatusCodes.OK).json({ programKerja })
+}
+
+export const processProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.update({
     where: { noProker: parseInt(req.params.noProker) },
     data: req.body
@@ -104,7 +142,6 @@ export const CreateManyProgramKerja = async (req, res) => {
       'file/programKerja.csv',
       customRowFormat
     )
-    console.log(jsonData)
 
     const upToPrisma = await prisma.programKerja.createMany({
       data: jsonData

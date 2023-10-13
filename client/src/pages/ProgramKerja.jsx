@@ -13,6 +13,7 @@ const ProgramKerja = () => {
   const { user } = useOutletContext();
   const [dataTable, setDataTable] = useState([]);
   const [tableRole, setTableRole] = useState(user.role);
+  const [totalAnggaran, setTotalAnggaran] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,19 +21,29 @@ const ProgramKerja = () => {
         const { data } = await customFetch.post("/proker", {
           komisi: tableRole,
         });
-        const { programKerja } = await data;
+        const { programKerja, totalAnggaranSemua } = await data;
+        const { _sum } = totalAnggaranSemua;
+        const { totalAnggaran } = _sum;
         setDataTable(programKerja);
+        setTotalAnggaran(totalAnggaran);
       } catch (error) {
         toast.error(error?.response?.data?.msg);
       }
     };
 
     fetchData();
-  }, [tableRole, user.role]);
+  }, [tableRole, totalAnggaran, user.role]);
 
   return (
     <AllProgramKerjaContext.Provider
-      value={{ dataTable, setDataTable, tableRole, setTableRole }}
+      value={{
+        dataTable,
+        setDataTable,
+        tableRole,
+        setTableRole,
+        totalAnggaran,
+        setTotalAnggaran,
+      }}
     >
       <ProgramKerjaDataTable columns={columns} data={dataTable} />
     </AllProgramKerjaContext.Provider>

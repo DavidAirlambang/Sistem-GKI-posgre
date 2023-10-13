@@ -81,16 +81,31 @@ export function ProgramKerjaDataTable<TData, TValue>({
   });
 
   // state table
-  const { dataTable, setDataTable, tableRole } = useAllProgramKerjaContext();
+  const {
+    dataTable,
+    setDataTable,
+    tableRole,
+    totalAnggaran,
+    setTotalAnggaran,
+  } = useAllProgramKerjaContext();
 
   const refreshTable = async () => {
     const { data } = await customFetch.post("/proker", { komisi: tableRole });
-    const { programKerja } = data;
+    const { programKerja, totalAnggaranSemua } = await data;
+    const { _sum } = totalAnggaranSemua;
+    const { totalAnggaran } = _sum;
     setDataTable(programKerja);
+    setTotalAnggaran(totalAnggaran);
   };
 
   // ambil role
   const { user } = useOutletContext() as { user: any };
+
+  // format total anggarna
+  const formattedMoney = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(totalAnggaran as number);
 
   return (
     <div className="mt-5">
@@ -206,7 +221,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
       </div>
 
       {/* pagination */}
-      <div className="flex items-center justify-start space-x-2 py-4">
+      <div className="flex items-center py-4">
         <Button
           variant={"outline"}
           size={"sm"}
@@ -225,10 +240,14 @@ export function ProgramKerjaDataTable<TData, TValue>({
             table.nextPage();
           }}
           disabled={!table.getCanNextPage()}
-          className="text-black btn"
+          className="text-black btn ml-2"
         >
           Next
         </Button>
+
+        <h5 className="ml-auto">
+          Total Anggaran yang disetujui : <b>{formattedMoney}</b>
+        </h5>
       </div>
     </div>
   );

@@ -19,3 +19,9 @@ export const validateProgramKerjaInput = withValidationErrors([
     .notEmpty()
     .withMessage('tanggal program kerja is required')
 ])
+
+export const validateProgramKerjaProcess = withValidationErrors([
+  body('statusProker')
+    .isIn(Object.values(PROGRAM_KERJA))
+    .withMessage('status tidak tersedia')
+])

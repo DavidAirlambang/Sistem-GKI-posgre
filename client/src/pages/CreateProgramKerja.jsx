@@ -26,11 +26,14 @@ export const action = () => {
 const CreateProgramKerja = () => {
   const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
   const reset = () => {
-    document.getElementById("tanggalProgramKerja").reset();
-    document.getElementById("nominalProgramKerja").reset();
-    document.getElementById("tipeProgramKerja").reset();
-    document.getElementById("penerimaProgramKerja").reset();
-    document.getElementById("uraianProgramKerja").reset();
+    document.getElementById("namaProgram").reset();
+    document.getElementById("penanggungJawab").reset();
+    document.getElementById("tujuanKegiatan").reset();
+    document.getElementById("targetPeserta").reset();
+    document.getElementById("waktuPelaksanaan").reset();
+    document.getElementById("totalAnggaran").reset();
+    document.getElementById("tanggalProker").reset();
+    document.getElementById("rincianRencana").reset();
   };
 
   return (

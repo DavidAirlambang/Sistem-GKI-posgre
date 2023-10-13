@@ -10,7 +10,14 @@ const NavLinks = ({ isBigSidebar }) => {
       {links.map((link) => {
         const { text, path, icon } = link;
         const { role } = user;
-        const adminOnly = ["gudang", "multimedia", "asetLain","suratMasuk","suratKeluar"];
+        const adminOnly = [
+          "gudang",
+          "multimedia",
+          "asetLain",
+          "suratMasuk",
+          "suratKeluar",
+          "administrasi",
+        ];
         if (adminOnly.includes(path) && role !== "admin") return;
         return (
           <NavLink

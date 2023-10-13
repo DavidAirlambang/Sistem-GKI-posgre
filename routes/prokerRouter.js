@@ -8,7 +8,8 @@ import {
   editProgramKerja,
   deleteProgramKerja,
   CreateManyProgramKerja,
-  getAllProgramKerjaDateRange
+  getAllProgramKerjaDateRange,
+  processProgramKerja
 } from '../controllers/prokerController.js'
 import { validateProgramKerjaInput } from '../middleware/prokerValidationMiddleware.js'
 
@@ -24,5 +25,6 @@ router
 
 router.route('/filter').post(getAllProgramKerjaDateRange)
 router.route('/upload').post(CreateManyProgramKerja)
+router.route('/process/:noProker').post(processProgramKerja)
 
 export default router
