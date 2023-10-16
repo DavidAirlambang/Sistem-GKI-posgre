@@ -59,7 +59,7 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)
       }
-    }
+    } 
   })
 
   res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })

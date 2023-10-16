@@ -113,7 +113,8 @@ export function ProgramKerjaDataTable<TData, TValue>({
       <div className="flex items-center py-4">
         <SelectItems komisi={user.role} />
         {/* <Input*/}
-        {/* <DatePickerWithRange filterFor="ProgramKerja" /> */}
+
+        <DatePickerWithRange filterFor="programKerja" />
 
         {/* export */}
         <Button

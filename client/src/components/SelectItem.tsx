@@ -16,11 +16,11 @@ export function SelectItems({ komisi }: any) {
   return (
     <Select
       onValueChange={(val) => {
-        // console.log(val);
+        console.log(val);
         setTableRole(val);
       }}
     >
-      <SelectTrigger className="w-[180px] text-black">
+      <SelectTrigger className="w-[180px] text-black mr-2">
         <SelectValue
           placeholder={komisi === "admin" ? "Pilih Komisi" : komisi}
         />

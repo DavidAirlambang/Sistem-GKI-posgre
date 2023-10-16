@@ -55,6 +55,10 @@ async function processProgramKerjaItem(status: any, noProker: any) {
 
 export const columns: ColumnDef<ProgramKerja>[] = [
   {
+    header: "Komisi",
+    accessorKey: "komisi",
+  },
+  {
     header: "Nama Program",
     accessorKey: "namaProgram",
   },

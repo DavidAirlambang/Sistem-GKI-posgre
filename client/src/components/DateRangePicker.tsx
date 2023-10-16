@@ -18,18 +18,21 @@ import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { useAllSuratKeluarContext } from "@/pages/SuratKeluar";
 import { useAllAdministrasiContext } from "@/pages/Administrasi";
+import { useAllProgramKerjaContext } from "@/pages/ProgramKerja";
 
 export function DatePickerWithRange({ className, filterFor }: any) {
   const [date, setDate] = React.useState<DateRange | undefined>();
 
   // jenis table
-  const { setDataTable } =
+  const { setDataTable, tableRole } =
     filterFor === "suratMasuk"
       ? useAllSuratMasukContext()
       : filterFor === "suratKeluar"
       ? useAllSuratKeluarContext()
       : filterFor === "administrasi"
       ? useAllAdministrasiContext()
+      : filterFor === "programKerja"
+      ? useAllProgramKerjaContext()
       : null;
 
   // surat Masuk
@@ -104,10 +107,37 @@ export function DatePickerWithRange({ className, filterFor }: any) {
     setDataTable(administrasi);
   };
 
+  // program kerja
+  const refreshTableProgramKerja = async () => {
+    console.log(tableRole);
+
+    const start = format(date!.from!, "yyyy-MM-dd");
+    const end = format(date!.to!, "yyyy-MM-dd");
+    try {
+      const { data } = await customFetch.post("/proker/filter", {
+        komisi: tableRole,
+        startDate: start,
+        endDate: end,
+      });
+      const { programKerja } = data;
+
+      setDataTable(programKerja);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  };
+
+  const resetTableProgramKerja = async () => {
+    const { data } = await customFetch.post("/proker", { komisi: tableRole });
+    const { programKerja } = data;
+    setDataTable(programKerja);
+  };
+
   return (
     <div className={cn("gap-2 text-black  grid grid-flow-col", className)}>
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild disabled={tableRole === "admin" ? true : false}>
           <Button
             id="date"
             variant={"outline"}
@@ -143,6 +173,7 @@ export function DatePickerWithRange({ className, filterFor }: any) {
         </PopoverContent>
       </Popover>
       <Button
+        disabled={tableRole === "admin" ? true : false}
         className="delete-btn btn"
         onClick={() => {
           filterFor === "suratMasuk"
@@ -151,12 +182,15 @@ export function DatePickerWithRange({ className, filterFor }: any) {
             ? refreshTableSuratKeluar()
             : filterFor === "administrasi"
             ? refreshTableAdministrasi()
+            : filterFor === "programKerja"
+            ? refreshTableProgramKerja()
             : null;
         }}
       >
         Filter
       </Button>
       <Button
+        disabled={tableRole === "admin" ? true : false}
         className="delete-btn btn"
         onClick={() => {
           setDate(undefined);
@@ -166,6 +200,8 @@ export function DatePickerWithRange({ className, filterFor }: any) {
             ? resetTableSuratKeluar()
             : filterFor === "administrasi"
             ? resetTableAdministrasi()
+            : filterFor === "programKerja"
+            ? resetTableProgramKerja()
             : null;
         }}
       >
