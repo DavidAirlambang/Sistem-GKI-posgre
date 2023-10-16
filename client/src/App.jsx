@@ -61,8 +61,8 @@ import { loader as administrasiEditLoader } from "./pages/EditAdministrasi";
 import { action as administrasiEditAction } from "./pages/EditAdministrasi";
 // import { loader as programKerjaLoader } from "./pages/ProgramKerja";
 import { action as createProgramKerjaAction } from "./pages/CreateProgramKerja";
-// import { loader as programKerjaEditLoader } from "./pages/EditProgramKerja";
-// import { action as programKerjaEditAction } from "./pages/EditProgramKerja";
+import { loader as programKerjaEditLoader } from "./pages/EditProgramKerja";
+import { action as programKerjaEditAction } from "./pages/EditProgramKerja";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -210,12 +210,12 @@ const router = createBrowserRouter([
             element: <CreateProgramKerja />,
             action: createProgramKerjaAction(),
           },
-          // {
-          //   path: "programKerja/:noProgramKerja",
-          //   element: <EditProgramKerja />,
-          //   action: programKerjaEditAction(),
-          //   loader: programKerjaEditLoader,
-          // },
+          {
+            path: "editProgramKerja/:noProker",
+            element: <EditProgramKerja />,
+            action: programKerjaEditAction(),
+            loader: programKerjaEditLoader,
+          },
 
           { path: "approve/:noRuangan", action: approveAction },
           { path: "reset/:noRuangan", action: resetRuanganAction },

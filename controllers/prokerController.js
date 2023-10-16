@@ -59,7 +59,7 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)
       }
-    } 
+    }
   })
 
   res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })
@@ -69,13 +69,21 @@ export const getProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.findUnique({
     where: { noProker: parseInt(req.params.noProker) }
   })
-  res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })
+  res.status(StatusCodes.OK).json({ programKerja })
 }
 
 export const editProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
   req.body.realisasi = parseInt(req.body.realisasi)
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
+  req.body.statusProker = 'Pending'
+
+  if (req.body.totalAnggaran < req.body.realisasi) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: 'Realisasi tidak boleh lebih besar dari total anggaran' })
+  }
+
   const programKerja = await prisma.programKerja.update({
     where: { noProker: parseInt(req.params.noProker) },
     data: req.body

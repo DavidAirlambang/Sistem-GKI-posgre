@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useOutletContext } from "react-router-dom";
 import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -24,6 +24,7 @@ export const action = () => {
 };
 
 const CreateProgramKerja = () => {
+  const { user } = useOutletContext();
   const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
   const reset = () => {
     document.getElementById("namaProgram").reset();
@@ -44,7 +45,7 @@ const CreateProgramKerja = () => {
           <FormRowSelect
             name="komisi"
             labelText="komisi"
-            list={filteredRoles}
+            list={user.role === "admin" ? filteredRoles : [user.role]}
           />
           <FormRow name="namaProgram" labelText="nama program" />
           <FormRow name="penanggungJawab" labelText="penaggung jawab" />

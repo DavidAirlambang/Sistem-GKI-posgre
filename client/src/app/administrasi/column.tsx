@@ -133,7 +133,7 @@ export const columns: ColumnDef<Administrasi>[] = [
               }}
             >
               {" "}
-              <Link to={`../Administrasi/${noAdministrasi}`}>edit surat</Link>
+              <Link to={`../Administrasi/${noAdministrasi}`}>edit</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"

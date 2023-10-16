@@ -116,7 +116,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
     },
   },
   {
-    header: "Total Anggaran",
+    header: "Realisasi",
     accessorKey: "realisasi",
     cell: ({ row }) => {
       const realisasi = row.getValue("realisasi");
@@ -212,7 +212,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
               }}
             >
               {" "}
-              <Link to={`../proker/${noProker}`}>edit</Link>
+              <Link to={`../editProgramKerja/${noProker}`}>edit proker</Link>
             </DropdownMenuItem>
             {/* process */}
 
@@ -238,7 +238,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                     }
                   }}
                 >
-                  approve
+                  approve proker
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
@@ -260,7 +260,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                     }
                   }}
                 >
-                  deny
+                  deny proker
                 </DropdownMenuItem>
               </>
             ) : null}
@@ -286,7 +286,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                 }
               }}
             >
-              delete
+              delete proker
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
