@@ -24,6 +24,7 @@ export const RUANGAN_STATUS = {
 }
 
 export const PROGRAM_KERJA = {
+  ALL: 'All',
   APPROVE: 'Approved',
   PENDING: 'Pending',
   DENIED: 'Denied'

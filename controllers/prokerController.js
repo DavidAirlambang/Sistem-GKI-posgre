@@ -16,8 +16,11 @@ export const createProgramKerja = async (req, res) => {
 }
 
 export const getAllProgramKerja = async (req, res) => {
+  if (req.body.status === 'All') {
+    req.body.status = undefined
+  }
   const programKerja = await prisma.programKerja.findMany({
-    where: { komisi: req.body.komisi },
+    where: { komisi: req.body.komisi, statusProker: req.body.status },
     orderBy: { tanggalProker: 'asc' }
   })
 
@@ -36,13 +39,17 @@ export const getAllProgramKerja = async (req, res) => {
 }
 
 export const getAllProgramKerjaDateRange = async (req, res) => {
+  if (req.body.status === 'All') {
+    req.body.status = null
+  }
   const programKerja = await prisma.programKerja.findMany({
     where: {
       komisi: req.body.komisi,
       tanggalProker: {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)
-      }
+      },
+      statusProker: req.body.status
     },
     orderBy: { tanggalProker: 'asc' }
   })
@@ -67,7 +74,9 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
 
 export const getProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.findUnique({
-    where: { noProker: parseInt(req.params.noProker) }
+    where: {
+      noProker: parseInt(req.params.noProker)
+    }
   })
   res.status(StatusCodes.OK).json({ programKerja })
 }

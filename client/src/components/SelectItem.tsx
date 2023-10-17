@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ROLE } from "../../../utils/constants";
+import { PROGRAM_KERJA, ROLE } from "../../../utils/constants";
 import { useAllProgramKerjaContext } from "@/pages/ProgramKerja";
 
 export function SelectItems({ komisi }: any) {
@@ -16,7 +16,6 @@ export function SelectItems({ komisi }: any) {
   return (
     <Select
       onValueChange={(val) => {
-        console.log(val);
         setTableRole(val);
       }}
     >
@@ -39,6 +38,35 @@ export function SelectItems({ komisi }: any) {
                 );
               })
             : null}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function SelectStatus() {
+  const { dataTable, setTipeStatus } = useAllProgramKerjaContext();
+  const items = Object.values(PROGRAM_KERJA);
+  return (
+    <Select
+      disabled={dataTable.length != 0 ? false : true}
+      onValueChange={(val) => {
+        setTipeStatus(val);
+      }}
+    >
+      <SelectTrigger className="w-[180px] text-black mr-2">
+        <SelectValue placeholder={"Filter Status"} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>{"Filter Status"}</SelectLabel>
+          {items.map((item: any) => {
+            return (
+              <SelectItem className="tipe" key={item} value={item}>
+                {item}
+              </SelectItem>
+            );
+          })}
         </SelectGroup>
       </SelectContent>
     </Select>

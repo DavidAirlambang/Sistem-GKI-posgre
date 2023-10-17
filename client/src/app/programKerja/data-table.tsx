@@ -38,7 +38,7 @@ import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { DatePickerWithRange } from "@/components/DateRangePicker";
 import { Link, redirect, useOutletContext } from "react-router-dom";
-import { SelectItems } from "@/components/SelectItem";
+import { SelectItems, SelectStatus } from "@/components/SelectItem";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -87,10 +87,15 @@ export function ProgramKerjaDataTable<TData, TValue>({
     tableRole,
     totalAnggaran,
     setTotalAnggaran,
+    tipeStatus,
+    setTipeStatus,
   } = useAllProgramKerjaContext();
 
   const refreshTable = async () => {
-    const { data } = await customFetch.post("/proker", { komisi: tableRole });
+    const { data } = await customFetch.post("/proker", {
+      komisi: tableRole,
+      status: tipeStatus,
+    });
     const { programKerja, totalAnggaranSemua } = await data;
     const { _sum } = totalAnggaranSemua;
     const { totalAnggaran } = _sum;
@@ -137,10 +142,13 @@ export function ProgramKerjaDataTable<TData, TValue>({
           refresh={() => refreshTable()}
         />
 
+        {/* filter status */}
+        <SelectStatus />
+
         {/* visibility */}
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4 text-black btn">
+            <Button variant="outline" className="ml-4 mr-4 text-black btn">
               Columns
             </Button>
           </DropdownMenuTrigger>
