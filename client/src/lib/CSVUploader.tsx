@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 // import { CSVUploaderProps } from "./csv";
 import { useAllMultimediaContext } from "@/pages/Multimedia";
 
-export function CSVUploader({ path, refresh, komisi }: any) {
+export function CSVUploader({ path, refresh, komisi, aktif }: any) {
   // upload state
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -45,8 +45,11 @@ export function CSVUploader({ path, refresh, komisi }: any) {
         accept=".csv"
         onChange={handleFileChange}
         className="text-black"
+        disabled={aktif}
       />
-      <Button onClick={handleUpload}>Upload File</Button>
+      <Button disabled={aktif} onClick={handleUpload}>
+        Upload File
+      </Button>
     </div>
   );
 }
