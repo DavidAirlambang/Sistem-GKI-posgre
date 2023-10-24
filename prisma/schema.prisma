@@ -116,6 +116,7 @@ model ProgramKerja {
   realisasi        Int      @default(0)
   statusProker     String   @default("Pending")
   tanggalProker    DateTime @default(now()) @db.Date
+  laporanProker    String   @default("-")
 }
 
 model Viatikum {
