@@ -3,9 +3,10 @@ import prisma from '../utils/prisma.js'
 import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
- 
+
 export const createAsetLain = async (req, res) => {
   req.body.jumlahAsetLain = parseInt(req.body.jumlahAsetLain)
+  req.body.nilaiAset = parseInt(req.body.nilaiAset)
   const asetLain = await prisma.asetLain.create({
     data: req.body
   })
@@ -13,7 +14,9 @@ export const createAsetLain = async (req, res) => {
 }
 
 export const getAllAsetLain = async (req, res) => {
-  const asetLain = await prisma.asetLain.findMany()
+  const asetLain = await prisma.asetLain.findMany({
+    orderBy: { namaAsetLain: 'asc' }
+  })
   res.status(StatusCodes.OK).json({ asetLain })
 }
 
@@ -26,6 +29,7 @@ export const getAsetLain = async (req, res) => {
 
 export const editAsetLain = async (req, res) => {
   req.body.jumlahAsetLain = parseInt(req.body.jumlahAsetLain)
+  req.body.nilaiAset = parseInt(req.body.nilaiAset)
   const asetLain = await prisma.asetLain.update({
     where: { noAsetLain: parseInt(req.params.noAsetLain) },
     data: req.body

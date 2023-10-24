@@ -75,6 +75,12 @@ const EditMultimedia = () => {
             defaultValue={multimedia.peminjamMultimedia}
             placeholder='isikan "-" jika tidak ada yang pinjam'
           />
+          <FormRow
+            type="text"
+            name="nilaiAset"
+            labelText="nilai Aset"
+            defaultValue={multimedia.nilaiAset.toString()}
+          />
           <SubmitBtn formBtn />
           <Link to="/dashboard/multimedia" className="btn form-btn delete-btn">
             Back

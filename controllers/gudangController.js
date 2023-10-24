@@ -6,6 +6,7 @@ import path from 'path'
 
 export const createBarangGudang = async (req, res) => {
   req.body.jumlahBarang = parseInt(req.body.jumlahBarang)
+  req.body.nilaiAset = parseInt(req.body.nilaiAset)
   const barangGudang = await prisma.gudang.create({
     data: req.body
   })
@@ -15,7 +16,8 @@ export const createBarangGudang = async (req, res) => {
 export const getAllBarangGudang = async (req, res) => {
   const lokasiGudang = req.lokasiGudang
   const barangs = await prisma.gudang.findMany({
-    where: { lokasiGudang }
+    where: { lokasiGudang },
+    orderBy: { namaBarang: 'asc' }
   })
   res.status(StatusCodes.OK).json({ barangs })
 }
@@ -29,6 +31,7 @@ export const getBarangGudang = async (req, res) => {
 
 export const editBarangGudang = async (req, res) => {
   req.body.jumlahBarang = parseInt(req.body.jumlahBarang)
+  req.body.nilaiAset = parseInt(req.body.nilaiAset)
   const barang = await prisma.gudang.update({
     where: { noBarang: parseInt(req.params.noBarang) },
     data: req.body

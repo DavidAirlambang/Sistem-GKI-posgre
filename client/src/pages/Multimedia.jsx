@@ -52,7 +52,7 @@ const Multimedia = () => {
     document.getElementById("peminjamMultimedia").reset();
     document.getElementById("lokasiMultimedia").reset();
   };
- 
+
   return (
     <AllMultimediaContext.Provider value={{ data, dataTable, setDataTable }}>
       <Wrapper>
@@ -78,6 +78,7 @@ const Multimedia = () => {
               name="peminjamMultimedia"
               placeholder='isikan "-" jika tidak ada yang pinjam'
             />
+            <FormRow type="text" name="nilaiAset" labelText="nilai Aset" />
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back

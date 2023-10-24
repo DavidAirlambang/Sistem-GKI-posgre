@@ -73,6 +73,8 @@ const Gudang = () => {
               labelText="keterangan"
               placeholder='isikan "-" jika tidak ada keterangan'
             />
+            <FormRow type="text" name="nilaiAset" labelText="nilai Aset" />
+            <div></div>
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/gudang" className="btn form-btn delete-btn">
             Back

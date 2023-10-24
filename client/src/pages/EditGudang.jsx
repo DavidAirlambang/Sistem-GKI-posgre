@@ -64,6 +64,13 @@ const EditGudang = () => {
             placeholder='isikan "-" jika tidak ada keterangan'
             defaultValue={barang.keterangan}
           />
+          <FormRow
+            type="text"
+            name="nilaiAset"
+            labelText="nilai Aset"
+            defaultValue={barang.nilaiAset.toString()}
+          />
+          <div></div>
           <SubmitBtn formBtn />
           <Link to="/dashboard/gudang" className="btn form-btn delete-btn">
             Back

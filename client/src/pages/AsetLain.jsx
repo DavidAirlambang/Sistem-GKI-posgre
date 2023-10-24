@@ -20,7 +20,7 @@ export const loader = async () => {
     toast.error(error?.response?.data?.msg);
     return error;
   }
-}; 
+};
 
 export const action = () => {
   return async ({ request }) => {
@@ -77,6 +77,7 @@ const AsetLain = () => {
               name="peminjamAsetLain"
               placeholder='isikan "-" jika tidak ada yang pinjam'
             />
+            <FormRow type="text" name="nilaiAset" labelText="nilai Aset" />
             <SubmitBtn formBtn />
             <button
               className="btn form-btn delete-btn"

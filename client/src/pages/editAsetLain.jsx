@@ -16,7 +16,7 @@ export const loader = async ({ params }) => {
     return redirect("/dashboard/asetLain");
   }
 };
- 
+
 export const action = () => {
   return async ({ request, params }) => {
     const formData = await request.formData();
@@ -72,6 +72,12 @@ const EditAsetLain = () => {
             name="peminjamAsetLain"
             defaultValue={asetLain.peminjamAsetLain}
             placeholder='isikan "-" jika tidak ada yang pinjam'
+          />
+          <FormRow
+            type="text"
+            name="nilaiAset"
+            labelText="nilai Aset"
+            defaultValue={asetLain.nilaiAset.toString()}
           />
           <SubmitBtn formBtn />
           <Link to="/dashboard/asetLain" className="btn form-btn delete-btn">
