@@ -176,6 +176,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
     cell: ({ row }) => {
       const ProgramKerja = row.original;
       const noProker = ProgramKerja.noProker;
+      const status = ProgramKerja.statusProker;
       const { setDataTable, tableRole, setTotalAnggaran } =
         useAllProgramKerjaContext();
 
@@ -212,8 +213,21 @@ export const columns: ColumnDef<ProgramKerja>[] = [
               }}
             >
               {" "}
-              <Link to={`../editProgramKerja/${noProker}`}>edit proker</Link>
+              <Link to={`../detailProgramKerja/${noProker}`}>
+                Detail Laporan
+              </Link>
             </DropdownMenuItem>
+            {status !== "Approved" || user.role === "admin" ? (
+              <DropdownMenuItem
+                className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+                onClick={() => {
+                  navigator.clipboard.writeText(noProker.toString());
+                }}
+              >
+                {" "}
+                <Link to={`../editProgramKerja/${noProker}`}>edit proker</Link>
+              </DropdownMenuItem>
+            ) : null}
             {/* process */}
 
             {user.role === "admin" ? (
@@ -266,28 +280,30 @@ export const columns: ColumnDef<ProgramKerja>[] = [
             ) : null}
 
             {/* delete */}
-            <DropdownMenuItem
-              className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
-              onClick={async () => {
-                try {
-                  await deleteProgramKerjaItem(noProker);
-                  refreshTable();
-                } catch (error: any) {
-                  if (
-                    error.response &&
-                    error.response.data &&
-                    error.response.data.msg
-                  ) {
-                    toast.error(error.response.data.msg);
-                  } else {
-                    toast.error("An error occurred while deleting.");
+            {status !== "Approved" || user.role === "admin" ? (
+              <DropdownMenuItem
+                className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+                onClick={async () => {
+                  try {
+                    await deleteProgramKerjaItem(noProker);
+                    refreshTable();
+                  } catch (error: any) {
+                    if (
+                      error.response &&
+                      error.response.data &&
+                      error.response.data.msg
+                    ) {
+                      toast.error(error.response.data.msg);
+                    } else {
+                      toast.error("An error occurred while deleting.");
+                    }
+                    return error;
                   }
-                  return error;
-                }
-              }}
-            >
-              delete proker
-            </DropdownMenuItem>
+                }}
+              >
+                delete proker
+              </DropdownMenuItem>
+            ) : null}
           </DropdownMenuContent>
         </DropdownMenu>
       );

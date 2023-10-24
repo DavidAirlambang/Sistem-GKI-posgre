@@ -18,6 +18,7 @@ import {
   ProgramKerja,
   EditProgramKerja,
   CreateProgramKerja,
+  DetailLaporanProker,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -214,6 +215,12 @@ const router = createBrowserRouter([
             path: "editProgramKerja/:noProker",
             element: <EditProgramKerja />,
             action: programKerjaEditAction(),
+            loader: programKerjaEditLoader,
+          },
+          {
+            path: "detailProgramKerja/:noProker",
+            element: <DetailLaporanProker />,
+            // action: programKerjaEditAction(),
             loader: programKerjaEditLoader,
           },
 
