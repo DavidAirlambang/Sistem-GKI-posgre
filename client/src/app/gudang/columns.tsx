@@ -78,6 +78,19 @@ export const columns: ColumnDef<Barang>[] = [
     header: "Keterangan",
     accessorKey: "keterangan",
   },
+  {
+    header: "Nilai Aset",
+    accessorKey: "nilaiAset",
+    cell: ({ row }) => {
+      const nilaiAset = row.getValue("nilaiAset");
+
+      const formattedMoney = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(nilaiAset as number);
+      return <div className="font-medium">{formattedMoney}</div>;
+    },
+  },
 
   {
     id: "actions",

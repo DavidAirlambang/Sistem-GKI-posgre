@@ -86,6 +86,19 @@ export const columns: ColumnDef<Multimedia>[] = [
     header: "Keterangan",
     accessorKey: "deskripsiMultimedia",
   },
+  {
+    header: "Nilai Aset",
+    accessorKey: "nilaiAset",
+    cell: ({ row }) => {
+      const nilaiAset = row.getValue("nilaiAset");
+
+      const formattedMoney = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(nilaiAset as number);
+      return <div className="font-medium">{formattedMoney}</div>;
+    },
+  },
   // {
   //   header: "Last Update",
   //   accessorKey: "updatedAt",
