@@ -16,7 +16,6 @@ const NavLinks = ({ isBigSidebar }) => {
           "asetLain",
           "suratMasuk",
           "suratKeluar",
-          "administrasi",
         ];
         if (adminOnly.includes(path) && role !== "admin") return;
         return (

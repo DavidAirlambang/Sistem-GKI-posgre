@@ -65,6 +65,22 @@ export const columns: ColumnDef<Administrasi>[] = [
     },
   },
   {
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          Nama Program
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorKey: "namaProgram",
+  },
+  {
     header: "Nominal",
     accessorKey: "nominalAdministrasi",
     cell: ({ row }) => {
@@ -77,22 +93,7 @@ export const columns: ColumnDef<Administrasi>[] = [
       return <div className="font-medium">{formattedMoney}</div>;
     },
   },
-  {
-    header: ({ column }) => {
-      return (
-        <Button
-          variant={"ghost"}
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === "asc");
-          }}
-        >
-          Tipe
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    accessorKey: "tipeAdministrasi",
-  },
+
   {
     header: "Penerima",
     accessorKey: "penerimaAdministrasi",
@@ -106,11 +107,13 @@ export const columns: ColumnDef<Administrasi>[] = [
     cell: ({ row }) => {
       const Administrasi = row.original;
       const noAdministrasi = Administrasi.noAdministrasi;
-      const { setDataTable } = useAllAdministrasiContext();
+      const { setDataTable, komisiTable } = useAllAdministrasiContext();
 
       // fetch ulang
       const refreshTable = async () => {
-        const { data } = await customFetch.get("/administrasi");
+        const { data } = await customFetch.post("/administrasi", {
+          penerima: komisiTable,
+        });
         const { administrasi } = data;
         setDataTable(administrasi);
       };

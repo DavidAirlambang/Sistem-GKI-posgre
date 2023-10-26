@@ -276,6 +276,28 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                 >
                   deny proker
                 </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+                  onClick={async () => {
+                    try {
+                      await processProgramKerjaItem("Done", noProker);
+                      refreshTable();
+                    } catch (error: any) {
+                      if (
+                        error.response &&
+                        error.response.data &&
+                        error.response.data.msg
+                      ) {
+                        toast.error(error.response.data.msg);
+                      } else {
+                        toast.error("An error occurred denying.");
+                      }
+                      return error;
+                    }
+                  }}
+                >
+                  done proker
+                </DropdownMenuItem>
               </>
             ) : null}
 

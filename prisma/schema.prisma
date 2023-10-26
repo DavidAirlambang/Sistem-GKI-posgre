@@ -96,6 +96,7 @@ model SuratKeluar {
 
 model AdministrasiKeuangan {
   noAdministrasi       Int      @id @default(autoincrement())
+  namaProgram          String
   tanggalAdministrasi  DateTime @default(now()) @db.Date
   nominalAdministrasi  Int
   tipeAdministrasi     String

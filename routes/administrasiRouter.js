@@ -1,10 +1,10 @@
 import { Router } from 'express'
 const router = Router()
 
-import { 
+import {
   createAdministrasi,
   getAllAdministrasi,
-  getAdministrasi, 
+  getAdministrasi,
   editAdministrasi,
   deleteAdministrasi,
   CreateManyAdministrasi,
@@ -12,10 +12,9 @@ import {
 } from '../controllers/administrasiController.js'
 import { validateAdministrasiInput } from '../middleware/administrasiValidationMidddleware.js'
 
-router
-  .route('/')
-  .get(getAllAdministrasi)
-  .post(validateAdministrasiInput, createAdministrasi)
+router.route('/').post(getAllAdministrasi)
+
+router.route('/penerimaan').post(validateAdministrasiInput, createAdministrasi)
 
 router
   .route('/:noAdministrasi')
@@ -23,7 +22,7 @@ router
   .patch(validateAdministrasiInput, editAdministrasi)
   .delete(deleteAdministrasi)
 
-router.route('/filter').post(getAllAdministrasiDateRange)
+router.route('/penerimaanFilter').post(getAllAdministrasiDateRange)
 router.route('/upload').post(CreateManyAdministrasi)
 
 export default router

@@ -19,6 +19,7 @@ import {
   EditProgramKerja,
   CreateProgramKerja,
   DetailLaporanProker,
+  AllAdministrasi,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -189,12 +190,12 @@ const router = createBrowserRouter([
           },
           {
             path: "administrasi",
-            element: <Administrasi />,
+            element: <AllAdministrasi />,
             action: administrasiAction(),
             loader: administrasiLoader,
           },
           {
-            path: "administrasi/:noAdministrasi",
+            path: "administrasi/pendapatan/:noAdministrasi",
             element: <EditAdministrasi />,
             action: administrasiEditAction(),
             loader: administrasiEditLoader,

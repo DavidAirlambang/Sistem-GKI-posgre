@@ -15,19 +15,36 @@ export const createAdministrasi = async (req, res) => {
 }
 
 export const getAllAdministrasi = async (req, res) => {
-  const administrasi = await prisma.administrasiKeuangan.findMany()
-  res.status(StatusCodes.OK).json({ administrasi })
+  if (req.body.penerima === 'All') {
+    const administrasi = await prisma.administrasiKeuangan.findMany({
+      orderBy: { namaProgram: 'asc' }
+    })
+    res.status(StatusCodes.OK).json({ administrasi })
+  } else {
+    const administrasi = await prisma.administrasiKeuangan.findMany({
+      where: { penerimaAdministrasi: req.body.penerima },
+      orderBy: { namaProgram: 'asc' }
+    })
+    res.status(StatusCodes.OK).json({ administrasi })
+  }
 }
 
 export const getAllAdministrasiDateRange = async (req, res) => {
-  const administrasi = await prisma.administrasiKeuangan.findMany({
-    where: { 
+  const query = {
+    where: {
       tanggalAdministrasi: {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)
       }
-    }
-  })
+    },
+    orderBy: { namaProgram: 'asc' }
+  }
+
+  if (req.body.penerima !== 'All' || undefined) {
+    query.where.penerimaAdministrasi = req.body.penerima
+  }
+
+  const administrasi = await prisma.administrasiKeuangan.findMany(query)
   res.status(StatusCodes.OK).json({ administrasi })
 }
 

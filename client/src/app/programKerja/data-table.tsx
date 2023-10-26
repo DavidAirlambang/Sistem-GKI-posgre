@@ -85,6 +85,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
     dataTable,
     setDataTable,
     tableRole,
+    setTableRole,
     totalAnggaran,
     setTotalAnggaran,
     tipeStatus,

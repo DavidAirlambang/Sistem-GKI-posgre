@@ -22,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useContext } from "react";
 import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
@@ -37,6 +37,8 @@ import { useAllAdministrasiContext } from "@/pages/Administrasi";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { DatePickerWithRange } from "@/components/DateRangePicker";
+import { SelectItemsAdministrasi } from "@/components/SelectItem";
+import { useOutletContext } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -79,7 +81,7 @@ export function AdministrasiDataTable<TData, TValue>({
   });
 
   // state table
-  const { dataTable, setDataTable } = useAllAdministrasiContext();
+  const { dataTable, setDataTable, filterKomisi } = useAllAdministrasiContext();
 
   const refreshTable = async () => {
     const { data } = await customFetch.get("administrasi");
@@ -87,18 +89,21 @@ export function AdministrasiDataTable<TData, TValue>({
     setDataTable(administrasi);
   };
 
+  const { user } = useOutletContext() as { user: any };
+
   return (
     <div className="mt-5">
       {/* input */}
       <div className="flex items-center py-4">
         {/* <Input*/}
+        <SelectItemsAdministrasi komisi={user.role} />
         <DatePickerWithRange filterFor="administrasi" />
 
         {/* export */}
         <Button
           onClick={() => {
             try {
-              downloadToExcel(dataTable);
+              downloadToExcel(dataTable, filterKomisi);
             } catch (error: any) {
               toast.error(error.response.data.msg);
             }
@@ -109,10 +114,10 @@ export function AdministrasiDataTable<TData, TValue>({
         </Button>
 
         {/* import */}
-        <CSVUploader
+        {/* <CSVUploader
           path="/administrasi/upload"
           refresh={() => refreshTable()}
-        />
+        /> */}
 
         {/* visibility */}
         <DropdownMenu>

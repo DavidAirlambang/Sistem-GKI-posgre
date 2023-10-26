@@ -6,14 +6,14 @@ import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
-import { ADMINISTRASI } from "../../../utils/constants";
+import { ROLE } from "../../../utils/constants";
 
 import { columns } from "../app/administrasi/column";
 import AdministrasiDataTable from "@/app/administrasi/data-table";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.get("/administrasi");
+    const { data } = await customFetch.post("/administrasi");
     return { data };
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -27,7 +27,10 @@ export const action = () => {
     const data = Object.fromEntries(formData);
 
     try {
-      await customFetch.post("/administrasi", data);
+      await customFetch.post("/administrasi/penerimaan", {
+        ...data,
+        tipeAdministrasi: "debit",
+      });
       return toast.success("Item added successfully ");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
@@ -43,6 +46,26 @@ const Administrasi = () => {
   const { administrasi } = data;
 
   const [dataTable, setDataTable] = useState(administrasi);
+  const [dataKomisi, setDataKomisi] = useState([]);
+  const [filterKomisi, setFilterKomisi] = useState("All");
+
+  const ambilNamaProgram = async () => {
+    try {
+      const { data } = await customFetch.post("/proker/nama", {
+        komisi: document.getElementById("penerimaAdministrasi").value,
+      });
+      const { programKerja } = await data;
+      // Menggunakan map untuk mengembalikan nama program
+      const namaPrograms = programKerja.map((program) => program.namaProgram);
+
+      // Mengatur state dataKomisi dengan nilai yang baru
+      setDataKomisi(namaPrograms);
+
+      // Karena setState adalah asinkron, Anda mungkin ingin melakukan log di sini.
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+  };
 
   const reset = () => {
     document.getElementById("tanggalAdministrasi").reset();
@@ -52,11 +75,21 @@ const Administrasi = () => {
     document.getElementById("uraianAdministrasi").reset();
   };
 
+  const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
+
   return (
-    <AllAdministrasiContext.Provider value={{ data, dataTable, setDataTable }}>
+    <AllAdministrasiContext.Provider
+      value={{
+        data,
+        dataTable,
+        setDataTable,
+        filterKomisi,
+        setFilterKomisi,
+      }}
+    >
       <Wrapper>
         <Form method="post" className="form">
-          <h4 className="form-title">Administrasi Keuangan</h4>
+          <h4 className="form-title">Penerimaan</h4>
           <div className="form-center">
             <FormRow
               type={"date"}
@@ -65,11 +98,17 @@ const Administrasi = () => {
             />
             <FormRow labelText="nominal" name="nominalAdministrasi" />
             <FormRowSelect
-              labelText="tipe"
-              name="tipeAdministrasi"
-              list={Object.values(ADMINISTRASI)}
+              labelText="penerima"
+              name="penerimaAdministrasi"
+              list={["--pilih komisi--", ...filteredRoles]}
+              onChange={() => ambilNamaProgram()}
             />
-            <FormRow name="penerimaAdministrasi" labelText="penerima" />
+            <FormRowSelect
+              labelText="Nama Program Kerja"
+              name="namaProgram"
+              list={dataKomisi}
+              disable={dataKomisi.length > 0 ? false : true}
+            />
             <FormRow name="uraianAdministrasi" labelText="uraian" />
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
