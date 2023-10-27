@@ -12,6 +12,7 @@ import { useAllProgramKerjaContext } from "@/pages/ProgramKerja";
 import { useAllAdministrasiContext } from "@/pages/Administrasi";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
+import { useAllPengeluaranContext } from "@/pages/Pengeluaran";
 
 export function SelectItems({ komisi }: any) {
   const { setTableRole } = useAllProgramKerjaContext();
@@ -47,7 +48,8 @@ export function SelectItems({ komisi }: any) {
   );
 }
 export function SelectItemsAdministrasi({ komisi }: any) {
-  const { setDataTable, setFilterKomisi } = useAllAdministrasiContext();
+  const { setDataTable, setFilterKomisi } =
+    useAllAdministrasiContext() || useAllPengeluaranContext();
 
   const loader = async (penerima: string) => {
     try {

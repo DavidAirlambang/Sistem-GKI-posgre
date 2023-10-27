@@ -32,6 +32,9 @@ export const loader = async () => {
 };
 
 export const action = () => {
+  const form = document.getElementsByName("form");
+  console.log(form.id);
+
   return async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
@@ -39,7 +42,6 @@ export const action = () => {
     try {
       await customFetch.post("/administrasi/create", {
         ...data,
-        tipeAdministrasi: "debit",
       });
       return toast.success("Item added successfully ");
     } catch (error) {
@@ -101,6 +103,7 @@ const Administrasi = () => {
       <Wrapper>
         <Form method="post" className="form">
           <h4 className="form-title">Penerimaan</h4>
+          <input type="hidden" name="tipeAdministrasi" value={"debit"} />
           <div className="form-center">
             <FormRow
               type={"date"}

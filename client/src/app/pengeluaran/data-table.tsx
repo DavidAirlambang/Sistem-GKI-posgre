@@ -91,7 +91,7 @@ export function PengeluaranDataTable<TData, TValue>({
       <div className="flex items-center py-4">
         {/* <Input*/}
         <SelectItemsAdministrasi komisi={user.role} />
-        <DatePickerWithRange filterFor="administrasi" />
+        {/* <DatePickerWithRange filterFor="administrasi" /> */}
 
         {/* export */}
         <Button
