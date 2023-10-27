@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Administrasi } from ".";
+import { Administrasi, Pengeluaran } from ".";
 import { useOutletContext } from "react-router-dom";
 
 export default function AllAdministrasi() {
@@ -32,27 +32,7 @@ export default function AllAdministrasi() {
         <Administrasi />
       </TabsContent>
       <TabsContent value="pengeluaran">
-        <Card>
-          <CardHeader>
-            <CardTitle>Password</CardTitle>
-            <CardDescription>
-              Change your password here. After saving, ll be logged out.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save password</Button>
-          </CardFooter>
-        </Card>
+        <Pengeluaran />
       </TabsContent>
     </Tabs>
   );

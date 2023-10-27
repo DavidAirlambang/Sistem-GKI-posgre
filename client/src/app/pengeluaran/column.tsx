@@ -7,7 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Administrasi } from "../tabletype";
 import { Button } from "@/components/ui/button";
 
-import { useAllAdministrasiContext } from "../../pages/Administrasi";
+import { useAllPengeluaranContext } from "../../pages/Pengeluaran";
 
 import {
   DropdownMenu,
@@ -107,7 +107,7 @@ export const columns: ColumnDef<Administrasi>[] = [
     cell: ({ row }) => {
       const Administrasi = row.original;
       const noAdministrasi = Administrasi.noAdministrasi;
-      const { setDataTable, komisiTable } = useAllAdministrasiContext();
+      const { setDataTable, komisiTable } = useAllPengeluaranContext();
 
       // fetch ulang
       const refreshTable = async () => {

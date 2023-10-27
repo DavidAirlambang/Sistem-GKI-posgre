@@ -13,10 +13,18 @@ import AdministrasiDataTable from "@/app/administrasi/data-table";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.post("/administrasi", {
+    const debitResponse = await customFetch.post("/administrasi", {
       tipeAdministrasi: "debit",
     });
-    return { data };
+
+    const kreditResponse = await customFetch.post("/administrasi", {
+      tipeAdministrasi: "kredit",
+    });
+
+    const debitData = debitResponse.data;
+    const kreditData = kreditResponse.data;
+
+    return { debitData, kreditData };
   } catch (error) {
     toast.error(error?.response?.data?.msg);
     return error;
@@ -44,8 +52,8 @@ export const action = () => {
 const AllAdministrasiContext = createContext();
 
 const Administrasi = () => {
-  const { data } = useLoaderData();
-  const { administrasi } = data;
+  const { debitData } = useLoaderData();
+  const { administrasi } = debitData;
 
   const [dataTable, setDataTable] = useState(administrasi);
   const [dataKomisi, setDataKomisi] = useState([]);
@@ -83,7 +91,7 @@ const Administrasi = () => {
   return (
     <AllAdministrasiContext.Provider
       value={{
-        data,
+        debitData,
         dataTable,
         setDataTable,
         filterKomisi,

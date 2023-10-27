@@ -33,7 +33,7 @@ import {
 import { ModeToggle } from "@/components/ModeToggle";
 import { downloadToExcelAdministrasi as downloadToExcel } from "@/lib/xlsx";
 import { CSVUploader } from "@/lib/CSVUploader";
-import { useAllAdministrasiContext } from "@/pages/Administrasi";
+import { useAllPengeluaranContext } from "@/pages/Pengeluaran";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { DatePickerWithRange } from "@/components/DateRangePicker";
@@ -45,7 +45,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function AdministrasiDataTable<TData, TValue>({
+export function PengeluaranDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -81,13 +81,7 @@ export function AdministrasiDataTable<TData, TValue>({
   });
 
   // state table
-  const { dataTable, setDataTable, filterKomisi } = useAllAdministrasiContext();
-
-  const refreshTable = async () => {
-    const { data } = await customFetch.get("administrasi");
-    const { administrasi } = data;
-    setDataTable(administrasi);
-  };
+  const { dataTable, setDataTable, filterKomisi } = useAllPengeluaranContext();
 
   const { user } = useOutletContext() as { user: any };
 
@@ -222,4 +216,4 @@ export function AdministrasiDataTable<TData, TValue>({
   );
 }
 
-export default AdministrasiDataTable;
+export default PengeluaranDataTable;
