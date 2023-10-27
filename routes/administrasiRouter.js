@@ -14,7 +14,7 @@ import { validateAdministrasiInput } from '../middleware/administrasiValidationM
 
 router.route('/').post(getAllAdministrasi)
 
-router.route('/penerimaan').post(validateAdministrasiInput, createAdministrasi)
+router.route('/create').post(validateAdministrasiInput, createAdministrasi)
 
 router
   .route('/:noAdministrasi')

@@ -13,7 +13,9 @@ import AdministrasiDataTable from "@/app/administrasi/data-table";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.post("/administrasi");
+    const { data } = await customFetch.post("/administrasi", {
+      tipeAdministrasi: "debit",
+    });
     return { data };
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -27,7 +29,7 @@ export const action = () => {
     const data = Object.fromEntries(formData);
 
     try {
-      await customFetch.post("/administrasi/penerimaan", {
+      await customFetch.post("/administrasi/create", {
         ...data,
         tipeAdministrasi: "debit",
       });
@@ -68,11 +70,12 @@ const Administrasi = () => {
   };
 
   const reset = () => {
+    setDataKomisi([]);
     document.getElementById("tanggalAdministrasi").reset();
     document.getElementById("nominalAdministrasi").reset();
-    document.getElementById("tipeAdministrasi").reset();
     document.getElementById("penerimaAdministrasi").reset();
     document.getElementById("uraianAdministrasi").reset();
+    document.getElementById("namaProgram").reset();
   };
 
   const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
@@ -108,6 +111,7 @@ const Administrasi = () => {
               name="namaProgram"
               list={dataKomisi}
               disable={dataKomisi.length > 0 ? false : true}
+              required={true}
             />
             <FormRow name="uraianAdministrasi" labelText="uraian" />
             <SubmitBtn formBtn />

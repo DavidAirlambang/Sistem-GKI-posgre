@@ -113,7 +113,6 @@ export const columns: ColumnDef<Administrasi>[] = [
       const refreshTable = async () => {
         const { data } = await customFetch.post("/administrasi", {
           penerima: komisiTable,
-          tipeAdministrasi: "debit",
         });
         const { administrasi } = data;
         setDataTable(administrasi);

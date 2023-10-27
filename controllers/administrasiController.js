@@ -22,7 +22,10 @@ export const getAllAdministrasi = async (req, res) => {
     res.status(StatusCodes.OK).json({ administrasi })
   } else {
     const administrasi = await prisma.administrasiKeuangan.findMany({
-      where: { penerimaAdministrasi: req.body.penerima },
+      where: {
+        penerimaAdministrasi: req.body.penerima,
+        tipeAdministrasi: req.body.tipeAdministrasi
+      },
       orderBy: { namaProgram: 'asc' }
     })
     res.status(StatusCodes.OK).json({ administrasi })

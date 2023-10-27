@@ -34,7 +34,7 @@ export const action = () => {
     }
   };
 };
-
+ 
 const EditAdministrasi = () => {
   const { administrasi } = useLoaderData();
   return (
