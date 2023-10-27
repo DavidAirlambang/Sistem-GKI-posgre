@@ -17,6 +17,7 @@ export const createAdministrasi = async (req, res) => {
 export const getAllAdministrasi = async (req, res) => {
   if (req.body.penerima === 'All') {
     const administrasi = await prisma.administrasiKeuangan.findMany({
+      where: { tipeAdministrasi: req.body.tipeAdministrasi },
       orderBy: { namaProgram: 'asc' }
     })
     res.status(StatusCodes.OK).json({ administrasi })
@@ -38,7 +39,8 @@ export const getAllAdministrasiDateRange = async (req, res) => {
       tanggalAdministrasi: {
         gte: new Date(req.body.startDate),
         lte: new Date(req.body.endDate)
-      }
+      },
+      tipeAdministrasi: req.body.tipeAdministrasi
     },
     orderBy: { namaProgram: 'asc' }
   }

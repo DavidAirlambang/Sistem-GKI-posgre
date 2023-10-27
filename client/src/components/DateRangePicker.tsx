@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { useAllSuratKeluarContext } from "@/pages/SuratKeluar";
 import { useAllAdministrasiContext } from "@/pages/Administrasi";
 import { useAllProgramKerjaContext } from "@/pages/ProgramKerja";
+import { useAllPengeluaranContext } from "@/pages/Pengeluaran";
 
 export function DatePickerWithRange({ className, filterFor }: any) {
   const [date, setDate] = React.useState<DateRange | undefined>();
@@ -31,6 +32,8 @@ export function DatePickerWithRange({ className, filterFor }: any) {
       ? useAllSuratKeluarContext()
       : filterFor === "administrasi"
       ? useAllAdministrasiContext()
+      : filterFor === "pengeluaran"
+      ? useAllPengeluaranContext()
       : filterFor === "programKerja"
       ? useAllProgramKerjaContext()
       : null;
@@ -84,7 +87,7 @@ export function DatePickerWithRange({ className, filterFor }: any) {
   };
 
   // administrasi
-  const refreshTableAdministrasi = async () => {
+  const refreshTableAdministrasi = async (jenis: string) => {
     const start = format(date!.from!, "yyyy-MM-dd");
     const end = format(date!.to!, "yyyy-MM-dd");
     try {
@@ -94,6 +97,7 @@ export function DatePickerWithRange({ className, filterFor }: any) {
           startDate: start,
           endDate: end,
           penerima: filterKomisi,
+          tipeAdministrasi: jenis,
         }
       );
       const { administrasi } = data;
@@ -105,9 +109,10 @@ export function DatePickerWithRange({ className, filterFor }: any) {
     }
   };
 
-  const resetTableAdministrasi = async () => {
+  const resetTableAdministrasi = async (jenis: string) => {
     const { data } = await customFetch.post("/administrasi", {
       penerima: filterKomisi,
+      tipeAdministrasi: jenis,
     });
     const { administrasi } = data;
 
@@ -190,7 +195,9 @@ export function DatePickerWithRange({ className, filterFor }: any) {
             : filterFor === "suratKeluar"
             ? refreshTableSuratKeluar()
             : filterFor === "administrasi"
-            ? refreshTableAdministrasi()
+            ? refreshTableAdministrasi("debit")
+            : filterFor === "pengeluaran"
+            ? refreshTableAdministrasi("kredit")
             : filterFor === "programKerja"
             ? refreshTableProgramKerja()
             : null;
@@ -208,7 +215,9 @@ export function DatePickerWithRange({ className, filterFor }: any) {
             : filterFor === "suratKeluar"
             ? resetTableSuratKeluar()
             : filterFor === "administrasi"
-            ? resetTableAdministrasi()
+            ? resetTableAdministrasi("debit")
+            : filterFor === "pengeluaran"
+            ? resetTableAdministrasi("kredit")
             : filterFor === "programKerja"
             ? resetTableProgramKerja()
             : null;

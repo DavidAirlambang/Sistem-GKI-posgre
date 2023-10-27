@@ -27,6 +27,8 @@ const Pengeluaran = () => {
       });
       const { programKerja } = await data;
       // Menggunakan map untuk mengembalikan nama program
+
+      const noPrograms = programKerja.map((program) => program.noProgram);
       const namaPrograms = programKerja.map((program) => program.namaProgram);
 
       // Mengatur state dataKomisi dengan nilai yang baru

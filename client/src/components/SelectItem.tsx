@@ -47,13 +47,14 @@ export function SelectItems({ komisi }: any) {
     </Select>
   );
 }
-export function SelectItemsAdministrasi({ komisi }: any) {
+export function SelectItemsAdministrasi({ komisi, tipe }: any) {
   const { setDataTable, setFilterKomisi } =
-    useAllAdministrasiContext() || useAllPengeluaranContext();
+    tipe === "debit" ? useAllAdministrasiContext() : useAllPengeluaranContext();
 
   const loader = async (penerima: string) => {
     try {
       const { data } = await customFetch.post("/administrasi", {
+        tipeAdministrasi: tipe,
         penerima: penerima,
       });
       const { administrasi } = data;
