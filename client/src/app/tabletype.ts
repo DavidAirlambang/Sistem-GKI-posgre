@@ -56,6 +56,7 @@ export type Administrasi = {
   tipeAdministrasi: string;
   penerimaAdministrasi: string;
   uraianAdministrasi: string;
+  namaProgram: string;
 };
 
 export type ProgramKerja = {

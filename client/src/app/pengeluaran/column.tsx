@@ -21,9 +21,22 @@ import {
   DropdownMenuLabel,
 } from "@radix-ui/react-dropdown-menu";
 
-async function deleteAdministrasiItem(noAdministrasi: any) {
+async function deleteAdministrasiItem(
+  noAdministrasi: any,
+  nominalAdministrasi: any,
+  namaProgram: string
+) {
   try {
+    console.log(noAdministrasi);
+
     await customFetch.delete(`/administrasi/${noAdministrasi}`);
+
+    // kurangin pengeluaran
+    await customFetch.post("/proker/realisasi", {
+      namaProgram: namaProgram,
+      realisasi: -nominalAdministrasi,
+    });
+
     toast.success("Item deleted successfully");
     return redirect("/dashboard/administrasi");
   } catch (error: any) {
@@ -106,7 +119,9 @@ export const columns: ColumnDef<Administrasi>[] = [
     id: "actions",
     cell: ({ row }) => {
       const Administrasi = row.original;
+      const namaProgram = Administrasi.namaProgram;
       const noAdministrasi = Administrasi.noAdministrasi;
+      const nominalAdministrasi = Administrasi.nominalAdministrasi;
       const { setDataTable, komisiTable } = useAllPengeluaranContext();
 
       // fetch ulang
@@ -143,7 +158,11 @@ export const columns: ColumnDef<Administrasi>[] = [
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={async () => {
                 try {
-                  await deleteAdministrasiItem(noAdministrasi);
+                  await deleteAdministrasiItem(
+                    noAdministrasi,
+                    nominalAdministrasi,
+                    namaProgram
+                  );
                   refreshTable();
                 } catch (error: any) {
                   if (
