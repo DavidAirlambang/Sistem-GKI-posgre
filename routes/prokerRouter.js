@@ -29,7 +29,7 @@ router
 router.route('/filter').post(getAllProgramKerjaDateRange)
 router.route('/upload').post(CreateManyProgramKerja)
 router.route('/nama').post(getAllProgramKerjaNama)
-router.route('/sisa').post(sisaAnggaranProgramKerja)
+router.route('/anggaran').post(sisaAnggaranProgramKerja)
 router.route('/realisasi').post(realisasiProgramKerja)
 router.route('/process/:noProker').post(processProgramKerja)
 

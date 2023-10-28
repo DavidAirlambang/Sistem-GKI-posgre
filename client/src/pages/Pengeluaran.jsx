@@ -19,6 +19,12 @@ const Pengeluaran = () => {
   const [dataTable, setDataTable] = useState(administrasi);
   const [dataKomisi, setDataKomisi] = useState([]);
   const [filterKomisi, setFilterKomisi] = useState("All");
+  const [sisaAnggaran, setSisaAnggaran] = useState(0);
+
+  const formattedMoney = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(sisaAnggaran);
 
   const ambilNamaProgram = async () => {
     try {
@@ -26,16 +32,24 @@ const Pengeluaran = () => {
         komisi: document.getElementById("penerimaAdministrasi").value,
       });
       const { programKerja } = await data;
-      // Menggunakan map untuk mengembalikan nama program
 
       const namaPrograms = programKerja.map(
         (program) => `(${program.noProker}) ${program.namaProgram}`
       );
 
-      // Mengatur state dataKomisi dengan nilai yang baru
       setDataKomisi(namaPrograms);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+  };
 
-      // Karena setState adalah asinkron, Anda mungkin ingin melakukan log di sini.
+  const checkSisaAnggaran = async () => {
+    try {
+      const { data } = await customFetch.post("/proker/anggaran", {
+        namaProgram: document.getElementById("namaProgram").value,
+      });
+      const { sisa } = data;
+      setSisaAnggaran(sisa);
     } catch (error) {
       toast.error(error?.response?.data?.msg);
     }
@@ -64,7 +78,11 @@ const Pengeluaran = () => {
     >
       <Wrapper>
         <Form method="post" className="form">
-          <h4 className="form-title">Pengeluaran</h4>
+          <div className="flex justify-between items-center mb-5">
+            <h4>Pengeluaran</h4>
+            <p className="text-right">Sisa Anggaran: {formattedMoney}</p>
+          </div>
+
           <input type="hidden" name="tipeAdministrasi" value={"kredit"} />
           <div className="form-center">
             <FormRow
@@ -77,14 +95,17 @@ const Pengeluaran = () => {
               labelText="penerima"
               name="penerimaAdministrasi"
               list={["--pilih komisi--", ...filteredRoles]}
-              onChange={() => ambilNamaProgram()}
+              onChange={() => {
+                ambilNamaProgram();
+              }}
             />
             <FormRowSelect
               labelText="Nama Program Kerja"
               name="namaProgram"
-              list={dataKomisi}
+              list={["--pilih program--", ...dataKomisi]}
               disable={dataKomisi.length > 0 ? false : true}
               required={true}
+              onChange={() => checkSisaAnggaran()}
             />
             <FormRow name="uraianAdministrasi" labelText="uraian" />
             <SubmitBtn formBtn />

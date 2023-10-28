@@ -164,6 +164,7 @@ export const sisaAnggaranProgramKerja = async (req, res) => {
       noProker: parseInt(noProker)
     }
   })
+  console.log(program)
   const sisa = parseInt(program.totalAnggaran) - parseInt(program.realisasi)
   res.status(StatusCodes.OK).json({ sisa })
 }
