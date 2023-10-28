@@ -10,7 +10,9 @@ import {
   CreateManyProgramKerja,
   getAllProgramKerjaDateRange,
   processProgramKerja,
-  getAllProgramKerjaNama
+  getAllProgramKerjaNama,
+  realisasiProgramKerja,
+  sisaAnggaranProgramKerja
 } from '../controllers/prokerController.js'
 import { validateProgramKerjaInput } from '../middleware/prokerValidationMiddleware.js'
 
@@ -27,6 +29,8 @@ router
 router.route('/filter').post(getAllProgramKerjaDateRange)
 router.route('/upload').post(CreateManyProgramKerja)
 router.route('/nama').post(getAllProgramKerjaNama)
+router.route('/sisa').post(sisaAnggaranProgramKerja)
+router.route('/realisasi').post(realisasiProgramKerja)
 router.route('/process/:noProker').post(processProgramKerja)
 
 export default router

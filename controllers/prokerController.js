@@ -133,6 +133,41 @@ export const processProgramKerja = async (req, res) => {
   res.status(StatusCodes.OK).json({ programKerja })
 }
 
+export const realisasiProgramKerja = async (req, res) => {
+  const text = req.body.namaProgram
+  const regex = /\((\d+)\)/
+  const match = text.match(regex)
+  const noProker = match[1]
+
+  const program = await prisma.programKerja.findUnique({
+    where: {
+      noProker: parseInt(noProker)
+    }
+  })
+  const realisasiTotal =
+    parseInt(program.realisasi) + parseInt(req.body.realisasi)
+
+  const programKerja = await prisma.programKerja.update({
+    where: { noProker: parseInt(noProker) },
+    data: { realisasi: realisasiTotal }
+  })
+  res.status(StatusCodes.OK).json({ programKerja })
+}
+
+export const sisaAnggaranProgramKerja = async (req, res) => {
+  const text = req.body.namaProgram
+  const regex = /\((\d+)\)/
+  const match = text.match(regex)
+  const noProker = match[1]
+  const program = await prisma.programKerja.findUnique({
+    where: {
+      noProker: parseInt(noProker)
+    }
+  })
+  const sisa = parseInt(program.totalAnggaran) - parseInt(program.realisasi)
+  res.status(StatusCodes.OK).json({ sisa })
+}
+
 export const deleteProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.delete({
     where: { noProker: parseInt(req.params.noProker) }
