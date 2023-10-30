@@ -200,7 +200,14 @@ export const CreateManyProgramKerja = async (req, res) => {
         .json({ error: 'File tidak ditemukan.' })
     }
 
+    function gantiGaris (tanggal) {
+      if (tanggal.includes('-')) {
+        const baru = tanggal.replace(/-/g, '-')
+      }
+    }
+
     function customRowFormat (row) {
+      console.log(row['Tanggal'])
       return {
         namaProgram: row['Nama Program'],
         penanggungJawab: row['Penanggung Jawab'],
@@ -209,10 +216,10 @@ export const CreateManyProgramKerja = async (req, res) => {
         waktuPelaksanaan: row['Waktu Pelaksanaan'],
         rincianRencana: row['Rincian Rencana'],
         totalAnggaran: parseInt(row['Total Anggaran']),
-        realisasi: parseInt(row['Realisasi']),
-        statusProker: row['Status'],
+        realisasi: 0,
+        statusProker: 'Pending',
         komisi: req.body.komisi,
-        tanggalProker: `${row['Tanggal']}T00:00:00Z`
+        tanggalProker: new Date(row['Tanggal']).toISOString()
       }
     }
 
@@ -220,6 +227,8 @@ export const CreateManyProgramKerja = async (req, res) => {
       'file/programKerja.csv',
       customRowFormat
     )
+
+    // console.log(jsonData)
 
     const upToPrisma = await prisma.programKerja.createMany({
       data: jsonData
