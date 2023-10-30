@@ -60,7 +60,7 @@ const CreateProgramKerja = () => {
             name="rincianRencana"
             labelText="rincian rencana"
           />
-          <SubmitBtn formBtn />
+          <SubmitBtn formBtn /> 
           <button
             className="btn form-btn delete-btn"
             type="reset"

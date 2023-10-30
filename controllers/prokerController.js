@@ -149,7 +149,7 @@ export const realisasiProgramKerja = async (req, res) => {
 
   const programKerja = await prisma.programKerja.update({
     where: { noProker: parseInt(noProker) },
-    data: { realisasi: realisasiTotal }
+    data: { realisasi: realisasiTotal, laporanProker: req.body.laporan }
   })
   res.status(StatusCodes.OK).json({ programKerja })
 }
@@ -164,9 +164,9 @@ export const sisaAnggaranProgramKerja = async (req, res) => {
       noProker: parseInt(noProker)
     }
   })
-  console.log(program)
+  const laporan = program.laporanProker
   const sisa = parseInt(program.totalAnggaran) - parseInt(program.realisasi)
-  res.status(StatusCodes.OK).json({ sisa })
+  res.status(StatusCodes.OK).json({ sisa, laporan })
 }
 
 export const deleteProgramKerja = async (req, res) => {

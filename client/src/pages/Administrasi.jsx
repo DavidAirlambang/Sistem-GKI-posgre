@@ -36,6 +36,10 @@ export const action = () => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
 
+    // pemisahan
+    const laporanProker = data.laporanProker;
+    delete data.laporanProker;
+
     try {
       await customFetch.post("/administrasi/create", {
         ...data,
@@ -46,6 +50,7 @@ export const action = () => {
         await customFetch.post("/proker/realisasi", {
           namaProgram: data.namaProgram,
           realisasi: data.nominalAdministrasi,
+          laporan: laporanProker,
         });
       }
       return toast.success("Item added successfully ");

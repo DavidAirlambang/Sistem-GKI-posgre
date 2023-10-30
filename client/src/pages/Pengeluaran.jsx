@@ -21,6 +21,7 @@ const Pengeluaran = () => {
   const [dataKomisi, setDataKomisi] = useState([]);
   const [filterKomisi, setFilterKomisi] = useState("All");
   const [sisaAnggaran, setSisaAnggaran] = useState(0);
+  const [laporanProker, setLaporanProker] = useState("-");
 
   const formattedMoney = new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -39,6 +40,7 @@ const Pengeluaran = () => {
       );
 
       setDataKomisi(namaPrograms);
+      document.getElementById("laporanProker").value = "-";
     } catch (error) {
       toast.error(error?.response?.data?.msg);
     }
@@ -49,8 +51,10 @@ const Pengeluaran = () => {
       const { data } = await customFetch.post("/proker/anggaran", {
         namaProgram: document.getElementById("namaProgram").value,
       });
-      const { sisa } = data;
+      const { sisa, laporan } = data;
+      setLaporanProker(laporan);
       setSisaAnggaran(sisa);
+      document.getElementById("laporanProker").value = laporan;
     } catch (error) {
       toast.error(error?.response?.data?.msg);
     }
@@ -63,6 +67,7 @@ const Pengeluaran = () => {
     document.getElementById("penerimaAdministrasi").reset();
     document.getElementById("uraianAdministrasi").reset();
     document.getElementById("namaProgram").reset();
+    document.getElementById("laporanProker").reset();
   };
 
   const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
@@ -113,6 +118,12 @@ const Pengeluaran = () => {
               onChange={() => checkSisaAnggaran()}
             />
             <FormRow name="uraianAdministrasi" labelText="uraian" />
+            <FormRow
+              type={"textarea"}
+              name="laporanProker"
+              labelText="Laporan Program Kerja"
+              defaultValue={laporanProker}
+            />
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back
