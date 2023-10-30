@@ -13,7 +13,6 @@ import {
   EditSuratMasuk,
   SuratKeluar,
   EditSuratKeluar,
-  Administrasi,
   EditAdministrasi,
   ProgramKerja,
   EditProgramKerja,
@@ -61,12 +60,6 @@ import { action as administrasiAction } from "./pages/Administrasi";
 import { loader as administrasiLoader } from "./pages/Administrasi";
 import { loader as administrasiEditLoader } from "./pages/EditAdministrasi";
 import { action as administrasiEditAction } from "./pages/EditAdministrasi";
-
-import EditPengeluaran, {
-  loader as pengeluaranEditLoader,
-} from "./pages/EditPengeluaran";
-import { action as pengeluaranEditAction } from "./pages/EditPengeluaran";
-// import { loader as programKerjaLoader } from "./pages/ProgramKerja";
 import { action as createProgramKerjaAction } from "./pages/CreateProgramKerja";
 import { loader as programKerjaEditLoader } from "./pages/EditProgramKerja";
 import { action as programKerjaEditAction } from "./pages/EditProgramKerja";
@@ -202,12 +195,6 @@ const router = createBrowserRouter([
           {
             path: "administrasi/pendapatan/:noAdministrasi",
             element: <EditAdministrasi />,
-            action: administrasiEditAction(),
-            loader: administrasiEditLoader,
-          },
-          {
-            path: "administrasi/pengeluaran/:noAdministrasi",
-            element: <EditPengeluaran />,
             action: administrasiEditAction(),
             loader: administrasiEditLoader,
           },

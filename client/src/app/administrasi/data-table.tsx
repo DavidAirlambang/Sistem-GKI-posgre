@@ -103,7 +103,7 @@ export function AdministrasiDataTable<TData, TValue>({
         <Button
           onClick={() => {
             try {
-              downloadToExcel(dataTable, filterKomisi);
+              downloadToExcel(dataTable, filterKomisi, "Penerimaan");
             } catch (error: any) {
               toast.error(error.response.data.msg);
             }

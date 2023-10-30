@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
@@ -15,6 +15,7 @@ const AllPengeluaranContext = createContext();
 const Pengeluaran = () => {
   const { kreditData } = useLoaderData();
   const { administrasi } = kreditData;
+  const { user } = useOutletContext();
 
   const [dataTable, setDataTable] = useState(administrasi);
   const [dataKomisi, setDataKomisi] = useState([]);
@@ -78,7 +79,7 @@ const Pengeluaran = () => {
     >
       <Wrapper>
         <Form method="post" className="form">
-          <div className="flex justify-between items-center mb-5">
+          <div className="flex justify-between items-center form-title">
             <h4>Pengeluaran</h4>
             <p className="text-right">Sisa Anggaran: {formattedMoney}</p>
           </div>
@@ -94,7 +95,11 @@ const Pengeluaran = () => {
             <FormRowSelect
               labelText="penerima"
               name="penerimaAdministrasi"
-              list={["--pilih komisi--", ...filteredRoles]}
+              list={
+                user.role === "admin"
+                  ? ["--pilih komisi--", ...filteredRoles]
+                  : ["--pilih komisi--", user.role]
+              }
               onChange={() => {
                 ambilNamaProgram();
               }}

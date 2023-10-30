@@ -27,8 +27,6 @@ async function deleteAdministrasiItem(
   namaProgram: string
 ) {
   try {
-    console.log(noAdministrasi);
-
     await customFetch.delete(`/administrasi/${noAdministrasi}`);
 
     // kurangin pengeluaran
@@ -145,7 +143,7 @@ export const columns: ColumnDef<Administrasi>[] = [
             <DropdownMenuLabel className="font-bold pb-3">
               Actions
             </DropdownMenuLabel>
-            <DropdownMenuItem
+            {/* <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={() => {
                 navigator.clipboard.writeText(noAdministrasi.toString());
@@ -153,7 +151,7 @@ export const columns: ColumnDef<Administrasi>[] = [
             >
               {" "}
               <Link to={`../Administrasi/${noAdministrasi}`}>edit</Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={async () => {

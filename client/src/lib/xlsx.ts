@@ -137,7 +137,11 @@ export function downloadToExcelSuratKeluar(data: any) {
   xlsx(columns, settings);
 }
 
-export function downloadToExcelAdministrasi(data: any, komisi: string) {
+export function downloadToExcelAdministrasi(
+  data: any,
+  komisi: string,
+  tipe: string
+) {
   function formatDateToYyyyMmDd(date: Date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -168,7 +172,7 @@ export function downloadToExcelAdministrasi(data: any, komisi: string) {
   ];
 
   let settings = {
-    fileName: `Administrasi Penerimaan ${komisi} Excel`,
+    fileName: `Administrasi ${tipe} ${komisi} Excel`,
   };
 
   xlsx(columns, settings);

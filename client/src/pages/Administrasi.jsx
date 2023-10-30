@@ -32,9 +32,6 @@ export const loader = async () => {
 };
 
 export const action = () => {
-  const form = document.getElementsByName("form");
-  console.log(form.id);
-
   return async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
@@ -130,7 +127,7 @@ const Administrasi = () => {
             <FormRowSelect
               labelText="Nama Program Kerja"
               name="namaProgram"
-              list={dataKomisi}
+              list={["--pilih program--", ...dataKomisi]}
               disable={dataKomisi.length > 0 ? false : true}
               required={true}
             />
