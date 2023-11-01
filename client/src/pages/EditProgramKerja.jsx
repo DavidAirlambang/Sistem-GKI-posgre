@@ -59,7 +59,7 @@ const EditProgramKerja = () => {
             name="penanggungJawab"
             labelText="penaggung jawab"
             defaultValue={programKerja.penanggungJawab}
-          /> 
+          />
           <FormRow
             name="tujuanKegiatan"
             labelText="tujuan kegiatan"
@@ -79,11 +79,6 @@ const EditProgramKerja = () => {
             name="totalAnggaran"
             labelText="total anggaran"
             defaultValue={programKerja.totalAnggaran}
-          />
-          <FormRow
-            name="realisasi"
-            labelText="realisasi"
-            defaultValue={programKerja.realisasi.toString()}
           />
           <FormRow
             type={"date"}

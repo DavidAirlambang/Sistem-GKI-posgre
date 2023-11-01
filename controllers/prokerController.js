@@ -108,7 +108,7 @@ export const getProgramKerja = async (req, res) => {
 
 export const editProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
-  req.body.realisasi = parseInt(req.body.realisasi)
+  req.body.realisasi = 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
   req.body.statusProker = 'Pending'
 
@@ -200,14 +200,7 @@ export const CreateManyProgramKerja = async (req, res) => {
         .json({ error: 'File tidak ditemukan.' })
     }
 
-    function gantiGaris (tanggal) {
-      if (tanggal.includes('-')) {
-        const baru = tanggal.replace(/-/g, '-')
-      }
-    }
-
     function customRowFormat (row) {
-      console.log(row['Tanggal'])
       return {
         namaProgram: row['Nama Program'],
         penanggungJawab: row['Penanggung Jawab'],
@@ -227,8 +220,6 @@ export const CreateManyProgramKerja = async (req, res) => {
       'file/programKerja.csv',
       customRowFormat
     )
-
-    // console.log(jsonData)
 
     const upToPrisma = await prisma.programKerja.createMany({
       data: jsonData
