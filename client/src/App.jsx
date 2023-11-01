@@ -19,6 +19,8 @@ import {
   CreateProgramKerja,
   DetailLaporanProker,
   AllAdministrasi,
+  Viatikum,
+  EditViatikum,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -63,6 +65,10 @@ import { action as administrasiEditAction } from "./pages/EditAdministrasi";
 import { action as createProgramKerjaAction } from "./pages/CreateProgramKerja";
 import { loader as programKerjaEditLoader } from "./pages/EditProgramKerja";
 import { action as programKerjaEditAction } from "./pages/EditProgramKerja";
+import { action as viatikumAction } from "./pages/Viatikum";
+import { loader as viatikumLoader } from "./pages/Viatikum";
+import { action as viatikumEditAction } from "./pages/EditViatikum";
+import { loader as viatikumEditLoader } from "./pages/EditViatikum";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -221,6 +227,18 @@ const router = createBrowserRouter([
             element: <DetailLaporanProker />,
             // action: programKerjaEditAction(),
             loader: programKerjaEditLoader,
+          },
+          {
+            path: "viatikum",
+            element: <Viatikum />,
+            action: viatikumAction(),
+            loader: viatikumLoader,
+          },
+          {
+            path: "viatikum/:noViatikum",
+            element: <EditViatikum />,
+            action: viatikumEditAction(),
+            loader: viatikumEditLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

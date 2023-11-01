@@ -13,7 +13,7 @@ export const loader = async ({ params }) => {
       `/suratMasuk/${params.noSuratMasuk}`
     );
     return data;
-  } catch (error) {
+  } catch (error) { 
     toast.error(error.response.data.msg);
     return redirect("/dashboard/suratMasuk");
   }

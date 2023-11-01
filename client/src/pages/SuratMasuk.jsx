@@ -18,7 +18,7 @@ export const loader = async () => {
   } catch (error) {
     toast.error(error?.response?.data?.msg);
     return error;
-  }
+  } 
 };
 
 export const action = () => {
@@ -36,7 +36,7 @@ export const action = () => {
   };
 }; 
 
-const AllSuratMasukContext = createContext();
+const AllSuratMasukContext = createContext(); 
 const SuratMasuk = () => {
   const { data } = useLoaderData();
   const { suratMasuk } = data;

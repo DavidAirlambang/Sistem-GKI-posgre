@@ -47,6 +47,11 @@ const links = [
     path: "programKerja",
     icon: <FaWpforms />,
   },
+  {
+    text: "Viatikum",
+    path: "viatikum",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",
