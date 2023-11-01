@@ -17,7 +17,7 @@ export const createViatikum = async (req, res) => {
 
 export const getAllViatikum = async (req, res) => {
   const viatikum = await prisma.viatikum.findMany({
-    orderBy: { namaViatikum: 'asc' }
+    orderBy: { noViatikum: 'asc' }
   })
   res.status(StatusCodes.OK).json({ viatikum })
 }
@@ -32,7 +32,7 @@ export const getViatikum = async (req, res) => {
 export const getViatikumPeriode = async (req, res) => {
   const viatikum = await prisma.viatikum.findMany({
     where: { tahun: parseInt(req.body.tahun) },
-    orderBy: { namaViatikum: 'asc' }
+    orderBy: { noViatikum: 'asc' }
   })
   res.status(StatusCodes.OK).json({ viatikum })
 }
@@ -42,7 +42,7 @@ export const editViatikum = async (req, res) => {
   req.body.pertahun = parseInt(req.body.pertahun)
   req.body.tahun = parseInt(req.body.tahun)
   const viatikum = await prisma.viatikum.update({
-    where: { noViatikum: req.params.noViatikum },
+    where: { noViatikum: parseInt(req.params.noViatikum) },
     data: req.body
   })
   res.status(StatusCodes.OK).json({ viatikum })
