@@ -4,11 +4,9 @@ dotenv.config()
 import express from 'express'
 const app = express()
 import morgan from 'morgan'
-import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import cloudinary from 'cloudinary'
 import helmet from 'helmet'
-import mongoSanitize from 'express-mongo-sanitize'
 
 // routers
 import authRouter from './routes/authRouter.js'
@@ -23,6 +21,7 @@ import suratMasukRouter from './routes/suratMasukRouter.js'
 import suratKeluarRouter from './routes/suratKeluarRouter.js'
 import administrasiRouter from './routes/administrasiRouter.js'
 import prokerRouter from './routes/prokerRouter.js'
+import viatikumRouter from './routes/viatikumRouter.js'
 
 // public
 import { dirname } from 'path'
@@ -47,7 +46,6 @@ app.use(express.static(path.resolve(__dirname, './client/dist')))
 app.use(cookieParser())
 app.use(express.json())
 app.use(helmet())
-app.use(mongoSanitize())
 
 app.get('/', (req, res) => {
   res.send('Hello World')
@@ -69,6 +67,7 @@ app.use('/api/v1/suratMasuk', authenticateUser, suratMasukRouter)
 app.use('/api/v1/suratKeluar', authenticateUser, suratKeluarRouter)
 app.use('/api/v1/administrasi', authenticateUser, administrasiRouter)
 app.use('/api/v1/proker', authenticateUser, prokerRouter)
+app.use('/api/v1/viatikum', authenticateUser, viatikumRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))

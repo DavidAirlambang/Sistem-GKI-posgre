@@ -121,12 +121,11 @@ model ProgramKerja {
 }
 
 model Viatikum {
-  id               Int      @id @default(autoincrement())
-  nama             String
-  kelompok         String[]
-  periode          String
-  nominal_viatikum Int
-  nominal_total    Int
-  keterangan       String
-  id_user          Int
+  noViatikum Int    @id @default(autoincrement())
+  nama       String
+  kelompok   String
+  viatikum   Int
+  pertahun   Int
+  tahun      Int
+  keterangan String @default("-")
 }

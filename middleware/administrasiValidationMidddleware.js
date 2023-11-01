@@ -2,7 +2,7 @@ import { ADMINISTRASI } from '../utils/constants.js'
 import { withValidationErrors } from './validationMiddleware.js'
 import { body, param } from 'express-validator'
 
-export const validateAdministrasiInput = withValidationErrors([
+export const validateAdministrasiInput = withValidationErrors([ 
   body('tanggalAdministrasi')
     .notEmpty()
     .withMessage('tanggal administrasi is required'),

@@ -32,7 +32,7 @@ export const getAllAdministrasi = async (req, res) => {
     res.status(StatusCodes.OK).json({ administrasi })
   }
 }
-
+ 
 export const getAllAdministrasiDateRange = async (req, res) => {
   const query = {
     where: {
