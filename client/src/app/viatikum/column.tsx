@@ -145,7 +145,7 @@ export const columns: ColumnDef<Viatikum>[] = [
               }}
             >
               {" "}
-              <Link to={`../viatikum/${noViatikum}`}>edit surat</Link>
+              <Link to={`../viatikum/${noViatikum}`}>edit viatikum</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
@@ -161,7 +161,7 @@ export const columns: ColumnDef<Viatikum>[] = [
                   ) {
                     toast.error(error.response.data.msg);
                   } else {
-                    toast.error("An error occurred while deleting surat.");
+                    toast.error("An error occurred while deleting viatikum.");
                   }
                   return error;
                 }

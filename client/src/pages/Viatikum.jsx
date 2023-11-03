@@ -45,13 +45,12 @@ const Viatikum = () => {
   const [dataTable, setDataTable] = useState(viatikum);
 
   const reset = () => {
-    document.getElementById("noViatikum").reset();
-    document.getElementById("tanggalMasuk").reset();
-    document.getElementById("tanggalViatikum").reset();
-    document.getElementById("pengirimMasuk").reset();
-    document.getElementById("perihalMasuk").reset();
-    document.getElementById("eventMasuk").reset();
-    document.getElementById("disposisiMasuk").reset();
+    document.getElementById("nama").reset();
+    document.getElementById("kelompok").reset();
+    document.getElementById("viatikum").reset();
+    document.getElementById("pertahun").reset();
+    document.getElementById("tahun").reset();
+    document.getElementById("keterangan").reset();
   };
 
   const hitungPerTahun = () => {
