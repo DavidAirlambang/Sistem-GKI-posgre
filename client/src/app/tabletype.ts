@@ -73,3 +73,13 @@ export type ProgramKerja = {
   statusProker: string;
   tanggalProker: string;
 };
+
+export type Viatikum = {
+  noViatikum: number;
+  nama: string;
+  kelompok: string;
+  viatikum: number;
+  pertahun: number;
+  tahun: number;
+  keterangan: string;
+};

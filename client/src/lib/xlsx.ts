@@ -216,3 +216,26 @@ export function downloadToExcelProgramKerja(data: any, komisi: string) {
 
   xlsx(columns, settings);
 }
+
+export function downloadToExcelViatikum(data: any) {
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "Viatikum",
+      columns: [
+        { label: "Nama", value: "nama" },
+        { label: "Kelompok", value: "kelompok" },
+        { label: "Viatikum", value: "viatikum" },
+        { label: "Pertahun", value: "pertahun" },
+        { label: "Tahun", value: "tahun" },
+        { label: "Keterangan", value: "keterangan" },
+      ],
+      content: data,
+    },
+  ];
+
+  let settings = {
+    fileName: `Viatikum Excel`,
+  };
+
+  xlsx(columns, settings);
+}

@@ -1,13 +1,13 @@
 "use client";
-  
+
 import { toast } from "react-toastify";
 import customFetch from "../../utils/customFetch";
 import { Link, Form, redirect, useOutletContext } from "react-router-dom";
 import { ColumnDef } from "@tanstack/react-table";
-import { SuratMasuk } from "../tabletype";
+import { Viatikum } from "../tabletype";
 import { Button } from "@/components/ui/button";
 
-import { useAllSuratMasukContext } from "../../pages/SuratMasuk";
+import { useAllViatikumContext } from "../../pages/Viatikum";
 
 import {
   DropdownMenu,
@@ -20,12 +20,13 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
 } from "@radix-ui/react-dropdown-menu";
+import React from "react";
 
-async function deleteSuratMasukItem(noSuratMasuk: any) {
+async function deleteViatikumItem(noViatikum: any) {
   try {
-    await customFetch.delete(`/suratMasuk/${noSuratMasuk}`);
+    await customFetch.delete(`/viatikum/${noViatikum}`);
     toast.success("Item deleted successfully");
-    return redirect("/dashboard/suratMasuk");
+    return redirect("/dashboard/viatikum");
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.msg) {
       toast.error(error.response.data.msg);
@@ -36,9 +37,8 @@ async function deleteSuratMasukItem(noSuratMasuk: any) {
   }
 }
 
-export const columns: ColumnDef<SuratMasuk>[] = [
+export const columns: ColumnDef<Viatikum>[] = [
   {
-    // sort by name
     header: ({ column }) => {
       return (
         <Button
@@ -47,109 +47,83 @@ export const columns: ColumnDef<SuratMasuk>[] = [
             column.toggleSorting(column.getIsSorted() === "asc");
           }}
         >
-          Nomer Surat
+          Nama
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
-    accessorKey: "noSuratMasuk",
+    accessorKey: "nama",
   },
   {
-    header: ({ column }) => {
-      return (
-        <Button
-          variant={"ghost"}
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === "asc");
-          }}
-        >
-          Tanggal Masuk
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    accessorKey: "tanggalMasuk",
-    // modif
+    header: "Kelompok",
+    accessorKey: "kelompok",
+  },
+  {
+    header: "Viatikum",
+    accessorKey: "viatikum",
     cell: ({ row }) => {
-      const tanggalMasuk = row.getValue("tanggalMasuk");
-      const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+      const viatikum = row.getValue("viatikum");
 
-      // Konversi tanggal menjadi objek Date
-      const tanggalObj = new Date(tanggalMasuk as string);
-
-      // Ekstrak day, month, dan year dari tanggalObj
-      const day = String(tanggalObj.getDate()).padStart(2, "0");
-      const month = String(tanggalObj.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0, jadi perlu ditambahkan 1
-      const year = tanggalObj.getFullYear();
-
-      // Format tanggal sesuai dengan "dd/mm/yyyy"
-      const formatted = `${day}/${month}/${year}`;
-
-      return <div className="font-medium">{formatted}</div>;
+      const formattedMoney = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(viatikum as number);
+      return <div className="font-medium">{formattedMoney}</div>;
     },
   },
   {
-    header: ({ column }) => {
+    header: "Pertahun",
+    accessorKey: "pertahun",
+    cell: ({ row }) => {
+      const pertahun = row.getValue("pertahun");
+
+      const formattedMoney = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(pertahun as number);
+      return <div className="font-medium">{formattedMoney}</div>;
+    },
+  },
+  {
+    header: "Tahun",
+    accessorKey: "tahun",
+  },
+  {
+    header: "Keterangan",
+    accessorKey: "keterangan",
+    cell: ({ row }) => {
+      const keterangan = row.getValue("keterangan");
+
+      // Fungsi untuk mengganti baris baru dengan elemen <br>
+      const formatTextWithLineBreaks = (text: any) => {
+        const lines = text.split("\n");
+        return lines.map((line: any, index: any) => (
+          <React.Fragment key={index}>
+            {line}
+            {index < lines.length - 1 && <br />}
+          </React.Fragment>
+        ));
+      };
+
       return (
-        <Button
-          variant={"ghost"}
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === "asc");
-          }}
-        >
-          Tanggal Surat
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div className="font-medium">
+          {formatTextWithLineBreaks(keterangan)}
+        </div>
       );
     },
-    accessorKey: "tanggalSuratMasuk",
-    // modif
-    cell: ({ row }) => {
-      const tanggalSuratMasuk = row.getValue("tanggalSuratMasuk");
-      const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-
-      // Konversi tanggal menjadi objek Date
-      const tanggalObj = new Date(tanggalSuratMasuk as string);
-
-      // Ekstrak day, month, dan year dari tanggalObj
-      const day = String(tanggalObj.getDate()).padStart(2, "0");
-      const month = String(tanggalObj.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0, jadi perlu ditambahkan 1
-      const year = tanggalObj.getFullYear();
-
-      // Format tanggal sesuai dengan "dd/mm/yyyy"
-      const formatted = `${day}/${month}/${year}`;
-
-      return <div className="font-medium">{formatted}</div>;
-    },
-  },
-  {
-    header: "Pengirim",
-    accessorKey: "pengirimMasuk",
-  },
-  {
-    header: "Perihal",
-    accessorKey: "perihalMasuk",
-  },
-  {
-    header: "Event",
-    accessorKey: "eventMasuk",
-  },
-  {
-    header: "Disposisi",
-    accessorKey: "disposisiMasuk",
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const SuratMasuk = row.original;
-      const noSuratMasuk = SuratMasuk.noSuratMasuk;
-      const { setDataTable } = useAllSuratMasukContext();
+      const Viatikum = row.original;
+      const noViatikum = Viatikum.noViatikum;
+      const { setDataTable } = useAllViatikumContext();
 
       // fetch ulang
       const refreshTable = async () => {
-        const { data } = await customFetch.get("/suratMasuk");
-        const { suratMasuk } = data;
-        setDataTable(suratMasuk);
+        const { data } = await customFetch.get("/viatikum");
+        const { viatikum } = data;
+        setDataTable(viatikum);
       };
 
       return (
@@ -167,17 +141,17 @@ export const columns: ColumnDef<SuratMasuk>[] = [
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={() => {
-                navigator.clipboard.writeText(noSuratMasuk.toString());
+                navigator.clipboard.writeText(noViatikum.toString());
               }}
             >
               {" "}
-              <Link to={`../suratMasuk/${noSuratMasuk}`}>edit surat</Link>
+              <Link to={`../viatikum/${noViatikum}`}>edit surat</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
               onClick={async () => {
                 try {
-                  await deleteSuratMasukItem(noSuratMasuk);
+                  await deleteViatikumItem(noViatikum);
                   refreshTable();
                 } catch (error: any) {
                   if (

@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
 
-// import { columns } from "../app/viatikum/column";
-// import viatikumDataTable from "@/app/viatikum/data-table";
+import { columns } from "../app/viatikum/column";
+import ViatikumDataTable from "@/app/viatikum/data-table";
 
 export const loader = async () => {
   try {
@@ -41,7 +41,6 @@ const AllViatikumContext = createContext();
 const Viatikum = () => {
   const { data } = useLoaderData();
   const { viatikum } = data;
-  console.log(viatikum);
 
   const [dataTable, setDataTable] = useState(viatikum);
 
@@ -101,7 +100,7 @@ const Viatikum = () => {
           </div>
         </Form>
       </Wrapper>
-      {/* <ViatikumDataTable columns={columns} data={dataTable} /> */}
+      <ViatikumDataTable columns={columns} data={dataTable} />
     </AllViatikumContext.Provider>
   );
 };

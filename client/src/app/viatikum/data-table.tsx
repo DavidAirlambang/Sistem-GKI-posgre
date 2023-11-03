@@ -31,9 +31,9 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { ModeToggle } from "@/components/ModeToggle";
-import { downloadToExcelSuratMasuk as downloadToExcel } from "@/lib/xlsx";
+import { downloadToExcelViatikum as downloadToExcel } from "@/lib/xlsx";
 import { CSVUploader } from "@/lib/CSVUploader";
-import { useAllSuratMasukContext } from "@/pages/SuratMasuk";
+import { useAllViatikumContext } from "@/pages/Viatikum";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { DatePickerWithRange } from "@/components/DateRangePicker";
@@ -43,7 +43,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function SuratMasukDataTable<TData, TValue>({
+export function ViatikumDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -79,12 +79,32 @@ export function SuratMasukDataTable<TData, TValue>({
   });
 
   // state table
-  const { dataTable, setDataTable } = useAllSuratMasukContext();
+  const { dataTable, setDataTable } = useAllViatikumContext();
+
+  const filterTable = async () => {
+    const tahun = document.getElementById(
+      "tahunFilter"
+    ) as HTMLInputElement | null;
+    const tahunCari = tahun?.value;
+    if (tahunCari) {
+      try {
+        const { data } = await customFetch.post("/viatikum/periode", {
+          tahun: tahunCari,
+        });
+        const { viatikum } = data;
+        setDataTable(viatikum);
+      } catch (error: any) {
+        toast.error(error?.response?.data?.msg);
+        return error;
+      }
+    }
+  };
 
   const refreshTable = async () => {
-    const { data } = await customFetch.get("suratMasuk");
-    const { suratMasuk } = data;
-    setDataTable(suratMasuk);
+    (document.getElementById("tahunFilter")! as HTMLInputElement).value = "";
+    const { data } = await customFetch.get("viatikum");
+    const { viatikum } = data;
+    setDataTable(viatikum);
   };
 
   return (
@@ -92,7 +112,21 @@ export function SuratMasukDataTable<TData, TValue>({
       {/* input */}
       <div className="flex items-center py-4">
         {/* <Input*/}
-        <DatePickerWithRange filterFor="suratMasuk" />
+        <div className="flex w-full max-w-sm items-center space-x-2">
+          <Input
+            id="tahunFilter"
+            type="tahun"
+            placeholder="Tahun"
+            className="form-input py"
+          />
+          {/* fiter tahun */}
+          <Button type="submit" className="btn" onClick={() => filterTable()}>
+            filter
+          </Button>
+          <Button type="submit" className="btn" onClick={() => refreshTable()}>
+            reset
+          </Button>
+        </div>
 
         {/* export */}
         <Button
@@ -109,7 +143,7 @@ export function SuratMasukDataTable<TData, TValue>({
         </Button>
 
         {/* import */}
-        <CSVUploader path="/suratMasuk/upload" refresh={() => refreshTable()} />
+        <CSVUploader path="/viatikum/upload" refresh={() => refreshTable()} />
 
         {/* visibility */}
         <DropdownMenu>
@@ -214,4 +248,4 @@ export function SuratMasukDataTable<TData, TValue>({
   );
 }
 
-export default SuratMasukDataTable;
+export default ViatikumDataTable;
