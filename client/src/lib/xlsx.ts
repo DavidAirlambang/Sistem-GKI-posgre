@@ -205,6 +205,7 @@ export function downloadToExcelProgramKerja(data: any, komisi: string) {
         { label: "Realisasi", value: "realisasi" },
         { label: "Status", value: "statusProker" },
         { label: "Tanggal", value: "tanggalProker" },
+        { label: "Laporan", value: "laporanProker" },
       ],
       content: data,
     },
