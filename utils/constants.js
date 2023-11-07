@@ -27,7 +27,8 @@ export const PROGRAM_KERJA = {
   ALL: 'All',
   APPROVE: 'Approved',
   PENDING: 'Pending',
-  DENIED: 'Denied'
+  DENIED: 'Denied',
+  DONE: 'Done'
 }
 
 export const GUDANG = {
@@ -67,4 +68,34 @@ export const JOB_SORT_BY = {
   OLDEST_FIRST: 'oldest',
   ASCENDING: 'a-z',
   DESCENDING: 'z-a'
+}
+
+export const KATEGORI = {
+  RUANGAN: 'ruangan',
+  GUDANG: 'gudang',
+  MULTIMEDIA: 'multimedia',
+  ASETLAIN: 'aset lain',
+  SURAT_MASUK: 'surat masuk',
+  SURAT_KELUAR: 'surat keluar',
+  ADMINISTRASI_PENERIMAAN: 'administrasi penerimaan',
+  ADMINISTRASI_PENGELUARAN: 'administrasi pengeluaran',
+  PROGRAM_KERJA: 'program kerja',
+  VIATIKUM: 'viatikum',
+  LOG: 'log',
+  USER: 'user'
+}
+
+export const ACTION = {
+  // umum
+  CREATE: 'create',
+  READ: 'read',
+  UPDATE: 'update',
+  DELETE: 'delete',
+  // beberapa
+  EXPORT: 'export to excel',
+  IMPORT: 'import from csv',
+  // proker dan ruang
+  APPROVE: 'approve',
+  DENY: 'deny',
+  DONE: 'done'
 }

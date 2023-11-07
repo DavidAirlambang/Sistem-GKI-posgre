@@ -19,7 +19,7 @@ model User {
   created_at     DateTime  @default(now())
   updated_at     DateTime  @updatedAt
   createdRuangan Ruangan[]
-  // historyLog     Log[]
+  historyLog     Log[]
 }
 
 model Ruangan {
@@ -69,13 +69,6 @@ model AsetLain {
   deskripsiAsetLain String @default("-")
   nilaiAset         Int    @default(0)
 }
-
-// model Log {
-//   noLog      Int    @id @default(autoincrement())
-//   TanggalLog String
-//   User       User?  @relation(fields: [userId], references: [id])
-//   userId     Int?
-// }
 
 model SuratMasuk {
   noSuratMasuk      String   @id @unique @default(cuid())
@@ -128,4 +121,14 @@ model Viatikum {
   pertahun   Int
   tahun      Int
   keterangan String @default("-")
+}
+
+model Log {
+  noLog       Int      @id @default(autoincrement())
+  tanggalLog  DateTime @default(now()) @db.Date
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      Int?
+  kategoriLog String
+  actionLog   String
+  keterangan  String
 }

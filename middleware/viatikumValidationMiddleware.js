@@ -8,3 +8,4 @@ export const validateViatikumInput = withValidationErrors([
   body('pertahun').notEmpty().withMessage('pertahun is required'),
   body('tahun').notEmpty().withMessage('tahun is required')
 ])
+  

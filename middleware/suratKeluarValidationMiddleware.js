@@ -11,3 +11,4 @@ export const validateSuratKeluarInput = withValidationErrors([
   body('tujuanKeluar').notEmpty().withMessage('tujuan is required'),
   body('perihalKeluar').notEmpty().withMessage('perihal is required')
 ])
+ 

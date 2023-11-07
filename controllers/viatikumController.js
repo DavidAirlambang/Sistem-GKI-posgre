@@ -12,7 +12,7 @@ export const createViatikum = async (req, res) => {
   const viatikum = await prisma.viatikum.create({
     data: req.body
   })
-  res.status(StatusCodes.CREATED).json({ viatikum })
+  res.status(StatusCodes.CREATED).json({ viatikum }) 
 }
 
 export const getAllViatikum = async (req, res) => {

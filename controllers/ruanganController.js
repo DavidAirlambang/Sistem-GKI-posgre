@@ -14,7 +14,7 @@ export const createRuangan = async (req, res) => {
   })
   res.status(StatusCodes.CREATED).json({ ruang })
 }
-
+ 
 export const getRuangan = async (req, res) => {
   const ruang = await prisma.ruangan.findUnique({
     where: { noRuangan: req.params.id }
