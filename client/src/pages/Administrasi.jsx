@@ -137,6 +137,7 @@ const Administrasi = () => {
               required={true}
             />
             <FormRow name="uraianAdministrasi" labelText="uraian" />
+            <div></div>
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back

@@ -47,7 +47,7 @@ export const columns: ColumnDef<AsetLain>[] = [
             column.toggleSorting(column.getIsSorted() === "asc");
           }}
         >
-          Nama AsetLain
+          Nama Aset Lain
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -55,15 +55,15 @@ export const columns: ColumnDef<AsetLain>[] = [
     accessorKey: "namaAsetLain",
   },
   {
-    header: "Jenis AsetLain",
+    header: "Jenis Aset Lain",
     accessorKey: "jenisAsetLain",
   },
   {
-    header: "Jumlah AsetLain",
+    header: "Jumlah Aset Lain",
     accessorKey: "jumlahAsetLain",
   },
   {
-    header: "Peminjam AsetLain",
+    header: "Peminjam Aset Lain",
     accessorKey: "peminjamAsetLain",
   },
   {
@@ -75,7 +75,7 @@ export const columns: ColumnDef<AsetLain>[] = [
             column.toggleSorting(column.getIsSorted() === "asc");
           }}
         >
-          Lokasi AsetLain
+          Lokasi Aset Lain
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
