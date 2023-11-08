@@ -51,7 +51,7 @@ export const bookingRuangan = async (req, res) => {
   try {
     buatLog(
       req.body.userId,
-      `Booking ruangan ${booking.namaRuangan}`,
+      `Booking ruangan ${booking.namaRuangan} untuk ${req.body.komisi}`,
       KATEGORI.RUANGAN,
       ACTION.BOOKING
     )
@@ -73,7 +73,7 @@ export const approveRuangan = async (req, res) => {
   try {
     buatLog(
       req.body.userId,
-      `Approve booking ruangan ${booking.namaRuangan}`,
+      `Approve booking ruangan ${booking.namaRuangan} untuk ${booking.komisi}`,
       KATEGORI.RUANGAN,
       ACTION.APPROVE
     )
@@ -86,6 +86,7 @@ export const approveRuangan = async (req, res) => {
 }
 
 export const resetRuangan = async (req, res) => {
+  req.body.userId = parseInt(req.body.userId)
   const reset = {
     jadwal: '-',
     keteranganProjector: '-',
@@ -97,5 +98,19 @@ export const resetRuangan = async (req, res) => {
     where: { noRuangan: req.params.id },
     data: reset
   })
+
+  try {
+    buatLog(
+      req.body.userId,
+      `Reset booking ruangan ${booking.namaRuangan}`,
+      KATEGORI.RUANGAN,
+      ACTION.DONE
+    )
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: 'error created log' })
+  }
+
   res.status(StatusCodes.OK).json({ booking })
 }

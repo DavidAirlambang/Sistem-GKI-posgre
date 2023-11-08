@@ -125,7 +125,7 @@ model Viatikum {
 
 model Log {
   noLog       Int      @id @default(autoincrement())
-  tanggalLog  DateTime @default(now()) @db.Date
+  tanggalLog  DateTime @default(now())
   user        User?    @relation(fields: [userId], references: [id])
   userId      Int?
   kategoriLog String

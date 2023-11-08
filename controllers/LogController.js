@@ -16,7 +16,7 @@ export const createLog = async (req, res) => {
 }
 
 export const buatLog = async (id, keterangan, kategori, action) => {
-  const tanggalLog = new Date().toISOString()
+  const tanggalLog = new Date()
   const userId = parseInt(id)
   await prisma.log.create({
     data: {

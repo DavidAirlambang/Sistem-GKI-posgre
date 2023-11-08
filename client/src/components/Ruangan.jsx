@@ -57,6 +57,7 @@ const Ruangan = ({
     if (button === "Selesai") {
       return (
         <Form method="post" action={`../reset/${noRuangan}`}>
+          <input type="hidden" name="userId" value={user.id} />
           <button
             type="submit"
             className="btn delete-btn"
