@@ -24,7 +24,7 @@ export const loader = async ({ params }) => {
     return redirect("/dashboard/ruangan");
   }
 };
- 
+
 export const action = () => {
   return async ({ request, params }) => {
     const formData = await request.formData();
@@ -42,10 +42,12 @@ export const action = () => {
 
 const BookingRuangan = () => {
   const { user } = useOutletContext();
+  console.log(user);
   const list = [user.role];
   return (
     <Wrapper>
       <Form method="post" className="form">
+        <input type="hidden" name="userId" value={user.id} />
         <h4 className="form-title">Booking Ruangan</h4>
         <div className="form-center">
           <FormRowSelect

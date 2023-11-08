@@ -97,5 +97,7 @@ export const ACTION = {
   // proker dan ruang
   APPROVE: 'approve',
   DENY: 'deny',
-  DONE: 'done'
+  DONE: 'done',
+  // ruangan
+  BOOKING: 'booking'
 }

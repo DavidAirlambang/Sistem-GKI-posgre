@@ -1,9 +1,12 @@
 import { StatusCodes } from 'http-status-codes'
 import prisma from '../utils/prisma.js'
-import { RUANGAN_STATUS } from '../utils/constants.js'
+import { ACTION, KATEGORI, RUANGAN_STATUS } from '../utils/constants.js'
+import { buatLog, createLog } from './LogController.js'
 
 export const getAllRuangan = async (req, res) => {
-  const ruangans = await prisma.ruangan.findMany()
+  const ruangans = await prisma.ruangan.findMany({
+    orderBy: { noRuangan: 'asc' }
+  })
   res.status(StatusCodes.OK).json({ ruangans })
 }
 
@@ -14,7 +17,7 @@ export const createRuangan = async (req, res) => {
   })
   res.status(StatusCodes.CREATED).json({ ruang })
 }
- 
+
 export const getRuangan = async (req, res) => {
   const ruang = await prisma.ruangan.findUnique({
     where: { noRuangan: req.params.id }
@@ -39,31 +42,46 @@ export const deleteRuangan = async (req, res) => {
 }
 
 export const bookingRuangan = async (req, res) => {
-  console.log(req.params)
-  // const ruang = await prisma.ruangan.findUnique({
-  //   where: { noRuangan: req.params.id }
-  // })
-  // if (ruang) {
-  //   console.log(ruang)
-  // } else {
-  //   console.log('gk tw')
-  // }
-  // res.status(StatusCodes.OK).json({ ruang })
-
+  req.body.userId = parseInt(req.body.userId)
   req.body.statusRuangan = RUANGAN_STATUS.WAITING
   const booking = await prisma.ruangan.update({
     where: { noRuangan: req.params.id },
     data: req.body
   })
+  try {
+    buatLog(
+      req.body.userId,
+      `Booking ruangan ${booking.namaRuangan}`,
+      KATEGORI.RUANGAN,
+      ACTION.BOOKING
+    )
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: 'error created log' })
+  }
   res.status(StatusCodes.OK).json({ booking })
 }
 
 export const approveRuangan = async (req, res) => {
+  req.body.userId = parseInt(req.body.userId)
   req.body.statusRuangan = RUANGAN_STATUS.OCCUPIED
   const booking = await prisma.ruangan.update({
     where: { noRuangan: req.params.id },
     data: req.body
   })
+  try {
+    buatLog(
+      req.body.userId,
+      `Approve booking ruangan ${booking.namaRuangan}`,
+      KATEGORI.RUANGAN,
+      ACTION.APPROVE
+    )
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: 'error created log' })
+  }
   res.status(StatusCodes.OK).json({ booking })
 }
 

@@ -4,15 +4,29 @@ import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
 import { promisify } from 'util'
+import { ACTION, KATEGORI } from '../utils/constants.js'
 
 export const createLog = async (req, res) => {
-  req.body.tanggalLog = new Date(req.body.tanggalLog).toISOString()
-  console.log(req.body.tanggalLog)
+  req.body.tanggalLog = new Date().toISOString()
   req.body.userId = parseInt(req.body.userId)
   const log = await prisma.log.create({
     data: req.body
   })
   res.status(StatusCodes.CREATED).json({ log })
+}
+
+export const buatLog = async (id, keterangan, kategori, action) => {
+  const tanggalLog = new Date().toISOString()
+  const userId = parseInt(id)
+  await prisma.log.create({
+    data: {
+      tanggalLog,
+      userId,
+      kategoriLog: kategori,
+      actionLog: action,
+      keterangan
+    }
+  })
 }
 
 export const getAllLog = async (req, res) => {

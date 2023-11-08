@@ -15,7 +15,7 @@ import {
 import {
   validateBookingRuangInput,
   validateIdRuangParam,
-  validateRuangInput, 
+  validateRuangInput,
   validateRuangUpdateInput
 } from '../middleware/ruanganValidationMiddleware.js'
 

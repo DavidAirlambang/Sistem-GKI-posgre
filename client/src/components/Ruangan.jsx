@@ -6,7 +6,13 @@ import {
   BsFillPersonFill,
   BsFillMicFill,
 } from "react-icons/bs";
-import { Link, Form, useLoaderData, useOutletContext } from "react-router-dom";
+import {
+  Link,
+  Form,
+  useLoaderData,
+  useOutletContext,
+  redirect,
+} from "react-router-dom";
 import Wrapper from "../assets/wrappers/Ruangan";
 import JobInfo from "./JobInfo";
 
@@ -14,7 +20,9 @@ import JobInfo from "./JobInfo";
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { RUANGAN_STATUS } from "../../../utils/constants";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import customFetch from "@/utils/customFetch";
+import { toast } from "react-toastify";
 day.extend(advancedFormat);
 
 const Ruangan = ({
@@ -30,6 +38,8 @@ const Ruangan = ({
   const date = day(jadwal).format("DD/MM/YYYY HH:mm").replace("T", " ");
   const { user } = useOutletContext();
 
+  const [statusButton, setStatusButton] = useState();
+
   let button;
   if (statusRuangan === RUANGAN_STATUS.AVAILABLE) {
     button = "Booking";
@@ -37,9 +47,9 @@ const Ruangan = ({
     button = "Selesai";
   } else {
     if (user.role === "admin") {
-      button = "approve";
+      button = "Approve";
     } else {
-      button = "waiting";
+      button = "Waiting";
     }
   }
 
@@ -70,6 +80,7 @@ const Ruangan = ({
     } else {
       return (
         <Form method="post" action={`../approve/${noRuangan}`}>
+          <input type="hidden" name="userId" value={user.id} />
           <button
             type="submit"
             className="btn delete-btn"
