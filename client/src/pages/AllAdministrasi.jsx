@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Administrasi, Pengeluaran } from ".";
+import { Administrasi, Laporan, Pengeluaran } from ".";
 import { useOutletContext } from "react-router-dom";
 
 export default function AllAdministrasi() {
@@ -16,12 +16,16 @@ export default function AllAdministrasi() {
           ""
         )}
         <TabsTrigger value="pengeluaran">Pengeluaran</TabsTrigger>
+        <TabsTrigger value="laporan">Laporan</TabsTrigger>
       </TabsList>
       <TabsContent value="penerimaan">
         <Administrasi />
       </TabsContent>
       <TabsContent value="pengeluaran">
         <Pengeluaran />
+      </TabsContent>
+      <TabsContent value="laporan">
+        <Laporan />
       </TabsContent>
     </Tabs>
   );

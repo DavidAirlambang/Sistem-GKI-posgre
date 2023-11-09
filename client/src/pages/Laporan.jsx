@@ -1,75 +1,34 @@
 /* eslint-disable react-refresh/only-export-components */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { useLoaderData } from "react-router-dom";
-import { Form } from "react-router-dom";
+import { Form, useLoaderData, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
 import { ROLE } from "../../../utils/constants";
 
-import { columns } from "../app/administrasi/column";
-import AdministrasiDataTable from "@/app/administrasi/data-table"; 
+import { columns } from "../app/pengeluaran/column";
+import PengeluaranDataTable from "@/app/pengeluaran/data-table";
 
-export const loader = async () => {
-  try {
-    const debitResponse = await customFetch.post("/administrasi", {
-      tipeAdministrasi: "debit",
-    });
+const AllPengeluaranContext = createContext();
 
-    const kreditResponse = await customFetch.post("/administrasi", {
-      tipeAdministrasi: "kredit",
-    });
+const Laporan = () => {
+  const { debitData, kreditData } = useLoaderData();
+  const { administrasi: penerimaan } = debitData;
+  const { administrasi: pengeluaran } = kreditData;
+  console.log(penerimaan);
+  const { user } = useOutletContext();
 
-    const debitData = debitResponse.data;
-    const kreditData = kreditResponse.data;
-
-    return { debitData, kreditData };
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
-    return error;
-  }
-};
-
-export const action = () => {
-  return async ({ request }) => {
-    const formData = await request.formData();
-    const data = Object.fromEntries(formData);
-
-    // pemisahan
-    const laporanProker = data.laporanProker;
-    delete data.laporanProker;
-
-    try {
-      await customFetch.post("/administrasi/create", {
-        ...data,
-      });
-
-      // update realisasi
-      if (data.tipeAdministrasi === "kredit") {
-        await customFetch.post("/proker/realisasi", {
-          namaProgram: data.namaProgram,
-          realisasi: data.nominalAdministrasi,
-          laporan: laporanProker,
-        });
-      }
-      return toast.success("Item added successfully ");
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-      return error;
-    }
-  };
-};
-
-const AllAdministrasiContext = createContext();
-
-const Administrasi = () => {
-  const { debitData } = useLoaderData();
-  const { administrasi } = debitData;
-
-  const [dataTable, setDataTable] = useState(administrasi);
+  const [dataTable, setDataTable] = useState(penerimaan);
   const [dataKomisi, setDataKomisi] = useState([]);
   const [filterKomisi, setFilterKomisi] = useState("All");
+  const [sisaAnggaran, setSisaAnggaran] = useState(0);
+  const [laporanProker, setLaporanProker] = useState("-");
+
+  const formattedMoney = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(sisaAnggaran);
 
   const ambilNamaProgram = async () => {
     try {
@@ -77,15 +36,27 @@ const Administrasi = () => {
         komisi: document.getElementById("penerimaAdministrasi").value,
       });
       const { programKerja } = await data;
-      // Menggunakan map untuk mengembalikan nama program
+
       const namaPrograms = programKerja.map(
         (program) => `(${program.noProker}) ${program.namaProgram}`
       );
 
-      // Mengatur state dataKomisi dengan nilai yang baru
       setDataKomisi(namaPrograms);
+      document.getElementById("laporanProker").value = "-";
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+  };
 
-      // Karena setState adalah asinkron, Anda mungkin ingin melakukan log di sini.
+  const checkSisaAnggaran = async () => {
+    try {
+      const { data } = await customFetch.post("/proker/anggaran", {
+        namaProgram: document.getElementById("namaProgram").value,
+      });
+      const { sisa, laporan } = data;
+      setLaporanProker(laporan);
+      setSisaAnggaran(sisa);
+      document.getElementById("laporanProker").value = laporan;
     } catch (error) {
       toast.error(error?.response?.data?.msg);
     }
@@ -98,14 +69,15 @@ const Administrasi = () => {
     document.getElementById("penerimaAdministrasi").reset();
     document.getElementById("uraianAdministrasi").reset();
     document.getElementById("namaProgram").reset();
+    document.getElementById("laporanProker").reset();
   };
 
   const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
 
   return (
-    <AllAdministrasiContext.Provider
+    <AllPengeluaranContext.Provider
       value={{
-        debitData,
+        kreditData,
         dataTable,
         setDataTable,
         filterKomisi,
@@ -114,8 +86,12 @@ const Administrasi = () => {
     >
       <Wrapper>
         <Form method="post" className="form">
-          <h4 className="form-title">Penerimaan</h4>
-          <input type="hidden" name="tipeAdministrasi" value={"debit"} />
+          <div className="flex justify-between items-center form-title">
+            <h4>Pengeluaran</h4>
+            <p className="text-right">Sisa Anggaran: {formattedMoney}</p>
+          </div>
+
+          <input type="hidden" name="tipeAdministrasi" value={"kredit"} />
           <div className="form-center">
             <FormRow
               type={"date"}
@@ -126,8 +102,14 @@ const Administrasi = () => {
             <FormRowSelect
               labelText="penerima"
               name="penerimaAdministrasi"
-              list={["--pilih komisi--", ...filteredRoles]}
-              onChange={() => ambilNamaProgram()}
+              list={
+                user.role === "admin"
+                  ? ["--pilih komisi--", ...filteredRoles]
+                  : ["--pilih komisi--", user.role]
+              }
+              onChange={() => {
+                ambilNamaProgram();
+              }}
             />
             <FormRowSelect
               labelText="Nama Program Kerja"
@@ -135,9 +117,15 @@ const Administrasi = () => {
               list={["--pilih program--", ...dataKomisi]}
               disable={dataKomisi.length > 0 ? false : true}
               required={true}
+              onChange={() => checkSisaAnggaran()}
             />
             <FormRow name="uraianAdministrasi" labelText="uraian" />
-            <div></div>
+            <FormRow
+              type={"textarea"}
+              name="laporanProker"
+              labelText="Laporan Program Kerja"
+              defaultValue={laporanProker}
+            />
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back
@@ -152,11 +140,10 @@ const Administrasi = () => {
           </div>
         </Form>
       </Wrapper>
-      <AdministrasiDataTable columns={columns} data={dataTable} />
-    </AllAdministrasiContext.Provider>
+      {/* <PengeluaranDataTable columns={columns} data={dataTable} /> */}
+    </AllPengeluaranContext.Provider>
   );
 };
 
-export const useAllAdministrasiContext = () =>
-  useContext(AllAdministrasiContext);
-export default Administrasi;
+export const useAllPengeluaranContext = () => useContext(AllPengeluaranContext);
+export default Laporan;
