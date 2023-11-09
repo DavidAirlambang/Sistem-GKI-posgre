@@ -27,6 +27,7 @@ const CreateProgramKerja = () => {
   const { user } = useOutletContext();
   const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
   const reset = () => {
+    document.getElementById("kodeProgram").reset();
     document.getElementById("namaProgram").reset();
     document.getElementById("penanggungJawab").reset();
     document.getElementById("tujuanKegiatan").reset();
@@ -47,6 +48,7 @@ const CreateProgramKerja = () => {
             labelText="komisi"
             list={user.role === "admin" ? filteredRoles : [user.role]}
           />
+          <FormRow name="kodeProgram" labelText="kode program" />
           <FormRow name="namaProgram" labelText="nama program" />
           <FormRow name="penanggungJawab" labelText="penaggung jawab" />
           <FormRow name="tujuanKegiatan" labelText="tujuan kegiatan" />
@@ -60,7 +62,7 @@ const CreateProgramKerja = () => {
             name="rincianRencana"
             labelText="rincian rencana"
           />
-          <SubmitBtn formBtn /> 
+          <SubmitBtn formBtn />
           <button
             className="btn form-btn delete-btn"
             type="reset"

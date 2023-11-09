@@ -9,6 +9,18 @@ export const createProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
   req.body.realisasi = parseInt(req.body.realisasi) || 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
+
+  // check
+  const checkProker = await prisma.programKerja.findUnique({
+    where: { kodeProgram: req.body.kodeProgram }
+  })
+  if (checkProker) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: 'Kode Program sudah digunakan' })
+  }
+
+  // bikin
   const programKerja = await prisma.programKerja.create({
     data: req.body
   })
@@ -21,7 +33,7 @@ export const getAllProgramKerja = async (req, res) => {
   }
   const programKerja = await prisma.programKerja.findMany({
     where: { komisi: req.body.komisi, statusProker: req.body.status },
-    orderBy: { tanggalProker: 'asc' }
+    orderBy: { kodeProgram: 'asc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
@@ -46,7 +58,7 @@ export const getAllProgramKerjaNama = async (req, res) => {
       komisi: req.body.komisi,
       statusProker: 'Approved'
     },
-    orderBy: { tanggalProker: 'asc' }
+    orderBy: { kodeProgram: 'asc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
@@ -76,7 +88,7 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
       },
       statusProker: req.body.status
     },
-    orderBy: { tanggalProker: 'asc' }
+    orderBy: { kodeProgram: 'asc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja

@@ -99,6 +99,7 @@ model AdministrasiKeuangan {
 
 model ProgramKerja {
   noProker         Int      @id @default(autoincrement())
+  kodeProgram      String   @unique
   komisi           String
   namaProgram      String
   penanggungJawab  String
@@ -114,13 +115,14 @@ model ProgramKerja {
 }
 
 model Viatikum {
-  noViatikum Int    @id @default(autoincrement())
-  nama       String
-  kelompok   String
-  viatikum   Int
-  pertahun   Int
-  tahun      Int
-  keterangan String @default("-")
+  noViatikum  Int    @id @default(autoincrement())
+  kodeProgram String @unique
+  nama        String
+  kelompok    String
+  viatikum    Int
+  pertahun    Int
+  tahun       Int
+  keterangan  String @default("-")
 }
 
 model Log {

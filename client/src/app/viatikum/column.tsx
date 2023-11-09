@@ -47,6 +47,22 @@ export const columns: ColumnDef<Viatikum>[] = [
             column.toggleSorting(column.getIsSorted() === "asc");
           }}
         >
+          Kode Program
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorKey: "kodeProgram",
+  },
+  {
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
           Nama
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>

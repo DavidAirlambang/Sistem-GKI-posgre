@@ -195,6 +195,7 @@ export function downloadToExcelProgramKerja(data: any, komisi: string) {
     {
       sheet: "ProgramKerja",
       columns: [
+        { label: "Kode Program", value: "kodeProgram" },
         { label: "Nama Program", value: "namaProgram" },
         { label: "Penanggung Jawab", value: "penanggungJawab" },
         { label: "Tujuan Kegiatan", value: "tujuanKegiatan" },
@@ -223,6 +224,7 @@ export function downloadToExcelViatikum(data: any) {
     {
       sheet: "Viatikum",
       columns: [
+        { label: "Kode Program", value: "kodeProgram" },
         { label: "Nama", value: "nama" },
         { label: "Kelompok", value: "kelompok" },
         { label: "Viatikum", value: "viatikum" },

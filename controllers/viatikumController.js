@@ -9,15 +9,26 @@ export const createViatikum = async (req, res) => {
   req.body.viatikum = parseInt(req.body.viatikum)
   req.body.pertahun = parseInt(req.body.pertahun)
   req.body.tahun = parseInt(req.body.tahun)
+
+  // check
+  const checkViatikum = await prisma.viatikum.findUnique({
+    where: { kodeProgram: req.body.kodeProgram }
+  })
+  if (checkViatikum) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: 'Kode Program sudah digunakan' })
+  }
+
   const viatikum = await prisma.viatikum.create({
     data: req.body
   })
-  res.status(StatusCodes.CREATED).json({ viatikum }) 
+  res.status(StatusCodes.CREATED).json({ viatikum })
 }
 
 export const getAllViatikum = async (req, res) => {
   const viatikum = await prisma.viatikum.findMany({
-    orderBy: { noViatikum: 'asc' }
+    orderBy: { kodeProgram: 'asc' }
   })
   res.status(StatusCodes.OK).json({ viatikum })
 }
@@ -32,7 +43,7 @@ export const getViatikum = async (req, res) => {
 export const getViatikumPeriode = async (req, res) => {
   const viatikum = await prisma.viatikum.findMany({
     where: { tahun: parseInt(req.body.tahun) },
-    orderBy: { noViatikum: 'asc' }
+    orderBy: { kodeProgram: 'asc' }
   })
   res.status(StatusCodes.OK).json({ viatikum })
 }

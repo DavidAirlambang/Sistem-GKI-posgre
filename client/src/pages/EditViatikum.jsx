@@ -45,6 +45,7 @@ const EditViatikum = () => {
       <Form method="post" className="form">
         <h4 className="form-title">Viatikum</h4>
         <div className="form-center">
+          <input type="hidden" value={viatikum.kodeProgram} />
           <FormRow labelText="nama" name="nama" defaultValue={viatikum.nama} />
           <FormRow
             labelText="kelompok"

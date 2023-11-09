@@ -34,13 +34,14 @@ export const action = () => {
     }
   };
 };
- 
+
 const EditAdministrasi = () => {
   const { administrasi } = useLoaderData();
   return (
     <Wrapper>
       <Form method="post" className="form">
         <h4 className="form-title">Administrasi Keuangan</h4>
+        <input type="hidden" value={administrasi.kodeProgram} />
         <div className="form-center">
           <FormRow
             type={"date"}

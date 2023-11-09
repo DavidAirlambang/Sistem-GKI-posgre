@@ -51,6 +51,7 @@ const Viatikum = () => {
     document.getElementById("pertahun").reset();
     document.getElementById("tahun").reset();
     document.getElementById("keterangan").reset();
+    document.getElementById("kodeProgram").reset();
   };
 
   const hitungPerTahun = () => {
@@ -65,6 +66,7 @@ const Viatikum = () => {
         <Form method="post" className="form">
           <h4 className="form-title">Viatikum</h4>
           <div className="form-center">
+            <FormRow labelText="kode Program" name="kodeProgram" />
             <FormRow labelText="nama" name="nama" />
             <FormRow labelText="kelompok" name="kelompok" />
             <FormRow

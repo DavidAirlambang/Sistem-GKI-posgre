@@ -55,8 +55,20 @@ async function processProgramKerjaItem(status: any, noProker: any) {
 
 export const columns: ColumnDef<ProgramKerja>[] = [
   {
-    header: "Komisi",
-    accessorKey: "komisi",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === "asc");
+          }}
+        >
+          Kode Program
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorKey: "kodeProgram",
   },
   {
     header: "Nama Program",
