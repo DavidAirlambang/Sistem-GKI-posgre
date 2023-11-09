@@ -20,6 +20,7 @@ import { useAllSuratKeluarContext } from "@/pages/SuratKeluar";
 import { useAllAdministrasiContext } from "@/pages/Administrasi";
 import { useAllProgramKerjaContext } from "@/pages/ProgramKerja";
 import { useAllPengeluaranContext } from "@/pages/Pengeluaran";
+import { useAllLaporanContext } from "@/pages/Laporan";
 
 export function DatePickerWithRange({ className, filterFor }: any) {
   const [date, setDate] = React.useState<DateRange | undefined>();
@@ -36,6 +37,8 @@ export function DatePickerWithRange({ className, filterFor }: any) {
       ? useAllPengeluaranContext()
       : filterFor === "programKerja"
       ? useAllProgramKerjaContext()
+      : filterFor === "laporan"
+      ? useAllLaporanContext()
       : null;
 
   // surat Masuk

@@ -13,6 +13,7 @@ import { useAllAdministrasiContext } from "@/pages/Administrasi";
 import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { useAllPengeluaranContext } from "@/pages/Pengeluaran";
+import { useAllLaporanContext } from "@/pages/Laporan";
 
 export function SelectItems({ komisi }: any) {
   const { setTableRole } = useAllProgramKerjaContext();
@@ -118,6 +119,37 @@ export function SelectStatus() {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>{"Filter Status"}</SelectLabel>
+          {items.map((item: any) => {
+            return (
+              <SelectItem className="tipe" key={item} value={item}>
+                {item}
+              </SelectItem>
+            );
+          })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function SelectLaporan() {
+  const { setFilterKomisi } = useAllLaporanContext();
+  const items = [
+    "All",
+    ...Object.values(ROLE).filter((role) => role !== "admin"),
+  ];
+  return (
+    <Select
+      onValueChange={(val) => {
+        setFilterKomisi(val);
+      }}
+    >
+      <SelectTrigger className="w-[500px] text-black mr-2">
+        <SelectValue placeholder={"Pilih Komisi atau Urusan"} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>{"Pilih Komisi atau Urusan"}</SelectLabel>
           {items.map((item: any) => {
             return (
               <SelectItem className="tipe" key={item} value={item}>

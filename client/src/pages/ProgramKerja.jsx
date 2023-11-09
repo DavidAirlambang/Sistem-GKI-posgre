@@ -10,7 +10,7 @@ import ProgramKerjaDataTable from "@/app/programKerja/data-table";
 const AllProgramKerjaContext = createContext();
 
 const ProgramKerja = () => {
-  const { user } = useOutletContext();
+  const { user } = useOutletContext(); 
   const [dataTable, setDataTable] = useState([]);
   const [tableRole, setTableRole] = useState(user.role);
   const [totalAnggaran, setTotalAnggaran] = useState(0);

@@ -6,7 +6,7 @@ export default function AllAdministrasi() {
   const { user } = useOutletContext();
   return (
     <Tabs
-      defaultValue={user.role === "admin" ? "penerimaan" : "pengeluaran"}
+      defaultValue={user.role === "admin" ? "laporan" : "pengeluaran"}
       className="w-[400px]"
     >
       <TabsList>
