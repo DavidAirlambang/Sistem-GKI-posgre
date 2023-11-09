@@ -147,20 +147,20 @@ export const processProgramKerja = async (req, res) => {
 
 export const realisasiProgramKerja = async (req, res) => {
   const text = req.body.namaProgram
-  const regex = /\((\d+)\)/
+  const regex = /\(([^)]+)\)/
   const match = text.match(regex)
-  const noProker = match[1]
+  const kodeProgram = match[1]
 
   const program = await prisma.programKerja.findUnique({
     where: {
-      noProker: parseInt(noProker)
+      kodeProgram: kodeProgram
     }
   })
   const realisasiTotal =
     parseInt(program.realisasi) + parseInt(req.body.realisasi)
 
   const programKerja = await prisma.programKerja.update({
-    where: { noProker: parseInt(noProker) },
+    where: { kodeProgram: kodeProgram },
     data: { realisasi: realisasiTotal, laporanProker: req.body.laporan }
   })
   res.status(StatusCodes.OK).json({ programKerja })
@@ -168,12 +168,12 @@ export const realisasiProgramKerja = async (req, res) => {
 
 export const sisaAnggaranProgramKerja = async (req, res) => {
   const text = req.body.namaProgram
-  const regex = /\((\d+)\)/
+  const regex = /\(([^)]+)\)/
   const match = text.match(regex)
-  const noProker = match[1]
+  const kodeProgram = match[1]
   const program = await prisma.programKerja.findUnique({
     where: {
-      noProker: parseInt(noProker)
+      kodeProgram: kodeProgram
     }
   })
   const laporan = program.laporanProker
@@ -183,7 +183,7 @@ export const sisaAnggaranProgramKerja = async (req, res) => {
 
 export const deleteProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.delete({
-    where: { noProker: parseInt(req.params.noProker) }
+    where: { noProker: req.params.noProker }
   })
   res.status(StatusCodes.OK).json({ programKerja })
 }

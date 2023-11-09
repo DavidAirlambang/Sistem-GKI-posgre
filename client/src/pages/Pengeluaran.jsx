@@ -36,7 +36,7 @@ const Pengeluaran = () => {
       const { programKerja } = await data;
 
       const namaPrograms = programKerja.map(
-        (program) => `(${program.noProker}) ${program.namaProgram}`
+        (program) => `(${program.kodeProgram}) ${program.namaProgram}`
       );
 
       setDataKomisi(namaPrograms);

@@ -9,7 +9,7 @@ import { useContext, createContext, useState } from "react";
 import { ROLE } from "../../../utils/constants";
 
 import { columns } from "../app/administrasi/column";
-import AdministrasiDataTable from "@/app/administrasi/data-table"; 
+import AdministrasiDataTable from "@/app/administrasi/data-table";
 
 export const loader = async () => {
   try {
@@ -79,7 +79,7 @@ const Administrasi = () => {
       const { programKerja } = await data;
       // Menggunakan map untuk mengembalikan nama program
       const namaPrograms = programKerja.map(
-        (program) => `(${program.noProker}) ${program.namaProgram}`
+        (program) => `(${program.kodeProgram}) ${program.namaProgram}`
       );
 
       // Mengatur state dataKomisi dengan nilai yang baru
