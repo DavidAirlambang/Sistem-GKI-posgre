@@ -1,5 +1,4 @@
-Nama Program;Penanggung Jawab;Tujuan Kegiatan;Target Peserta;Waktu Pelaksanaan;Rincian Rencana;Total Anggaran;Realisasi;Status;Tanggal
-test;penganggung A;tujuan A;20 Dewasa;seminggu sekali;rincian test;10000000;10000;Done;10/04/2023
-nama A;penanggung jawab A;tujuan A;100 anak;seminggu sekali;"a
+Kode Program;Nama Program;Penanggung Jawab;Tujuan Kegiatan;Target Peserta;Waktu Pelaksanaan;Rincian Rencana;Total Anggaran;Realisasi;Status;Tanggal;Laporan
+KA02;nama A;penanggung jawab A;tujuan A;100 dewasa;seminggu sekali;"a
 b
-c";100000;10000;Accepted;12/10/2023
+c";2000000;0;Pending;2023-11-09;-

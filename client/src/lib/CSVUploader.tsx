@@ -34,7 +34,7 @@ export function CSVUploader({ path, refresh, komisi, aktif }: any) {
       refresh();
       return toast.success("Item added successfully ");
     } catch (error: any) {
-      return toast.error(error?.response?.data?.msg);
+      return toast.error("Periksa kembali unique constraint atau data null");
     }
   };
 

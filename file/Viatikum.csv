@@ -1,7 +1,4 @@
-Nama;Kelompok;Viatikum;Pertahun;Tahun;Keterangan
-nama 1;kelompok 1;100000;1200000;2023;-
-nama A;kelompok A;100000;1200000;2023;-
-test;test;100000;1200000;2023;"a
+Kode Program;Nama;Kelompok;Viatikum;Pertahun;Tahun;Keterangan
+KA02;test;kelompok A;1000000;12000000;2023;"a
 b
-c
-d"
+c"

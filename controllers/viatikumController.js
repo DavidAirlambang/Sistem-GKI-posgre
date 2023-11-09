@@ -93,6 +93,7 @@ export const CreateManyViatikum = async (req, res) => {
 
     function customRowFormat (row) {
       return {
+        kodeProgram: row['Kode Program'],
         nama: row['Nama'],
         kelompok: row['Kelompok'],
         viatikum: parseInt(row['Viatikum']),

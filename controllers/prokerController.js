@@ -214,6 +214,7 @@ export const CreateManyProgramKerja = async (req, res) => {
 
     function customRowFormat (row) {
       return {
+        kodeProgram: row['Kode Program'],
         namaProgram: row['Nama Program'],
         penanggungJawab: row['Penanggung Jawab'],
         tujuanKegiatan: row['Tujuan Kegiatan'],
