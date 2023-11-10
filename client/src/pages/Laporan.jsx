@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useRef } from "react";
 import LaporanDataTable from "@/app/laporan/data-table";
 import { columns } from "@/app/laporan/column";
 import { SelectLaporan } from "@/components/SelectItem";
 import { DatePickerLaporan } from "@/components/DatePickerLaporan";
+import { Button } from "@/components/ui/button";
 
 const AllLaporanContext = createContext();
 
@@ -19,6 +20,12 @@ const Laporan = () => {
       style: "currency",
       currency: "IDR",
     }).format(money);
+  };
+
+  const printRef = useRef();
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
@@ -41,9 +48,14 @@ const Laporan = () => {
         <div className="flex items-center mt-4 w-full">
           <SelectLaporan />
           <DatePickerLaporan />
+          <Button onClick={handlePrint}>Print</Button>
         </div>
       </div>
-      <div className="flex items-center justify-normal bg-black p-5">
+      {/* Bagian yang akan dicetak */}
+      <div
+        ref={printRef}
+        className="flex items-center justify-normal bg-black p-5 print:visible print:absolute print:left-0 print:top-0"
+      >
         <div className="p-3">
           <div className="flex justify-between items-center ">
             <h5 className="font-bold">Penerimaan</h5>
@@ -57,7 +69,7 @@ const Laporan = () => {
         <div>
           <div className="flex justify-between items-center ">
             <h5 className="font-bold">Pengeluaran</h5>
-            <p className="mr-3">{`Total Pengeluaranan : ${FormatMoney(
+            <p className="mr-3">{`Total Pengeluaran : ${FormatMoney(
               totalPengeluaran
             )}`}</p>
           </div>
