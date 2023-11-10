@@ -242,3 +242,63 @@ export function downloadToExcelViatikum(data: any) {
 
   xlsx(columns, settings);
 }
+
+export function downloadToExcelLaporan(
+  penerimaan: any,
+  pengeluaran: any,
+  komisi: string
+) {
+  function formatDateToYyyyMmDd(date: Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  penerimaan = penerimaan.map((item: any) => ({
+    ...item,
+    tanggalAdministrasi: formatDateToYyyyMmDd(
+      new Date(item.tanggalAdministrasi)
+    ),
+  }));
+
+  pengeluaran = pengeluaran.map((item: any) => ({
+    ...item,
+    tanggalAdministrasi: formatDateToYyyyMmDd(
+      new Date(item.tanggalAdministrasi)
+    ),
+  }));
+
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "Penerimaan",
+      columns: [
+        { label: "Tanggal", value: "tanggalAdministrasi" },
+        { label: "Nama Program", value: "namaProgram" },
+        { label: "Nominal", value: "nominalAdministrasi" },
+        { label: "Tipe", value: "tipeAdministrasi" },
+        { label: "Penerima", value: "penerimaAdministrasi" },
+        { label: "Uraian", value: "uraianAdministrasi" },
+      ],
+      content: penerimaan,
+    },
+    {
+      sheet: "Pengeluaran",
+      columns: [
+        { label: "Tanggal", value: "tanggalAdministrasi" },
+        { label: "Nama Program", value: "namaProgram" },
+        { label: "Nominal", value: "nominalAdministrasi" },
+        { label: "Tipe", value: "tipeAdministrasi" },
+        { label: "Penerima", value: "penerimaAdministrasi" },
+        { label: "Uraian", value: "uraianAdministrasi" },
+      ],
+      content: pengeluaran,
+    },
+  ];
+
+  let settings = {
+    fileName: `Laporan Administrasi keuangan ${komisi} Excel`,
+  };
+
+  xlsx(columns, settings);
+}

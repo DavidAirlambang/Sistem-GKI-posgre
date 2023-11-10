@@ -5,6 +5,8 @@ import { columns } from "@/app/laporan/column";
 import { SelectLaporan } from "@/components/SelectItem";
 import { DatePickerLaporan } from "@/components/DatePickerLaporan";
 import { Button } from "@/components/ui/button";
+import { downloadToExcelLaporan } from "@/lib/xlsx";
+import { toast } from "react-toastify";
 
 const AllLaporanContext = createContext();
 
@@ -48,13 +50,46 @@ const Laporan = () => {
         <div className="flex items-center mt-4 w-full">
           <SelectLaporan />
           <DatePickerLaporan />
-          <Button onClick={handlePrint}>Print</Button>
+          <Button
+            onClick={handlePrint}
+            className="ml-4"
+            disabled={
+              penerimaanData.length !== 0 || pengeluaranData.length !== 0
+                ? false
+                : true
+            }
+          >
+            Print
+          </Button>
+
+          {/* export */}
+          <Button
+            onClick={() => {
+              try {
+                downloadToExcelLaporan(
+                  penerimaanData,
+                  pengeluaranData,
+                  filterKomisi
+                );
+              } catch (error) {
+                toast.error(error.response.data.msg);
+              }
+            }}
+            className="ml-2"
+            disabled={
+              penerimaanData.length !== 0 || pengeluaranData.length !== 0
+                ? false
+                : true
+            }
+          >
+            Export
+          </Button>
         </div>
       </div>
       {/* Bagian yang akan dicetak */}
       <div
         ref={printRef}
-        className="flex items-center justify-normal bg-black p-5 print:visible print:absolute print:left-0 print:top-0"
+        className="flex items-center justify-normal bg-black p-5 print:visible print:absolute print:left-0 print:top-0 print:font-sans print:text-black"
       >
         <div className="p-3">
           <div className="flex justify-between items-center ">
@@ -65,7 +100,6 @@ const Laporan = () => {
           </div>
           <LaporanDataTable columns={columns} data={penerimaanData} />
         </div>
-        <div className="w-[20px]"></div>
         <div>
           <div className="flex justify-between items-center ">
             <h5 className="font-bold">Pengeluaran</h5>
