@@ -38,7 +38,7 @@ export const getSuratMasuk = async (req, res) => {
   })
   res.status(StatusCodes.OK).json({ suratMasuk })
 }
-
+ 
 export const editSuratMasuk = async (req, res) => {
   req.body.tanggalMasuk = `${req.body.tanggalMasuk}T00:00:00Z`
   req.body.tanggalSuratMasuk = `${req.body.tanggalSuratMasuk}T00:00:00Z`

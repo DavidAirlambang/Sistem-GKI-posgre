@@ -1,26 +1,43 @@
 import { StatusCodes } from 'http-status-codes'
-import User from '../models/UserModel.js'
 import { comparePassword, hashPassword } from '../utils/passwordUtils.js'
 import { UnauthenticatedError } from '../errors/customErrors.js'
 import { createJWT } from '../utils/tokenUtils.js'
- 
+
 // prisma
 import prisma from '../utils/prisma.js'
 
 export const register = async (req, res) => {
-  // const isFirstAccount = (await User.countDocuments()) === 0
   const isFirstAccount = (await prisma.user.count()) === 0
-  req.body.role = isFirstAccount ? 'admin' : 'kantor'
+  req.body.role = isFirstAccount ? 'admin' : req.body.role
 
   const hashedPassword = await hashPassword(req.body.password)
   req.body.password = hashedPassword
 
-  // const user = await User.create(req.body)
   const user = await prisma.user.create({ data: req.body })
   res.status(StatusCodes.CREATED).json({ msg: 'user created' })
 }
+
+export const getAllUser = async (req, res) => {
+  const user = await prisma.user.findMany({ orderBy: { name: 'asc' } })
+  res.status(StatusCodes.OK).json({ user })
+}
+
+export const getUser = async (req, res) => {
+  const user = await prisma.user.findUnique({
+    where: { id: parseInt(req.params.id) }
+  })
+  res.status(StatusCodes.OK).json({ user })
+}
+
+export const editUser = async (req, res) => {
+  const user = await prisma.user.update({
+    where: { id: parseInt(req.params.id) },
+    data: req.body
+  })
+  res.status(StatusCodes.OK).json({ user })
+}
+
 export const login = async (req, res) => {
-  // const user = await User.findOne({ email: req.body.email })
   const user = await prisma.user.findUnique({
     where: { email: req.body.email }
   })
@@ -30,7 +47,7 @@ export const login = async (req, res) => {
 
   if (!isValidUser) throw new UnauthenticatedError('invalid credentials')
 
-  const token = createJWT({ userId: user.id, role: user.role })  // !!!!!!!!!!!!!!!!!!
+  const token = createJWT({ userId: user.id, role: user.role }) // !!!!!!!!!!!!!!!!!!
 
   const oneDay = 1000 * 60 * 60 * 24
 
