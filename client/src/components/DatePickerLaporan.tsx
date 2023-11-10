@@ -14,24 +14,62 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useAllLaporanContext } from "@/pages/Laporan";
+import customFetch from "@/utils/customFetch";
+import { toast } from "react-toastify";
 
 export function DatePickerLaporan({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>();
-  const { setStart, setEnd } = useAllLaporanContext();
+  const {
+    setPenerimaanData,
+    setPengeluaranData,
+    filterKomisi,
+    setTotalPenerimaan,
+    setTotalPengeluaran,
+  } = useAllLaporanContext();
 
-  if (date) {
-    const start = format(date!.from!, "yyyy-MM-dd");
-    setStart(new Date(start));
-    if (date.to) {
+  const fetchData = async () => {
+    try {
+      const start = format(date!.from!, "yyyy-MM-dd");
       const end = format(date!.to!, "yyyy-MM-dd");
-      setEnd(new Date(end));
+
+      const debitResponse = await customFetch.post(
+        "/administrasi/penerimaanFilter",
+        {
+          startDate: start,
+          endDate: end,
+          tipeAdministrasi: "debit",
+          penerima: filterKomisi,
+        }
+      );
+
+      const kreditResponse = await customFetch.post(
+        "/administrasi/penerimaanFilter",
+        {
+          startDate: start,
+          endDate: end,
+          tipeAdministrasi: "kredit",
+          penerima: filterKomisi,
+        }
+      );
+
+      const { administrasi: penerimaan, totalNominal: nominalPenerimaan } =
+        debitResponse.data;
+      const { administrasi: pengeluaran, totalNominal: nominalPengeluaran } =
+        kreditResponse.data;
+
+      setPenerimaanData(penerimaan);
+      setPengeluaranData(pengeluaran);
+      setTotalPenerimaan(nominalPenerimaan);
+      setTotalPengeluaran(nominalPengeluaran);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
     }
-  }
+  };
 
   return (
-    <div className={cn("grid gap-2 text-black mr-2", className)}>
+    <div className={cn("flex gap-2 text-black mr-2", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -41,6 +79,7 @@ export function DatePickerLaporan({
               "w-[500px] justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
+            disabled={filterKomisi ? false : true}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
@@ -68,6 +107,9 @@ export function DatePickerLaporan({
           />
         </PopoverContent>
       </Popover>
+      <Button onClick={() => fetchData()} disabled={date ? false : true}>
+        Cari
+      </Button>
     </div>
   );
 }

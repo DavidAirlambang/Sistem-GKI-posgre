@@ -32,7 +32,7 @@ export const getAllAdministrasi = async (req, res) => {
     res.status(StatusCodes.OK).json({ administrasi })
   }
 }
- 
+
 export const getAllAdministrasiDateRange = async (req, res) => {
   const query = {
     where: {
@@ -50,7 +50,14 @@ export const getAllAdministrasiDateRange = async (req, res) => {
   }
 
   const administrasi = await prisma.administrasiKeuangan.findMany(query)
-  res.status(StatusCodes.OK).json({ administrasi })
+
+  // Menghitung total nominal administrasi
+  const totalNominal = administrasi.reduce(
+    (acc, curr) => acc + curr.nominalAdministrasi,
+    0
+  )
+
+  res.status(StatusCodes.OK).json({ administrasi, totalNominal })
 }
 
 export const getAdministrasi = async (req, res) => {

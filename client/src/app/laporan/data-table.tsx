@@ -99,7 +99,6 @@ export function LaporanDataTable<TData, TValue>({
   return (
     <div className="mt-5">
       {/* table */}
-      <h4>Penerimaan</h4>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
