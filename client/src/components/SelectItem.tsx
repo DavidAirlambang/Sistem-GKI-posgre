@@ -14,6 +14,7 @@ import customFetch from "@/utils/customFetch";
 import { toast } from "react-toastify";
 import { useAllPengeluaranContext } from "@/pages/Pengeluaran";
 import { useAllLaporanContext } from "@/pages/Laporan";
+import { useAllUserContext } from "@/pages/User";
 
 export function SelectItems({ komisi }: any) {
   const { setTableRole } = useAllProgramKerjaContext();
@@ -150,6 +151,34 @@ export function SelectLaporan() {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>{"Pilih Komisi atau Urusan"}</SelectLabel>
+          {items.map((item: any) => {
+            return (
+              <SelectItem className="tipe" key={item} value={item}>
+                {item}
+              </SelectItem>
+            );
+          })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function SelectUserRole() {
+  const { setFilterRole } = useAllUserContext();
+  const items = ["All", ...Object.values(ROLE)];
+  return (
+    <Select
+      onValueChange={(val) => {
+        setFilterRole(val);
+      }}
+    >
+      <SelectTrigger className="w-[180px] text-black ml-4">
+        <SelectValue placeholder={"Pilih Role"} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>{"Pilih Role"}</SelectLabel>
           {items.map((item: any) => {
             return (
               <SelectItem className="tipe" key={item} value={item}>

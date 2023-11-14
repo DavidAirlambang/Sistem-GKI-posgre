@@ -40,10 +40,14 @@ const User = () => {
   console.log(user);
 
   const [dataTable, setDataTable] = useState(user);
+  const [filterRole, setFilterRole] = useState();
   return (
     <AllUserContext.Provider
       value={{
         dataTable,
+        setDataTable,
+        filterRole,
+        setFilterRole,
       }}
     >
       <h4>User Management</h4>

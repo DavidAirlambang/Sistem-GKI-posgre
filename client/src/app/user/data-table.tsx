@@ -35,6 +35,7 @@ import { downloadToExcelUser as downloadToExcel } from "@/lib/xlsx";
 import { useAllUserContext } from "@/pages/User";
 import { CSVUploader } from "@/lib/CSVUploader";
 import customFetch from "@/utils/customFetch";
+import { SelectUserRole } from "@/components/SelectItem";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -73,7 +74,7 @@ export function UserDataTable<TData, TValue>({
   });
 
   // state table
-  const { setDataTable } = useAllUserContext();
+  const { setDataTable, filterRole, setFilterRole } = useAllUserContext();
 
   const refreshTable = async () => {
     const { data } = await customFetch.get("User");
@@ -95,6 +96,8 @@ export function UserDataTable<TData, TValue>({
           }}
           className="max-w-sm text-black form-input"
         />
+
+        <SelectUserRole />
 
         {/* export */}
         <Button onClick={() => downloadToExcel(data)} className="ml-4">
