@@ -302,3 +302,23 @@ export function downloadToExcelLaporan(
 
   xlsx(columns, settings);
 }
+
+export function downloadToExcelUser(data: any) {
+  let columns: IJsonSheet[] = [
+    {
+      sheet: "User",
+      columns: [
+        { label: "Nama User", value: "name" },
+        { label: "Email User", value: "email" },
+        { label: "Role User", value: "role" },
+      ],
+      content: data,
+    },
+  ];
+
+  let settings = {
+    fileName: "User Excel",
+  };
+
+  xlsx(columns, settings);
+}

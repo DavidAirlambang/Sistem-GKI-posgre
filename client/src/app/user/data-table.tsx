@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { ModeToggle } from "@/components/ModeToggle";
-// import { downloadToExcelUser as downloadToExcel } from "@/lib/xlsx";
+import { downloadToExcelUser as downloadToExcel } from "@/lib/xlsx";
 import { useAllUserContext } from "@/pages/User";
 import { CSVUploader } from "@/lib/CSVUploader";
 import customFetch from "@/utils/customFetch";
@@ -62,13 +62,9 @@ export function UserDataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    // kalo ada perubahan panggil set sorting
     onSortingChange: setSorting,
-    // kalo ada filter panggil set column filter
     onColumnFiltersChange: setColumnFilters,
-    // atur visibility
     onColumnVisibilityChange: setColumnVisibility,
-    // define hook yang dipake
     state: {
       sorting,
       columnFilters,
@@ -90,27 +86,20 @@ export function UserDataTable<TData, TValue>({
       {/* input */}
       <div className="flex items-center py-4">
         <Input
-          placeholder="Cari nama barang"
-          value={
-            (table.getColumn("namaBarang")?.getFilterValue() as string) || ""
-          }
+          placeholder="Cari nama user"
+          value={(table.getColumn("name")?.getFilterValue() as string) || ""}
           onChange={(e) => {
             console.log(e.target.value);
             console.log(sorting);
-            table.getColumn("namaBarang")?.setFilterValue(e.target.value);
+            table.getColumn("name")?.setFilterValue(e.target.value);
           }}
           className="max-w-sm text-black form-input"
         />
 
-        {/* <ModeToggle /> */}
-
         {/* export */}
-        {/* <Button onClick={() => downloadToExcel(data)} className="ml-4">
+        <Button onClick={() => downloadToExcel(data)} className="ml-4">
           Export
-        </Button> */}
-
-        {/* import */}
-        <CSVUploader path="/User/upload" refresh={() => refreshTable()} />
+        </Button>
 
         {/* visibility */}
         <DropdownMenu>

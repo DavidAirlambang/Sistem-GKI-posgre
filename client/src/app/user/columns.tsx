@@ -37,12 +37,12 @@ async function deleteGudangItem(id: any) {
 
 export const columns: ColumnDef<User>[] = [
   {
-    header: "Email",
-    accessorKey: "email",
-  },
-  {
     header: "Name",
     accessorKey: "name",
+  },
+  {
+    header: "Email",
+    accessorKey: "email",
   },
   {
     header: "Role",
