@@ -18,8 +18,16 @@ export const register = async (req, res) => {
 }
 
 export const getAllUser = async (req, res) => {
-  const user = await prisma.user.findMany({ orderBy: { name: 'asc' } })
-  res.status(StatusCodes.OK).json({ user })
+  if (req.body.role && req.body.role !== 'All') {
+    const user = await prisma.user.findMany({
+      where: { role: req.body.role },
+      orderBy: { name: 'asc' }
+    })
+    res.status(StatusCodes.OK).json({ user })
+  } else {
+    const user = await prisma.user.findMany({ orderBy: { name: 'asc' } })
+    res.status(StatusCodes.OK).json({ user })
+  }
 }
 
 export const getUser = async (req, res) => {

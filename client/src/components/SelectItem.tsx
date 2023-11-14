@@ -165,12 +165,20 @@ export function SelectLaporan() {
 }
 
 export function SelectUserRole() {
-  const { setFilterRole } = useAllUserContext();
+  const { setFilterRole, filterRole, setDataTable } = useAllUserContext();
+
+  const refreshTable = async (role: string) => {
+    const { data } = await customFetch.post("/auth/user", { role });
+    const { user } = data;
+
+    setDataTable(user);
+  };
+
   const items = ["All", ...Object.values(ROLE)];
   return (
     <Select
-      onValueChange={(val) => {
-        setFilterRole(val);
+      onValueChange={async (val) => {
+        refreshTable(val);
       }}
     >
       <SelectTrigger className="w-[180px] text-black ml-4">

@@ -77,7 +77,7 @@ export function UserDataTable<TData, TValue>({
   const { setDataTable, filterRole, setFilterRole } = useAllUserContext();
 
   const refreshTable = async () => {
-    const { data } = await customFetch.get("User");
+    const { data } = await customFetch.post("/auth/user", { role: filterRole });
     const { barangs } = data;
     setDataTable(barangs);
   };

@@ -9,7 +9,7 @@ import { columns } from "@/app/user/columns";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.get("/auth/user");
+    const { data } = await customFetch.post("/auth/user");
     return { data };
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -37,7 +37,6 @@ const AllUserContext = createContext();
 const User = () => {
   const { data } = useLoaderData();
   const { user } = data;
-  console.log(user);
 
   const [dataTable, setDataTable] = useState(user);
   const [filterRole, setFilterRole] = useState();
