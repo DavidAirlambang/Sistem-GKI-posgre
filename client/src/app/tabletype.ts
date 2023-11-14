@@ -83,3 +83,10 @@ export type Viatikum = {
   tahun: number;
   keterangan: string;
 };
+
+export type User = {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
+};

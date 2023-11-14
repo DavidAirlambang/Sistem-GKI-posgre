@@ -52,6 +52,11 @@ const links = [
     path: "viatikum",
     icon: <FaWpforms />,
   },
+  {
+    text: "User",
+    path: "user",
+    icon: <FaWpforms />,
+  },
   // {
   //   text: "all jobs",
   //   path: "all-jobs",

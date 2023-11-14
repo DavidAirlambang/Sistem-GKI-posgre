@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import {
   HomeLayout,
@@ -21,6 +20,7 @@ import {
   AllAdministrasi,
   Viatikum,
   EditViatikum,
+  User,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -69,6 +69,8 @@ import { action as viatikumAction } from "./pages/Viatikum";
 import { loader as viatikumLoader } from "./pages/Viatikum";
 import { action as viatikumEditAction } from "./pages/EditViatikum";
 import { loader as viatikumEditLoader } from "./pages/EditViatikum";
+import { action as userAction } from "./pages/User";
+import { loader as userLoader } from "./pages/User";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -239,6 +241,12 @@ const router = createBrowserRouter([
             element: <EditViatikum />,
             action: viatikumEditAction(),
             loader: viatikumEditLoader,
+          },
+          {
+            path: "user",
+            element: <User />,
+            action: userAction(),
+            loader: userLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },
