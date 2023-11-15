@@ -17,21 +17,6 @@ export const loader = async () => {
   }
 };
 
-export const action = () => {
-  return async ({ request }) => {
-    const formData = await request.formData();
-    const data = Object.fromEntries(formData);
-
-    try {
-      await customFetch.post("/multimedia", data);
-      return toast.success("Item added successfully ");
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-      return error;
-    }
-  };
-};
-
 const AllUserContext = createContext();
 
 const User = () => {

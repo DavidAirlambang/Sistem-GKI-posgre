@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -21,6 +22,7 @@ import {
   Viatikum,
   EditViatikum,
   User,
+  EditUser,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -69,8 +71,9 @@ import { action as viatikumAction } from "./pages/Viatikum";
 import { loader as viatikumLoader } from "./pages/Viatikum";
 import { action as viatikumEditAction } from "./pages/EditViatikum";
 import { loader as viatikumEditLoader } from "./pages/EditViatikum";
-import { action as userAction } from "./pages/User";
 import { loader as userLoader } from "./pages/User";
+import { action as userEditAction } from "./pages/EditUser";
+import { loader as userEditLoader } from "./pages/EditUser";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -211,7 +214,6 @@ const router = createBrowserRouter([
           {
             path: "programKerja",
             element: <ProgramKerja />,
-            // loader: programKerjaLoader,
           },
           {
             path: "createProgramKerja",
@@ -227,7 +229,6 @@ const router = createBrowserRouter([
           {
             path: "detailProgramKerja/:noProker",
             element: <DetailLaporanProker />,
-            // action: programKerjaEditAction(),
             loader: programKerjaEditLoader,
           },
           {
@@ -245,8 +246,13 @@ const router = createBrowserRouter([
           {
             path: "user",
             element: <User />,
-            action: userAction(),
             loader: userLoader,
+          },
+          {
+            path: "user/:id",
+            element: <EditUser />,
+            action: userEditAction(),
+            loader: userEditLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

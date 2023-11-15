@@ -20,16 +20,20 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { useAllUserContext } from "@/pages/User";
 
-async function deleteGudangItem(id: any) {
+async function changeStatusUser(id: any, active: boolean) {
   try {
-    await customFetch.delete(`/gudang/${id}`);
-    toast.success("Item deleted successfully");
-    return redirect("/dashboard/gudang");
+    await customFetch.post(`/auth/user/${id}`, { active });
+    if (active === true) {
+      toast.success("User Activated");
+    } else {
+      toast.success("User Deactivated");
+    }
+    return redirect("/dashboard/user");
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.msg) {
       toast.error(error.response.data.msg);
     } else {
-      toast.error("An error occurred while deleting the item.");
+      toast.error("An error occurred while change user status.");
     }
     return error;
   }
@@ -48,17 +52,27 @@ export const columns: ColumnDef<User>[] = [
     header: "Role",
     accessorKey: "role",
   },
-
+  {
+    header: "Active",
+    accessorKey: "active",
+    cell: ({ row }) => {
+      const user = row.original;
+      return user.active ? "Active" : "Inactive";
+    },
+  },
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original;
-      const id = user.id;
-      const { setDataTable } = useAllUserContext();
+      const userItem = row.original;
+      const id = userItem.id;
+      const { setDataTable, filterRole } = useAllUserContext();
+      const { user } = useOutletContext() as { user: User };
 
       // fetch ulang
       const refreshTable = async () => {
-        const { data } = await customFetch.get("/auth/user");
+        const { data } = await customFetch.post("/auth/user", {
+          role: filterRole,
+        });
         const { user } = data;
         setDataTable(user);
       };
@@ -82,31 +96,32 @@ export const columns: ColumnDef<User>[] = [
               }}
             >
               {" "}
-              <Link to={`../auth/user/${id}`}>edit item</Link>
+              <Link to={`../user/${id}`}>edit item</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
-              onClick={async () => {
-                try {
-                  await deleteGudangItem(id);
-                  refreshTable();
-                } catch (error: any) {
-                  if (
-                    error.response &&
-                    error.response.data &&
-                    error.response.data.msg
-                  ) {
-                    toast.error(error.response.data.msg);
-                  } else {
-                    toast.error("An error occurred while deleting the item.");
+            {user.id !== userItem.id ? (
+              <DropdownMenuItem
+                className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+                onClick={async () => {
+                  try {
+                    await changeStatusUser(id, !userItem.active);
+                    refreshTable();
+                  } catch (error: any) {
+                    if (
+                      error.response &&
+                      error.response.data &&
+                      error.response.data.msg
+                    ) {
+                      toast.error(error.response.data.msg);
+                    } else {
+                      toast.error("An error occurred while deleting the item.");
+                    }
+                    return error;
                   }
-                  return error;
-                }
-              }}
-            >
-              delete item
-            </DropdownMenuItem>
-            {/* sampe sini */}
+                }}
+              >
+                {userItem.active ? "deactivate user" : "activate user"}
+              </DropdownMenuItem>
+            ) : null}
           </DropdownMenuContent>
         </DropdownMenu>
       );

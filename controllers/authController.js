@@ -53,7 +53,12 @@ export const login = async (req, res) => {
   const isValidUser =
     user && (await comparePassword(req.body.password, user.password))
 
+  const userActive = isValidUser && user.active === true
+
   if (!isValidUser) throw new UnauthenticatedError('invalid credentials')
+
+  if (!userActive)
+    throw new UnauthenticatedError('Account Disable, contact administrator')
 
   const token = createJWT({ userId: user.id, role: user.role }) // !!!!!!!!!!!!!!!!!!
 

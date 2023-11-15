@@ -6,6 +6,7 @@ const FormRow = ({
   defaultValue,
   onChange,
   placeholder,
+  readOnly = false,
 }) => {
   return (
     <div className="form-row">
@@ -31,6 +32,7 @@ const FormRow = ({
           defaultValue={defaultValue || ""}
           onChange={onChange}
           required
+          readOnly={readOnly}
         />
       )}
     </div>
