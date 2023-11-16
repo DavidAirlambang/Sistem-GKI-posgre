@@ -1,25 +1,58 @@
-import { readFile } from 'fs/promises';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-dotenv.config();
+// populate.js
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
-import Job from './models/JobModel.js';
-import User from './models/UserModel.js';
+async function populateRuangan () {
+  const ruanganData = [
+    {
+      namaRuangan: 'Gedung Gereja',
+      kapasitasRuangan: '350 Orang',
+      statusRuangan: 'Available',
+      userId: 1
+    },
+    {
+      namaRuangan: 'BPB',
+      kapasitasRuangan: '50 Orang',
+      statusRuangan: 'Available',
+      userId: 1
+    },
+    {
+      namaRuangan: 'BPA',
+      kapasitasRuangan: '150 Orang',
+      statusRuangan: 'Available',
+      userId: 1
+    },
+    {
+      namaRuangan: 'Auvi',
+      kapasitasRuangan: '50 Orang',
+      statusRuangan: 'Available',
+      userId: 1
+    },
+    {
+      namaRuangan: 'Sekolah Minggu 7',
+      kapasitasRuangan: '15 Orang',
+      statusRuangan: 'Available',
+      userId: 1
+    },
+    {
+      namaRuangan: 'Sekolah Minggu 8',
+      kapasitasRuangan: '15 Orang',
+      statusRuangan: 'Available',
+      userId: 1
+    },
+  ]
 
-try {
-  await mongoose.connect(process.env.MONGO_URL);
-  const user = await User.findOne({ email: 'john@gmail.com' });
-  const jsonJobs = JSON.parse(
-    await readFile(new URL('./utils/mockData.json', import.meta.url))
-  );
-  const jobs = jsonJobs.map((job) => {
-    return { ...job, createdBy: user._id };
-  });
-  await Job.deleteMany({ createdBy: user._id });
-  await Job.create(jobs);
-  console.log('Success!!!');
-  process.exit(0);
-} catch (error) {
-  console.log(error);
-  process.exit(1);
+  try {
+    for (const data of ruanganData) {
+      await prisma.ruangan.create({ data })
+    }
+    console.log('Data ruangan berhasil dipopulasi.')
+  } catch (error) {
+    console.error('Gagal mempopulasi data ruangan:', error)
+  } finally {
+    await prisma.$disconnect()
+  }
 }
+
+// Panggil fungsi untuk memulai proses populasi
+populateRuangan()
