@@ -54,8 +54,10 @@ export const PROGRAM_KERJA = {
 }
 
 export const GUDANG = {
-  GUDANG_A: 'gudang A',
-  GUDANG_B: 'gudang B'
+  GUDANG_PERNIKAHAN: 'gudang pernikahan',
+  GUDANG_PERABOT: 'gudang perabot',
+  GUDANG_DEKORASI: 'gudang dekorasi',
+  GUDANG_TANGGA: 'gudang tangga',
 }
 
 export const MULTIMEDIA = {

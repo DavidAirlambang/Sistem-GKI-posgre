@@ -54,12 +54,17 @@ const EditAsetLain = () => {
             name="jumlahAsetLain"
             defaultValue={asetLain.jumlahAsetLain}
           />
-          <FormRowSelect
+          <FormRow
+            labelText="lokasi"
+            name="lokasiAsetLain"
+            defaultValue={asetLain.lokasiAsetLain}
+          />
+          {/* <FormRowSelect
             labelText="lokasi"
             name="lokasiAsetLain"
             list={Object.values(ASETLAIN)}
             defaultValue={asetLain.lokasiAsetLain}
-          />
+          /> */}
           <FormRow
             type="text"
             name="deskripsiAsetLain"

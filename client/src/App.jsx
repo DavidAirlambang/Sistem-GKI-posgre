@@ -241,7 +241,7 @@ const router = createBrowserRouter([
             element: <User />,
             loader: userLoader,
           },
-          {
+          { 
             path: "user/:id",
             element: <EditUser />,
             action: userEditAction(),

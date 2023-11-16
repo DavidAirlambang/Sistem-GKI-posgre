@@ -54,7 +54,11 @@ const BookingRuangan = () => {
           <FormRowSelect
             labelText="komisi/Majelis Jemaat"
             name="komisi"
-            list={user.role === "admin" ? Object.values(ROLE_SELECT) : list}
+            list={
+              user.role === "admin" || user.role === "staff kantor"
+                ? Object.values(ROLE_SELECT)
+                : list
+            }
           />
           <FormRow type="datetime-local" name="jadwal" />
           <FormRow

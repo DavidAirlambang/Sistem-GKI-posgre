@@ -1,8 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import { FormRow, FormRowSelect, SubmitBtn } from "../components";
+import { FormRow, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { Link, useLoaderData } from "react-router-dom";
-import { MULTIMEDIA } from "../../../utils/constants";
 import { Form, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -56,12 +55,12 @@ const EditMultimedia = () => {
             name="jumlahMultimedia"
             defaultValue={multimedia.jumlahMultimedia}
           />
-          <FormRowSelect
+          <FormRow
             labelText="lokasi"
             name="lokasiMultimedia"
-            list={Object.values(MULTIMEDIA)}
             defaultValue={multimedia.lokasiMultimedia}
           />
+
           <FormRow
             type="text"
             name="deskripsiMultimedia"

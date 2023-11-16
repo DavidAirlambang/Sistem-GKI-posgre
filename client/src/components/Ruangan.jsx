@@ -46,7 +46,7 @@ const Ruangan = ({
   } else if (statusRuangan === RUANGAN_STATUS.OCCUPIED) {
     button = "Selesai";
   } else {
-    if (user.role === "admin") {
+    if (user.role === "admin" || user.role === "staff kantor") {
       button = "Approve";
     } else {
       button = "Waiting";
@@ -63,7 +63,9 @@ const Ruangan = ({
             className="btn delete-btn"
             style={{
               display:
-                user.role === "admin" || user.role === buatan
+                user.role === "admin" ||
+                user.role === "staff kantor" ||
+                user.role === buatan
                   ? "block"
                   : "none",
             }}
@@ -85,7 +87,11 @@ const Ruangan = ({
           <button
             type="submit"
             className="btn delete-btn"
-            disabled={user.role === "admin" ? false : true}
+            disabled={
+              user.role === "admin" || user.role === "staff kantor"
+                ? false
+                : true
+            }
           >
             {button}
           </button>

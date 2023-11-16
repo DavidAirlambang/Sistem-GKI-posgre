@@ -14,7 +14,7 @@ export const loader = async ({ params }) => {
     return data;
   } catch (error) {
     toast.error(error.response.data.msg);
-    return redirect("/dashboard/gudang");
+    return redirect("/dashboard/user");
   }
 };
 
@@ -23,9 +23,9 @@ export const action = () => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      await customFetch.patch(`/auth/${params.id}`, data);
+      await customFetch.post(`/auth/user/${params.id}`, data);
       toast.success("Item Updated");
-      return redirect("/dashboard/gudang");
+      return redirect("/dashboard/user");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
       return error;

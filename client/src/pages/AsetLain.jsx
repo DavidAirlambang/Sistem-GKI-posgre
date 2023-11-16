@@ -61,11 +61,12 @@ const AsetLain = () => {
             <FormRow labelText="nama aset lain" name="namaAsetLain" />
             <FormRow labelText="jenis aset lain" name="jenisAsetLain" />
             <FormRow labelText="jumlah aset lain" name="jumlahAsetLain" />
-            <FormRowSelect
+            <FormRow labelText="lokasi" name="lokasiAsetLain" />
+            {/* <FormRowSelect
               labelText="lokasi"
               name="lokasiAsetLain"
               list={Object.values(ASETLAIN)}
-            />
+            /> */}
             <FormRow
               type="text"
               name="deskripsiAsetLain"

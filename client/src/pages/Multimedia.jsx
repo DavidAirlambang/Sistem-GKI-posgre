@@ -41,7 +41,6 @@ const AllMultimediaContext = createContext();
 const Multimedia = () => {
   const { data } = useLoaderData();
   const { multimedia } = data;
-  // console.log(multimedia);
 
   const [dataTable, setDataTable] = useState(multimedia);
 
@@ -62,11 +61,7 @@ const Multimedia = () => {
             <FormRow labelText="nama Multimedia" name="namaMultimedia" />
             <FormRow labelText="jenis Multimedia" name="jenisMultimedia" />
             <FormRow labelText="jumlah Multimedia" name="jumlahMultimedia" />
-            <FormRowSelect
-              labelText="lokasi"
-              name="lokasiMultimedia"
-              list={Object.values(MULTIMEDIA)}
-            />
+            <FormRow labelText="lokasi" name="lokasiMultimedia" />
             <FormRow
               type="text"
               name="deskripsiMultimedia"
