@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
@@ -8,7 +9,7 @@ import {
   useSubmit,
   useLoaderData,
 } from "react-router-dom";
-import { ROLE, RUANGAN_STATUS } from "../../../utils/constants";
+import { ROLE_SELECT, RUANGAN_STATUS } from "../../../utils/constants";
 import { Form, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -53,7 +54,7 @@ const BookingRuangan = () => {
           <FormRowSelect
             labelText="komisi/Majelis Jemaat"
             name="komisi"
-            list={user.role === ROLE.ADMIN ? Object.values(ROLE) : list}
+            list={user.role === "admin" ? Object.values(ROLE_SELECT) : list}
           />
           <FormRow type="datetime-local" name="jadwal" />
           <FormRow

@@ -31,7 +31,7 @@ export const getAllUser = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({ 
     where: { id: parseInt(req.params.id) }
   })
   res.status(StatusCodes.OK).json({ user })

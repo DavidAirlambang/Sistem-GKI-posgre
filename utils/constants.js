@@ -1,5 +1,9 @@
 export const ROLE = {
   ADMIN: 'admin',
+  STAFF_KANTOR: 'staff kantor',
+  MAJELIS: 'majelis',
+  STAF_KEUANGAN: 'staff keuangan',
+  // semua ini termasuk komisi
   KOMISI_ANAK: 'komisi anak',
   KOMISI_REMAJA: 'komisi remaja',
   KOMISI_PEMUDA: 'komisi pemuda',
@@ -7,14 +11,32 @@ export const ROLE = {
   KOMISI_USIA_LANJUT: 'komisi usia lanjut',
   KOMISI_KESENIAN: 'komisi kesenian',
   KOMISI_MULTIMEDIA: 'komisi multimedia',
-  U1: 'U1',
-  U2: 'U2',
-  U3: 'U3',
-  U4: 'U4',
-  U5: 'U5',
-  U6: 'U6',
-  U7: 'U7',
-  U8: 'U8'
+  U1: 'urusan 1',
+  U2: 'urusan 2',
+  U3: 'urusan 3',
+  U4: 'urusan 4',
+  U5: 'urusan 5',
+  U6: 'urusan 6',
+  U7: 'urusan 7',
+  U8: 'urusan 8'
+}
+
+export const ROLE_SELECT = {
+  KOMISI_ANAK: 'komisi anak',
+  KOMISI_REMAJA: 'komisi remaja',
+  KOMISI_PEMUDA: 'komisi pemuda',
+  KOMISI_DEWASA: 'komisi dewasa',
+  KOMISI_USIA_LANJUT: 'komisi usia lanjut',
+  KOMISI_KESENIAN: 'komisi kesenian',
+  KOMISI_MULTIMEDIA: 'komisi multimedia',
+  U1: 'urusan 1',
+  U2: 'urusan 2',
+  U3: 'urusan 3',
+  U4: 'urusan 4',
+  U5: 'urusan 5',
+  U6: 'urusan 6',
+  U7: 'urusan 7',
+  U8: 'urusan 8'
 }
 
 export const RUANGAN_STATUS = {

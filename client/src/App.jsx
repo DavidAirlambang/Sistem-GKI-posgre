@@ -112,11 +112,7 @@ const router = createBrowserRouter([
         element: <Register />,
         action: registerAction,
       },
-      // {
-      //   path: "login",
-      //   element: <Login />,
-      //   action: loginAction(queryClient),
-      // },
+
       {
         path: "dashboard",
         element: <DashboardLayout queryClient={queryClient} />,
@@ -128,10 +124,7 @@ const router = createBrowserRouter([
             element: <Ruang />,
             loader: ruanganLoader,
           },
-          // {
-          //   element: <AddJob />,
-          //   action: addJobAction(queryClient),
-          // },
+
           {
             path: "booking/:noRuangan",
             element: <BookingRuangan />,
@@ -258,29 +251,6 @@ const router = createBrowserRouter([
           { path: "approve/:noRuangan", action: approveAction },
           { path: "reset/:noRuangan", action: resetRuanganAction },
           { path: "delete-gudang/:noBarang", action: gudangDelete },
-          // {
-          //   path: "all-jobs",
-          //   element: <AllJobs />,
-          //   loader: allJobsLoader(queryClient),
-          //   errorElement: <ErrorElement />,
-          // },
-          // {
-          //   path: 'profile',
-          //   element: <Profile />,
-          //   action: profileAction(queryClient),
-          // },
-          // {
-          //   path: 'admin',
-          //   element: <Admin />,
-          //   loader: adminLoader,
-          // },
-          // {
-          //   path: 'edit-job/:id',
-          //   element: <EditJob />,
-          //   loader: editJobLoader(queryClient),
-          //   action: editJobAction(queryClient),
-          // },
-          // { path: 'delete-job/:id', action: deleteJobAction(queryClient) },
         ],
       },
     ],

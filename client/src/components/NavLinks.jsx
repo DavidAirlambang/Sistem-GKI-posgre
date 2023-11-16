@@ -9,15 +9,65 @@ const NavLinks = ({ isBigSidebar }) => {
     <div className="nav-links">
       {links.map((link) => {
         const { text, path, icon } = link;
-        const { role } = user;
-        const adminOnly = [
+        // akses yang bisa diberikan
+        const adminAccess = [
+          "ruangs",
+          "gudang",
+          "multimedia",
+          "asetLain",
+          "suratMasuk",
+          "suratKeluar",
+          "administrasi",
+          "programKerja",
+          "viatikum",
+          "user",
+        ];
+
+        const kantorAccess = [
+          "ruangs",
           "gudang",
           "multimedia",
           "asetLain",
           "suratMasuk",
           "suratKeluar",
         ];
-        if (adminOnly.includes(path) && role !== "admin") return;
+
+        const majelisAccess = ["administrasi", "programKerja", "viatikum"];
+
+        const komisiAccess = ["ruangs", "administrasi", "programKerja"];
+
+        const keuanganAccess = ["administrasi", "programKerja", "viatikum"];
+
+        // kita switch
+        let allowedPaths = [];
+
+        switch (true) {
+          case user.role.startsWith("komisi") || user.role.startsWith("urusan"):
+            // Treat all komisi subcategories the same way
+            allowedPaths = komisiAccess;
+            break;
+          case user.role === "admin":
+            allowedPaths = adminAccess;
+            break;
+          case user.role === "staff kantor":
+            allowedPaths = kantorAccess;
+            break;
+          case user.role === "majelis":
+            allowedPaths = majelisAccess;
+            break;
+          case user.role === "keuangan":
+            allowedPaths = keuanganAccess;
+            break;
+          default:
+            break;
+        }
+
+        // Check if the current user has access to the requested path
+        if (!allowedPaths.includes(path)) {
+          return null;
+        }
+
+        // If the user has the required access, render the NavLink
         return (
           <NavLink
             to={path}

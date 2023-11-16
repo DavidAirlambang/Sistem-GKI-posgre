@@ -87,7 +87,6 @@ export const validateRegisterInput = withValidationErrors([
     .isEmail()
     .withMessage('invalid email format')
     .custom(async email => {
-      // const user = await User.findOne({ email })
       const user = await prisma.user.findUnique({ where: { email } })
       if (user) {
         throw new BadRequestError('email already exists')
@@ -98,11 +97,6 @@ export const validateRegisterInput = withValidationErrors([
     .withMessage('password is required')
     .isLength({ min: 8 })
     .withMessage('password must be at least 8 characters long')
-  // body('role')
-  //   .isIn(Object.values(ROLE))
-  //   .withMessage('invalid role value')
-  //   .notEmpty()
-  // body('lastName').notEmpty().withMessage('last name is required')
 ])
 
 export const validateLoginInput = withValidationErrors([
