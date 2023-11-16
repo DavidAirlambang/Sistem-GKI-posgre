@@ -6,11 +6,15 @@ export default function AllAdministrasi() {
   const { user } = useOutletContext();
   return (
     <Tabs
-      defaultValue={user.role === "admin" ? "laporan" : "pengeluaran"}
+      defaultValue={
+        user.role === "admin" || user.role === "majelis"
+          ? "laporan"
+          : "pengeluaran"
+      }
       className="w-[400px]"
     >
       <TabsList>
-        {user.role === "admin" ? (
+        {user.role === "admin" || user.role === "majelis" ? (
           <TabsTrigger value="penerimaan">Penerimaan</TabsTrigger>
         ) : (
           ""

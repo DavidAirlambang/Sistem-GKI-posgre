@@ -5,7 +5,7 @@ import { Form, useLoaderData, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
-import { ROLE } from "../../../utils/constants";
+import { ROLE_SELECT } from "../../../utils/constants";
 
 import { columns } from "../app/pengeluaran/column";
 import PengeluaranDataTable from "@/app/pengeluaran/data-table";
@@ -70,7 +70,9 @@ const Pengeluaran = () => {
     document.getElementById("laporanProker").reset();
   };
 
-  const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
+  const filteredRoles = Object.values(ROLE_SELECT).filter(
+    (role) => role !== "admin"
+  );
 
   return (
     <AllPengeluaranContext.Provider

@@ -6,7 +6,7 @@ import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
-import { ROLE } from "../../../utils/constants";
+import { ROLE_SELECT } from "../../../utils/constants";
 
 import { columns } from "../app/administrasi/column";
 import AdministrasiDataTable from "@/app/administrasi/data-table";
@@ -100,7 +100,9 @@ const Administrasi = () => {
     document.getElementById("namaProgram").reset();
   };
 
-  const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
+  const filteredRoles = Object.values(ROLE_SELECT).filter(
+    (role) => role !== "admin"
+  );
 
   return (
     <AllAdministrasiContext.Provider

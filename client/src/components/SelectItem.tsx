@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PROGRAM_KERJA, ROLE } from "../../../utils/constants";
+import { PROGRAM_KERJA, ROLE, ROLE_SELECT } from "../../../utils/constants";
 import { useAllProgramKerjaContext } from "@/pages/ProgramKerja";
 import { useAllAdministrasiContext } from "@/pages/Administrasi";
 import customFetch from "@/utils/customFetch";
@@ -15,10 +15,12 @@ import { toast } from "react-toastify";
 import { useAllPengeluaranContext } from "@/pages/Pengeluaran";
 import { useAllLaporanContext } from "@/pages/Laporan";
 import { useAllUserContext } from "@/pages/User";
+import { useOutletContext } from "react-router-dom";
+import { User } from "@/app/tabletype";
 
 export function SelectItems({ komisi }: any) {
   const { setTableRole } = useAllProgramKerjaContext();
-  const items = Object.values(ROLE).filter((role) => role !== "admin");
+  const items = Object.values(ROLE_SELECT).filter((role) => role !== "admin");
   return (
     <Select
       onValueChange={(val) => {
@@ -70,7 +72,7 @@ export function SelectItemsAdministrasi({ komisi, tipe }: any) {
 
   const items = [
     "All",
-    ...Object.values(ROLE).filter((role) => role !== "admin"),
+    ...Object.values(ROLE_SELECT).filter((role) => role !== "admin"),
   ];
 
   return (
@@ -134,11 +136,15 @@ export function SelectStatus() {
 }
 
 export function SelectLaporan() {
+  const { user } = useOutletContext() as { user: User };
   const { setFilterKomisi } = useAllLaporanContext();
-  const items = [
-    "All",
-    ...Object.values(ROLE).filter((role) => role !== "admin"),
-  ];
+  let items;
+  user.role === "admin" || user.role === "majelis"
+    ? (items = [
+        "All",
+        ...Object.values(ROLE_SELECT).filter((role) => role !== "admin"),
+      ])
+    : (items = [user.role]);
   return (
     <Select
       onValueChange={(val) => {

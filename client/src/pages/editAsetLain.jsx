@@ -40,23 +40,23 @@ const EditAsetLain = () => {
         <h4 className="form-title">Aset Lain</h4>
         <div className="form-center">
           <FormRow
-            labelText="nama AsetLain"
+            labelText="nama Aset Lain"
             name="namaAsetLain"
             defaultValue={asetLain.namaAsetLain}
           />
           <FormRow
-            labelText="jenis AsetLain"
+            labelText="jenis Aset Lain"
             name="jenisAsetLain"
             defaultValue={asetLain.jenisAsetLain}
           />
           <FormRow
-            labelText="jumlah AsetLain"
+            labelText="jumlah Aset Lain"
             name="jumlahAsetLain"
             defaultValue={asetLain.jumlahAsetLain}
           />
           <FormRow
             labelText="lokasi"
-            name="lokasiAsetLain"
+            name="lokasiAset Lain"
             defaultValue={asetLain.lokasiAsetLain}
           />
           {/* <FormRowSelect
@@ -73,7 +73,7 @@ const EditAsetLain = () => {
             placeholder='isikan "-" jika tidak ada deskripsi'
           />
           <FormRow
-            labelText="peminjam AsetLain"
+            labelText="peminjam Aset Lain"
             name="peminjamAsetLain"
             defaultValue={asetLain.peminjamAsetLain}
             placeholder='isikan "-" jika tidak ada yang pinjam'
