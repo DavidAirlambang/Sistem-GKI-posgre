@@ -96,7 +96,7 @@ export const columns: ColumnDef<User>[] = [
               }}
             >
               {" "}
-              <Link to={`../user/${id}`}>edit item</Link>
+              <Link to={`../user/${id}`}>edit user</Link>
             </DropdownMenuItem>
             {user.id !== userItem.id ? (
               <DropdownMenuItem

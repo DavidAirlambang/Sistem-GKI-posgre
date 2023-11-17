@@ -16,7 +16,7 @@ model User {
   password       String
   name           String
   role           String    @default("no role")
-  active         Boolean   @default(true)
+  active         Boolean   @default(false)
   created_at     DateTime  @default(now())
   updated_at     DateTime  @updatedAt
   createdRuangan Ruangan[]

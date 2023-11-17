@@ -9,6 +9,7 @@ import prisma from '../utils/prisma.js'
 export const register = async (req, res) => {
   const isFirstAccount = (await prisma.user.count()) === 0
   req.body.role = isFirstAccount ? 'admin' : req.body.role
+  req.body.active = isFirstAccount ? true : false
 
   const hashedPassword = await hashPassword(req.body.password)
   req.body.password = hashedPassword
@@ -31,7 +32,7 @@ export const getAllUser = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-  const user = await prisma.user.findUnique({ 
+  const user = await prisma.user.findUnique({
     where: { id: parseInt(req.params.id) }
   })
   res.status(StatusCodes.OK).json({ user })

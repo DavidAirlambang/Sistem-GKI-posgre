@@ -107,11 +107,10 @@ export function SelectItemsAdministrasi({ komisi, tipe }: any) {
 }
 
 export function SelectStatus() {
-  const { dataTable, setTipeStatus } = useAllProgramKerjaContext();
+  const { setTipeStatus } = useAllProgramKerjaContext();
   const items = Object.values(PROGRAM_KERJA);
   return (
     <Select
-      disabled={dataTable.length != 0 ? false : true}
       onValueChange={(val) => {
         setTipeStatus(val);
       }}
