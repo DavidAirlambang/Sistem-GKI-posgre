@@ -5,7 +5,7 @@ import { Link, redirect, useOutletContext } from "react-router-dom";
 import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
-import { ROLE } from "../../../utils/constants";
+import { ROLE_SELECT } from "../../../utils/constants";
 
 export const action = () => {
   return async ({ request }) => {
@@ -25,7 +25,9 @@ export const action = () => {
 
 const CreateProgramKerja = () => {
   const { user } = useOutletContext();
-  const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
+  const filteredRoles = Object.values(ROLE_SELECT).filter(
+    (role) => role !== "admin"
+  );
   const reset = () => {
     document.getElementById("kodeProgram").reset();
     document.getElementById("namaProgram").reset();
@@ -46,7 +48,11 @@ const CreateProgramKerja = () => {
           <FormRowSelect
             name="komisi"
             labelText="komisi"
-            list={user.role === "admin" ? filteredRoles : [user.role]}
+            list={
+              user.role === "admin" || user.role === "majelis"
+                ? filteredRoles
+                : [user.role]
+            }
           />
           <FormRow name="kodeProgram" labelText="kode program" />
           <FormRow name="namaProgram" labelText="nama program" />
@@ -62,6 +68,8 @@ const CreateProgramKerja = () => {
             name="rincianRencana"
             labelText="rincian rencana"
           />
+          <div></div>
+          <div></div>
           <SubmitBtn formBtn />
           <button
             className="btn form-btn delete-btn"

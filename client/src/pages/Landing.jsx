@@ -1,34 +1,27 @@
-import styled from "styled-components";
 import Wrapper from "../assets/wrappers/LandingPage";
-import main from "../assets/images/main.svg";
-import { Link } from "react-router-dom";
-import { Logo } from "../components";
+import gki from "../assets/images/gki.svg";
+// import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
     <Wrapper>
-      <nav>
-        {/* <Logo /> */}
-      </nav>
+      <nav>{/* <Logo /> */}</nav>
       <div className="container page">
         <div className="info">
           <h1>
-            System <span>Management</span> GKI Cibunut
+            GKI<span> Taman</span> Cibunut
           </h1>
-          <p>
-            I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
-            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
-            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
-            narwhal.
-          </p>
-          <Link to="/register" className="btn register-link">
+          <h4>Welcome to GKI Taman Cibunut Integrated Management System</h4>
+          <br />
+          <p>Welcome to GKI Taman Cibunut Integrated Management System</p>
+          {/* <Link to="/register" className="btn register-link">
             Register
           </Link>
           <Link to="/login" className="btn ">
             Login
-          </Link>
+          </Link> */}
         </div>
-        <img src={main} alt="job hunt" className="img main-img" />
+        <img src={gki} alt="job hunt" className="img main-img" />
       </div>
     </Wrapper>
   );

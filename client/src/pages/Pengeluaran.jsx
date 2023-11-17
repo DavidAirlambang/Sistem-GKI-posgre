@@ -103,7 +103,7 @@ const Pengeluaran = () => {
               labelText="penerima"
               name="penerimaAdministrasi"
               list={
-                user.role === "admin"
+                user.role === "admin" || user.role === "majelis"
                   ? ["--pilih komisi--", ...filteredRoles]
                   : ["--pilih komisi--", user.role]
               }

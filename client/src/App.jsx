@@ -23,6 +23,7 @@ import {
   EditViatikum,
   User,
   EditUser,
+  Landing,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -103,7 +104,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        // element: <Landing />,
         element: <Login />,
         action: loginAction(queryClient),
       },
@@ -124,7 +124,10 @@ const router = createBrowserRouter([
             element: <Ruang />,
             loader: ruanganLoader,
           },
-
+          {
+            path: "home",
+            element: <Landing />,
+          },
           {
             path: "booking/:noRuangan",
             element: <BookingRuangan />,
@@ -241,7 +244,7 @@ const router = createBrowserRouter([
             element: <User />,
             loader: userLoader,
           },
-          { 
+          {
             path: "user/:id",
             element: <EditUser />,
             action: userEditAction(),

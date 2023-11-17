@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Wrapper = styled.section`
   nav {
@@ -10,7 +10,7 @@ const Wrapper = styled.section`
     align-items: center;
   }
   .page {
-    min-height: calc(100vh - var(--nav-height));
+    min-height: calc(80vh - var(--nav-height));
     display: grid;
     align-items: center;
     margin-top: -3rem;
@@ -32,6 +32,7 @@ const Wrapper = styled.section`
     margin-right: 1rem;
   }
   .main-img {
+    scale: 150%;
     display: none;
   }
   .btn {
@@ -46,5 +47,5 @@ const Wrapper = styled.section`
       display: block;
     }
   }
-`;
-export default Wrapper;
+`
+export default Wrapper

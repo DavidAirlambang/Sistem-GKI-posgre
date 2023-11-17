@@ -2,7 +2,7 @@
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { Link, useLoaderData, useOutletContext } from "react-router-dom";
-import { ROLE } from "../../../utils/constants";
+import { ROLE_SELECT } from "../../../utils/constants";
 import { Form, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -37,7 +37,9 @@ export const action = () => {
 const EditProgramKerja = () => {
   const { user } = useOutletContext();
   const { programKerja } = useLoaderData();
-  const filteredRoles = Object.values(ROLE).filter((role) => role !== "admin");
+  const filteredRoles = Object.values(ROLE_SELECT).filter(
+    (role) => role !== "admin"
+  );
 
   return (
     <Wrapper>
@@ -47,7 +49,11 @@ const EditProgramKerja = () => {
           <FormRowSelect
             name="komisi"
             labelText="komisi"
-            list={user.role === "admin" ? filteredRoles : [user.role]}
+            list={
+              user.role === "admin" || user.role === "majelis"
+                ? filteredRoles
+                : [user.role]
+            }
             defaultValue={programKerja.komisi}
           />
           <FormRow

@@ -229,7 +229,8 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                 Detail Laporan
               </Link>
             </DropdownMenuItem>
-            {status !== "Approved" && status !== "Done" ? (
+            {(status !== "Approved" && status !== "Done") ||
+            user.role === "admin" ? (
               <DropdownMenuItem
                 className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
                 onClick={() => {
@@ -242,8 +243,9 @@ export const columns: ColumnDef<ProgramKerja>[] = [
             ) : null}
             {/* process */}
 
-            {status !== "Approved" &&
-            status !== "Done" &&
+            {(status !== "Approved" &&
+              status !== "Done" &&
+              user.role === "majelis") ||
             user.role === "admin" ? (
               <>
                 <DropdownMenuItem

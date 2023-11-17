@@ -15,7 +15,7 @@ export const action =
       await customFetch.post("/auth/login", data);
       queryClient.invalidateQueries();
       toast.success("Login successful");
-      return redirect("/dashboard");
+      return redirect("/dashboard/home");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
       return error;

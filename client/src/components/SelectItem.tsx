@@ -29,15 +29,19 @@ export function SelectItems({ komisi }: any) {
     >
       <SelectTrigger className="w-[180px] text-black mr-2">
         <SelectValue
-          placeholder={komisi === "admin" ? "Pilih Komisi" : komisi}
+          placeholder={
+            komisi === "admin" || komisi === "majelis" ? "Pilih Komisi" : komisi
+          }
         />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>
-            {komisi === "admin" ? "Pilih Komisi" : komisi}
+            {komisi === "admin" || komisi === "majelis"
+              ? "Pilih Komisi"
+              : komisi}
           </SelectLabel>
-          {komisi === "admin"
+          {komisi === "admin" || komisi === "majelis"
             ? items.map((item: any) => {
                 return (
                   <SelectItem key={item} value={item}>
@@ -83,15 +87,21 @@ export function SelectItemsAdministrasi({ komisi, tipe }: any) {
       }}
     >
       <SelectTrigger className="w-[180px] text-black mr-2">
-        <SelectValue placeholder={komisi === "admin" ? "All" : komisi} />
+        <SelectValue
+          placeholder={
+            komisi === "admin" || komisi === "majelis" ? "All" : komisi
+          }
+        />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>
-            {komisi === "admin" ? "Pilih Komisi" : komisi}
+            {komisi === "admin" || komisi === "majelis"
+              ? "Pilih Komisi"
+              : komisi}
           </SelectLabel>
 
-          {komisi === "admin"
+          {komisi === "admin" || komisi === "majelis"
             ? items.map((item: any) => {
                 return (
                   <SelectItem key={item} value={item}>
@@ -179,7 +189,7 @@ export function SelectUserRole() {
     setDataTable(user);
   };
 
-  const items = ["All", ...Object.values(ROLE)];
+  const items = ["All","no role", ...Object.values(ROLE)];
   return (
     <Select
       onValueChange={async (val) => {
