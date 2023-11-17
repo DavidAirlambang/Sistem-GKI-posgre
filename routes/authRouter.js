@@ -8,6 +8,7 @@ import {
   getUser,
   editUser
 } from '../controllers/authController.js'
+
 import {
   validateRegisterInput,
   validateLoginInput
@@ -22,8 +23,8 @@ const apiLimiter = rateLimiter({
 })
 
 router.post('/register', apiLimiter, validateRegisterInput, register)
-router.post('/user', getAllUser)
-router.route('/user/:id').get(getUser).post(editUser)
+// router.post('/user', getAllUser)
+// router.route('/user/:id').get(getUser).post(editUser)
 router.post('/login', apiLimiter, validateLoginInput, login)
 router.get('/logout', logout)
 

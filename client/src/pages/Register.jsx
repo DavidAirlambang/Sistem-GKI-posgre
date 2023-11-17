@@ -8,7 +8,15 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
+  const pass = document.getElementById("password").value;
+  const check = document.getElementById("checkPassword").value;
+
+  if (pass !== check) {
+    return toast.error("password tidak sama");
+  }
+
   try {
+    delete data.checkPassword;
     await customFetch.post("/auth/register", data);
     toast.success("Registration successful");
     return redirect("/");
@@ -27,6 +35,11 @@ const Register = () => {
         <FormRow type="text" name="name" />
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
+        <FormRow
+          type="password"
+          name="checkPassword"
+          labelText={"retype password"}
+        />
         <SubmitBtn />
         <p>
           Already a member?

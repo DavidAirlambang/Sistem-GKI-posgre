@@ -183,13 +183,13 @@ export function SelectUserRole() {
   const { setFilterRole, filterRole, setDataTable } = useAllUserContext();
 
   const refreshTable = async (role: string) => {
-    const { data } = await customFetch.post("/auth/user", { role });
+    const { data } = await customFetch.post("/user", { role });
     const { user } = data;
 
     setDataTable(user);
   };
 
-  const items = ["All","no role", ...Object.values(ROLE)];
+  const items = ["All", "no role", ...Object.values(ROLE)];
   return (
     <Select
       onValueChange={async (val) => {

@@ -9,7 +9,7 @@ import { columns } from "@/app/user/columns";
 
 export const loader = async () => {
   try {
-    const { data } = await customFetch.post("/auth/user");
+    const { data } = await customFetch.post("/user");
     return { data };
   } catch (error) {
     toast.error(error?.response?.data?.msg);

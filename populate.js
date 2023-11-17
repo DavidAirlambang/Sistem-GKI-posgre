@@ -7,39 +7,33 @@ async function populateRuangan () {
     {
       namaRuangan: 'Gedung Gereja',
       kapasitasRuangan: '350 Orang',
-      statusRuangan: 'Available',
-      userId: 1
+      statusRuangan: 'Available'
     },
     {
       namaRuangan: 'BPB',
       kapasitasRuangan: '50 Orang',
-      statusRuangan: 'Available',
-      userId: 1
+      statusRuangan: 'Available'
     },
     {
       namaRuangan: 'BPA',
       kapasitasRuangan: '150 Orang',
-      statusRuangan: 'Available',
-      userId: 1
+      statusRuangan: 'Available'
     },
     {
       namaRuangan: 'Auvi',
       kapasitasRuangan: '50 Orang',
-      statusRuangan: 'Available',
-      userId: 1
+      statusRuangan: 'Available'
     },
     {
       namaRuangan: 'Sekolah Minggu 7',
       kapasitasRuangan: '15 Orang',
-      statusRuangan: 'Available',
-      userId: 1
+      statusRuangan: 'Available'
     },
     {
       namaRuangan: 'Sekolah Minggu 8',
       kapasitasRuangan: '15 Orang',
-      statusRuangan: 'Available',
-      userId: 1
-    },
+      statusRuangan: 'Available'
+    }
   ]
 
   try {

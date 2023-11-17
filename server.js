@@ -22,6 +22,7 @@ import suratKeluarRouter from './routes/suratKeluarRouter.js'
 import administrasiRouter from './routes/administrasiRouter.js'
 import prokerRouter from './routes/prokerRouter.js'
 import logRouter from './routes/LogRouter.js'
+import userManagementRouter from './routes/userManagementRouter.js'
 import viatikumRouter from './routes/viatikumRouter.js'
 
 // public
@@ -70,6 +71,7 @@ app.use('/api/v1/administrasi', authenticateUser, administrasiRouter)
 app.use('/api/v1/proker', authenticateUser, prokerRouter)
 app.use('/api/v1/viatikum', authenticateUser, viatikumRouter)
 app.use('/api/v1/log', authenticateUser, logRouter)
+app.use('/api/v1/user', authenticateUser, userManagementRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))

@@ -9,7 +9,7 @@ import customFetch from "../utils/customFetch";
 
 export const loader = async ({ params }) => {
   try {
-    const { data } = await customFetch.get(`/auth/user/${params.id}`);
+    const { data } = await customFetch.get(`/user/${params.id}`);
     console.log(data);
     return data;
   } catch (error) {
@@ -23,7 +23,7 @@ export const action = () => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      await customFetch.post(`/auth/user/${params.id}`, data);
+      await customFetch.post(`/user/${params.id}`, data);
       toast.success("Item Updated");
       return redirect("/dashboard/user");
     } catch (error) {

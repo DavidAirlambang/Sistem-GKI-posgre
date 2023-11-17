@@ -59,7 +59,7 @@ export const login = async (req, res) => {
   if (!isValidUser) throw new UnauthenticatedError('invalid credentials')
 
   if (!userActive)
-    throw new UnauthenticatedError('Account Disable, contact administrator')
+    throw new UnauthenticatedError('Account disable, contact administrator')
 
   const token = createJWT({ userId: user.id, role: user.role }) // !!!!!!!!!!!!!!!!!!
 

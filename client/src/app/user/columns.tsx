@@ -22,7 +22,7 @@ import { useAllUserContext } from "@/pages/User";
 
 async function changeStatusUser(id: any, active: boolean) {
   try {
-    await customFetch.post(`/auth/user/${id}`, { active });
+    await customFetch.post(`/user/${id}`, { active });
     if (active === true) {
       toast.success("User Activated");
     } else {
@@ -70,7 +70,7 @@ export const columns: ColumnDef<User>[] = [
 
       // fetch ulang
       const refreshTable = async () => {
-        const { data } = await customFetch.post("/auth/user", {
+        const { data } = await customFetch.post("/user", {
           role: filterRole,
         });
         const { user } = data;
