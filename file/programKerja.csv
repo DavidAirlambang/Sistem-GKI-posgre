@@ -1,4 +1,3 @@
-Kode Program;Nama Program;Penanggung Jawab;Tujuan Kegiatan;Target Peserta;Waktu Pelaksanaan;Rincian Rencana;Total Anggaran;Tanggal;Laporan
-KR02;Nama 2;penanggung jawab A;tujuan A;100 dewasa;seminggu sekali;"a
-b
-c";100000;2023-11-18;pengeluaran 1
+Kode Program;Nama Program;Penanggung Jawab;Tujuan Kegiatan;Target Peserta;Waktu Pelaksanaan;Rincian Rencana;Total Anggaran;Realisasi;Status;Tanggal;Laporan
+KD02;upload;penang dewasa;tujuan a;a;setiap rabu;"123
+356";1100000;0;Pending;2023-11-18;-

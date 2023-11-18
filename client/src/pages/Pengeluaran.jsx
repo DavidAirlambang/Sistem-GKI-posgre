@@ -14,10 +14,9 @@ const AllPengeluaranContext = createContext();
 
 const Pengeluaran = () => {
   const { kreditData } = useLoaderData();
-  const { administrasi } = kreditData;
   const { user } = useOutletContext();
 
-  const [dataTable, setDataTable] = useState(administrasi);
+  const [dataTable, setDataTable] = useState([]);
   const [dataKomisi, setDataKomisi] = useState([]);
   const [filterKomisi, setFilterKomisi] = useState("All");
   const [sisaAnggaran, setSisaAnggaran] = useState(0);

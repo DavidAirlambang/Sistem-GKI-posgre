@@ -85,7 +85,7 @@ const komisi = [
 app.use(
   '/api/v1/ruangs',
   authenticateUser,
-  authorizePermissions('admin', 'staff kantor', 'komisi'),
+  authorizePermissions('admin', 'staff kantor', ...komisi),
   ruangRouter
 )
 app.use(

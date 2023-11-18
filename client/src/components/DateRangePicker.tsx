@@ -157,7 +157,11 @@ export function DatePickerWithRange({ className, filterFor }: any) {
         <PopoverTrigger
           asChild
           disabled={
-            tableRole === "admin" || tableRole === "majelis" ? true : false
+            tableRole === "admin" ||
+            tableRole === "majelis" ||
+            filterKomisi === "All"
+              ? true
+              : false
           }
         >
           <Button
@@ -196,7 +200,11 @@ export function DatePickerWithRange({ className, filterFor }: any) {
       </Popover>
       <Button
         disabled={
-          tableRole === "admin" || tableRole === "majelis" ? true : false
+          tableRole === "admin" ||
+          tableRole === "majelis" ||
+          filterKomisi === "All"
+            ? true
+            : false
         }
         className="delete-btn btn"
         onClick={() => {
@@ -217,7 +225,11 @@ export function DatePickerWithRange({ className, filterFor }: any) {
       </Button>
       <Button
         disabled={
-          tableRole === "admin" || tableRole === "majelis" ? true : false
+          tableRole === "admin" ||
+          tableRole === "majelis" ||
+          filterKomisi === "All"
+            ? true
+            : false
         }
         className="delete-btn btn"
         onClick={() => {

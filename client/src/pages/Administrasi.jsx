@@ -65,9 +65,8 @@ const AllAdministrasiContext = createContext();
 
 const Administrasi = () => {
   const { debitData } = useLoaderData();
-  const { administrasi } = debitData;
 
-  const [dataTable, setDataTable] = useState(administrasi);
+  const [dataTable, setDataTable] = useState([]);
   const [dataKomisi, setDataKomisi] = useState([]);
   const [filterKomisi, setFilterKomisi] = useState("All");
 

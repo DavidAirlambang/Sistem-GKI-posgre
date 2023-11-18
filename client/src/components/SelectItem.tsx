@@ -95,37 +95,27 @@ export function SelectItemsAdministrasi({ komisi, tipe }: any) {
       }}
     >
       <SelectTrigger className="w-[180px] text-black mr-2">
-        <SelectValue
-          placeholder={
-            komisi === "admin" ||
-            komisi === "majelis" ||
-            komisi === "staff keuangan"
-              ? "All"
-              : komisi
-          }
-        />
+        <SelectValue placeholder={"--Pilih Komisi / Urusan--"} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>
-            {komisi === "admin" ||
-            komisi === "majelis" ||
-            komisi === "staff keuangan"
-              ? "Pilih Komisi"
-              : komisi}
-          </SelectLabel>
+          <SelectLabel>{"Pilih Komisi"}</SelectLabel>
 
           {komisi === "admin" ||
           komisi === "majelis" ||
-          komisi === "staff keuangan"
-            ? items.map((item: any) => {
-                return (
-                  <SelectItem key={item} value={item}>
-                    {item}
-                  </SelectItem>
-                );
-              })
-            : null}
+          komisi === "staff keuangan" ? (
+            items.map((item: any) => {
+              return (
+                <SelectItem key={item} value={item}>
+                  {item}
+                </SelectItem>
+              );
+            })
+          ) : (
+            <SelectItem key={komisi} value={komisi}>
+              {komisi}
+            </SelectItem>
+          )}
         </SelectGroup>
       </SelectContent>
     </Select>
