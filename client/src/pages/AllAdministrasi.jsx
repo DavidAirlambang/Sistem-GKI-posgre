@@ -7,14 +7,18 @@ export default function AllAdministrasi() {
   return (
     <Tabs
       defaultValue={
-        user.role === "admin" || user.role === "majelis"
+        user.role === "admin" ||
+        user.role === "majelis" ||
+        user.role === "staff keuangan"
           ? "laporan"
           : "pengeluaran"
       }
       className="w-[400px]"
     >
       <TabsList>
-        {user.role === "admin" || user.role === "majelis" ? (
+        {user.role === "admin" ||
+        user.role === "majelis" ||
+        user.role === "staff keuangan" ? (
           <TabsTrigger value="penerimaan">Penerimaan</TabsTrigger>
         ) : (
           ""

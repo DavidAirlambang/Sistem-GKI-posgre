@@ -245,7 +245,7 @@ export const columns: ColumnDef<ProgramKerja>[] = [
 
             {(status !== "Approved" &&
               status !== "Done" &&
-              user.role === "majelis") ||
+              (user.role === "majelis" || user.role === "staff keuangan")) ||
             user.role === "admin" ? (
               <>
                 <DropdownMenuItem

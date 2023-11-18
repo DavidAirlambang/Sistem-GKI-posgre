@@ -55,7 +55,7 @@ const NavLinks = ({ isBigSidebar }) => {
           case user.role === "majelis":
             allowedPaths = majelisAccess;
             break;
-          case user.role === "keuangan":
+          case user.role === "staff keuangan":
             allowedPaths = keuanganAccess;
             break;
           default:

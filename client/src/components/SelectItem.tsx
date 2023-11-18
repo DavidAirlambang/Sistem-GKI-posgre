@@ -19,7 +19,7 @@ import { useOutletContext } from "react-router-dom";
 import { User } from "@/app/tabletype";
 
 export function SelectItems({ komisi }: any) {
-  const { setTableRole } = useAllProgramKerjaContext(); 
+  const { setTableRole } = useAllProgramKerjaContext();
   const items = Object.values(ROLE_SELECT).filter((role) => role !== "admin");
   return (
     <Select
@@ -30,18 +30,26 @@ export function SelectItems({ komisi }: any) {
       <SelectTrigger className="w-[180px] text-black mr-2">
         <SelectValue
           placeholder={
-            komisi === "admin" || komisi === "majelis" ? "Pilih Komisi" : komisi
+            komisi === "admin" ||
+            komisi === "majelis" ||
+            komisi === "staff keuangan"
+              ? "Pilih Komisi"
+              : komisi
           }
         />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>
-            {komisi === "admin" || komisi === "majelis"
+            {komisi === "admin" ||
+            komisi === "majelis" ||
+            komisi === "staff keuangan"
               ? "Pilih Komisi"
               : komisi}
           </SelectLabel>
-          {komisi === "admin" || komisi === "majelis"
+          {komisi === "admin" ||
+          komisi === "majelis" ||
+          komisi === "staff keuangan"
             ? items.map((item: any) => {
                 return (
                   <SelectItem key={item} value={item}>
@@ -89,19 +97,27 @@ export function SelectItemsAdministrasi({ komisi, tipe }: any) {
       <SelectTrigger className="w-[180px] text-black mr-2">
         <SelectValue
           placeholder={
-            komisi === "admin" || komisi === "majelis" ? "All" : komisi
+            komisi === "admin" ||
+            komisi === "majelis" ||
+            komisi === "staff keuangan"
+              ? "All"
+              : komisi
           }
         />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>
-            {komisi === "admin" || komisi === "majelis"
+            {komisi === "admin" ||
+            komisi === "majelis" ||
+            komisi === "staff keuangan"
               ? "Pilih Komisi"
               : komisi}
           </SelectLabel>
 
-          {komisi === "admin" || komisi === "majelis"
+          {komisi === "admin" ||
+          komisi === "majelis" ||
+          komisi === "staff keuangan"
             ? items.map((item: any) => {
                 return (
                   <SelectItem key={item} value={item}>
@@ -148,7 +164,9 @@ export function SelectLaporan() {
   const { user } = useOutletContext() as { user: User };
   const { setFilterKomisi } = useAllLaporanContext();
   let items;
-  user.role === "admin" || user.role === "majelis"
+  user.role === "admin" ||
+  user.role === "majelis" ||
+  user.role === "staff keuangan"
     ? (items = [
         "All",
         ...Object.values(ROLE_SELECT).filter((role) => role !== "admin"),

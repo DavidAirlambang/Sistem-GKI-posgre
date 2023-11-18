@@ -50,7 +50,9 @@ const EditProgramKerja = () => {
             name="komisi"
             labelText="komisi"
             list={
-              user.role === "admin" || user.role === "majelis"
+              user.role === "admin" ||
+              user.role === "majelis" ||
+              user.role === "staff keuangan"
                 ? filteredRoles
                 : [user.role]
             }

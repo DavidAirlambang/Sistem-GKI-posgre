@@ -183,7 +183,7 @@ export const sisaAnggaranProgramKerja = async (req, res) => {
 
 export const deleteProgramKerja = async (req, res) => {
   const programKerja = await prisma.programKerja.delete({
-    where: { noProker: req.params.noProker }
+    where: { noProker: parseInt(req.params.noProker) }
   })
   res.status(StatusCodes.OK).json({ programKerja })
 }

@@ -103,7 +103,9 @@ const Pengeluaran = () => {
               labelText="penerima"
               name="penerimaAdministrasi"
               list={
-                user.role === "admin" || user.role === "majelis"
+                user.role === "admin" ||
+                user.role === "majelis" ||
+                user.role === "staff keuangan"
                   ? ["--pilih komisi--", ...filteredRoles]
                   : ["--pilih komisi--", user.role]
               }
