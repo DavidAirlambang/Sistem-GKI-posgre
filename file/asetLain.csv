@@ -1,5 +1,2 @@
-Nama AsetLain;Jenis AsetLain;Jumlah AsetLain;Peminjam AsetLain;Keterangan;Lokasi AsetLain
-aset lain import;kursi cheetose;100;Komisi Anak;-;aset lain B
-aset 2;jenis A;100;-;-;aset lain A
-aset 3;jenis B;10;peminjam A;-;aset lain B
-aset 4;jenis b;100;-;-;aset lain A
+Nama AsetLain;Jenis AsetLain;Jumlah AsetLain;Peminjam AsetLain;Keterangan;Lokasi AsetLain;Nilai Aset
+aset 1;jenis A;100;-;-;lokasi B;200000

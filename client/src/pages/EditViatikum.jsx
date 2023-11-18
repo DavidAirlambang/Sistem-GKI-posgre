@@ -64,6 +64,7 @@ const EditViatikum = () => {
             labelText="pertahun"
             name="pertahun"
             defaultValue={viatikum.pertahun}
+            readOnly
           />
           <FormRow
             labelText="tahun"

@@ -124,7 +124,9 @@ export function ProgramKerjaDataTable<TData, TValue>({
 
         {/* export */}
         <Button
-          disabled={tableRole === "admin" ? true : false}
+          disabled={
+            tableRole === "admin" || tableRole === "majelis" ? true : false
+          }
           onClick={() => {
             try {
               downloadToExcel(dataTable, tableRole);
@@ -139,7 +141,9 @@ export function ProgramKerjaDataTable<TData, TValue>({
 
         {/* import */}
         <CSVUploader
-          aktif={tableRole === "admin" ? true : false}
+          aktif={
+            tableRole === "admin" || tableRole === "majelis" ? true : false
+          }
           komisi={tableRole}
           path="/proker/upload"
           refresh={() => refreshTable()}

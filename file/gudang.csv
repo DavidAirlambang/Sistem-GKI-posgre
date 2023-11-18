@@ -1,4 +1,3 @@
-Nama Barang;Jumlah Barang;Keterangan;Lokasi Gudang;Last Update
-barang 2;100;-;gudang A;9/15/2023, 12:49:29 PM
-barang 3;50;permen rasa yang terpendam;gudang B;9/15/2023, 12:50:10 PM
-barang B;200;-;gudang B;9/19/2023, 7:43:37 PM
+Nama Barang;Jumlah Barang;Keterangan;Lokasi Gudang;Nilai Aset
+barang 3;100;b;gudang pernikahan;2500000
+barang 4;200;b;gudang baru;2500000

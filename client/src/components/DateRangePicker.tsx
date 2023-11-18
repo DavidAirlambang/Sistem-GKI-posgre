@@ -154,7 +154,12 @@ export function DatePickerWithRange({ className, filterFor }: any) {
   return (
     <div className={cn("gap-2 text-black  grid grid-flow-col", className)}>
       <Popover>
-        <PopoverTrigger asChild disabled={tableRole === "admin" ? true : false}>
+        <PopoverTrigger
+          asChild
+          disabled={
+            tableRole === "admin" || tableRole === "majelis" ? true : false
+          }
+        >
           <Button
             id="date"
             variant={"outline"}
@@ -190,7 +195,9 @@ export function DatePickerWithRange({ className, filterFor }: any) {
         </PopoverContent>
       </Popover>
       <Button
-        disabled={tableRole === "admin" ? true : false}
+        disabled={
+          tableRole === "admin" || tableRole === "majelis" ? true : false
+        }
         className="delete-btn btn"
         onClick={() => {
           filterFor === "suratMasuk"
@@ -209,7 +216,9 @@ export function DatePickerWithRange({ className, filterFor }: any) {
         Filter
       </Button>
       <Button
-        disabled={tableRole === "admin" ? true : false}
+        disabled={
+          tableRole === "admin" || tableRole === "majelis" ? true : false
+        }
         className="delete-btn btn"
         onClick={() => {
           setDate(undefined);

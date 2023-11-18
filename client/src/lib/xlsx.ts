@@ -56,6 +56,7 @@ export function downloadToExcelAsetLain(data: any) {
         { label: "Peminjam AsetLain", value: "peminjamAsetLain" },
         { label: "Keterangan", value: "deskripsiAsetLain" },
         { label: "Lokasi AsetLain", value: "lokasiAsetLain" },
+        { label: "Nilai Aset", value: "nilaiAset" },
       ],
       content: data,
     },

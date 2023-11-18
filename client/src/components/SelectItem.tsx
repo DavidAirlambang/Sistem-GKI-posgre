@@ -19,7 +19,7 @@ import { useOutletContext } from "react-router-dom";
 import { User } from "@/app/tabletype";
 
 export function SelectItems({ komisi }: any) {
-  const { setTableRole } = useAllProgramKerjaContext();
+  const { setTableRole } = useAllProgramKerjaContext(); 
   const items = Object.values(ROLE_SELECT).filter((role) => role !== "admin");
   return (
     <Select

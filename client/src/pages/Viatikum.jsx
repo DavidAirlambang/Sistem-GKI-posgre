@@ -76,7 +76,7 @@ const Viatikum = () => {
                 hitungPerTahun();
               }}
             />
-            <FormRow labelText="pertahun" name="pertahun" />
+            <FormRow labelText="pertahun" name="pertahun" readOnly />
             <FormRow
               labelText="tahun"
               name="tahun"
