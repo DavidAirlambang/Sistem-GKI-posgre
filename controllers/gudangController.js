@@ -76,7 +76,8 @@ export const CreateManyBarangGudang = async (req, res) => {
           namaBarang: row['Nama Barang'],
           jumlahBarang: parseInt(row['Jumlah Barang']),
           keterangan: row['Keterangan'],
-          lokasiGudang: row['Lokasi Gudang']
+          lokasiGudang: row['Lokasi Gudang'],
+          nilaiAset: parseInt(row['Nilai Aset'])
         }
       }
 

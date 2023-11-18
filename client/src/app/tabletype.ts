@@ -6,6 +6,7 @@ export type Barang = {
   noBarang: number;
   createdAt: string;
   updatedAt: string;
+  nilaiAset: number;
 };
 
 export type Multimedia = {
@@ -18,6 +19,7 @@ export type Multimedia = {
   peminjamMultimedia: string;
   deskripsiMultimedia: string;
   lokasiMultimedia: string;
+  nilaiAset: number;
 };
 
 export type AsetLain = {
@@ -30,6 +32,7 @@ export type AsetLain = {
   peminjamAsetLain: string;
   deskripsiAsetLain: string;
   lokasiAsetLain: string;
+  nilaiAset: number;
 };
 
 export type SuratMasuk = {

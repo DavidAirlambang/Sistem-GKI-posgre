@@ -74,7 +74,8 @@ export const CreateManyMultimedia = async (req, res) => {
           jumlahMultimedia: parseInt(row['Jumlah Multimedia']),
           peminjamMultimedia: row['Peminjam Multimedia'],
           deskripsiMultimedia: row['Keterangan'],
-          lokasiMultimedia: row['Lokasi Multimedia']
+          lokasiMultimedia: row['Lokasi Multimedia'],
+          nilaiAset: parseInt(row['Nilai Aset'])
         }
       }
 

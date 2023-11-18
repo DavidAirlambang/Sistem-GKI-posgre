@@ -74,7 +74,8 @@ export const CreateManyAsetLain = async (req, res) => {
           jumlahAsetLain: parseInt(row['Jumlah AsetLain']),
           peminjamAsetLain: row['Peminjam AsetLain'],
           deskripsiAsetLain: row['Keterangan'],
-          lokasiAsetLain: row['Lokasi AsetLain']
+          lokasiAsetLain: row['Lokasi AsetLain'],
+          nilaiAset: parseInt(row['Nilai Aset'])
         }
       }
 

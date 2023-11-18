@@ -1,4 +1,2 @@
-Nama Multimedia;Jenis Multimedia;Jumlah Multimedia;Peminjam Multimedia;Keterangan;Lokasi Multimedia
-multimedia 2;jenis a;100;-;-;multimedia A
-multimedia 2;jenis a;100;-;-;multimedia A
-multimedia 2;jenis a;100;-;-;multimedia A
+Nama Multimedia;Jenis Multimedia;Jumlah Multimedia;Peminjam Multimedia;Keterangan;Lokasi Multimedia;Nilai Aset
+multimedia 2;test;1000;-;-;ruang A;100000
