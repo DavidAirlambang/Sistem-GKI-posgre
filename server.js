@@ -32,7 +32,10 @@ import path from 'path'
 
 // middleware
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js'
-import { authenticateUser } from './middleware/authMiddleware.js'
+import {
+  authenticateUser,
+  authorizePermissions
+} from './middleware/authMiddleware.js'
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -60,18 +63,91 @@ app.get('/api/v1/test', (req, res) => {
 app.use('/api/v1/users', authenticateUser, userRouter)
 app.use('/api/v1/auth', authRouter)
 
+const komisi = [
+  'komisi anak',
+  'komisi remaja',
+  'komisi pemuda',
+  'komisi dewasa',
+  'komisi usia lanjut',
+  'komisi kesenian',
+  'komisi multimedia',
+  'urusan 1',
+  'urusan 2',
+  'urusan 3',
+  'urusan 4',
+  'urusan 5',
+  'urusan 6',
+  'urusan 7',
+  'urusan 8'
+]
+
 // new
-app.use('/api/v1/ruangs', authenticateUser, ruangRouter)
-app.use('/api/v1/gudang', authenticateUser, gudangRouter)
-app.use('/api/v1/multimedia', authenticateUser, multimediaRouter)
-app.use('/api/v1/asetLain', authenticateUser, asetLainRouter)
-app.use('/api/v1/suratMasuk', authenticateUser, suratMasukRouter)
-app.use('/api/v1/suratKeluar', authenticateUser, suratKeluarRouter)
-app.use('/api/v1/administrasi', authenticateUser, administrasiRouter)
-app.use('/api/v1/proker', authenticateUser, prokerRouter)
-app.use('/api/v1/viatikum', authenticateUser, viatikumRouter)
-app.use('/api/v1/log', authenticateUser, logRouter)
-app.use('/api/v1/user', authenticateUser, userManagementRouter)
+app.use(
+  '/api/v1/ruangs',
+  authenticateUser,
+  authorizePermissions('admin', 'staff kantor', 'komisi'),
+  ruangRouter
+)
+app.use(
+  '/api/v1/gudang',
+  authenticateUser,
+  authorizePermissions('admin', 'staff kantor'),
+  gudangRouter
+)
+app.use(
+  '/api/v1/multimedia',
+  authenticateUser,
+  authorizePermissions('admin', 'staff kantor'),
+  multimediaRouter
+)
+app.use(
+  '/api/v1/asetLain',
+  authenticateUser,
+  authorizePermissions('admin', 'staff kantor'),
+  asetLainRouter
+)
+app.use(
+  '/api/v1/suratMasuk',
+  authenticateUser,
+  authorizePermissions('admin', 'staff kantor'),
+  suratMasukRouter
+)
+app.use(
+  '/api/v1/suratKeluar',
+  authenticateUser,
+  authorizePermissions('admin', 'staff kantor'),
+  suratKeluarRouter
+)
+app.use(
+  '/api/v1/administrasi',
+  authenticateUser,
+  authorizePermissions('admin', 'majelis', ...komisi, 'staff keuangan'),
+  administrasiRouter
+)
+app.use(
+  '/api/v1/proker',
+  authenticateUser,
+  authorizePermissions('admin', 'majelis', ...komisi, 'staff keuangan'),
+  prokerRouter
+)
+app.use(
+  '/api/v1/viatikum',
+  authenticateUser,
+  authorizePermissions('admin', 'majelis', 'staff keuangan'),
+  viatikumRouter
+)
+app.use(
+  '/api/v1/log',
+  authenticateUser,
+  authorizePermissions('admin'),
+  logRouter
+)
+app.use(
+  '/api/v1/user',
+  authenticateUser,
+  authorizePermissions('admin'),
+  userManagementRouter
+)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))

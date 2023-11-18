@@ -21,6 +21,8 @@ export const authenticateUser = (req, res, next) => {
 
 export const authorizePermissions = (...roles) => {
   return (req, res, next) => {
+    console.log(req.user)
+    console.log(roles)
     if (!roles.includes(req.user.role)) {
       throw new UnauthorizedError('Unauthorized to access this route')
     }
@@ -31,14 +33,4 @@ export const authorizePermissions = (...roles) => {
 export const checkForTestUser = (req, res, next) => {
   if (req.user.testUser) throw new BadRequestError('Demo User. Read Only!')
   next()
-}
-
-export const checkAdmin = () => {
-  return (req, res, next) => {
-    // console.log(req.user)
-    if (req.user.role !== 'admin') {
-      throw new UnauthorizedError('Tidak memiliki akses')
-    }
-    next()
-  }
 }

@@ -8,7 +8,7 @@ export const ROLE = {
   KOMISI_REMAJA: 'komisi remaja',
   KOMISI_PEMUDA: 'komisi pemuda',
   KOMISI_DEWASA: 'komisi dewasa',
-  KOMISI_USIA_LANJUT: 'komisi usia lanjut',
+  KOMISI_USIA_LANJUT: 'komisi usia lanjut', 
   KOMISI_KESENIAN: 'komisi kesenian',
   KOMISI_MULTIMEDIA: 'komisi multimedia',
   U1: 'urusan 1',
