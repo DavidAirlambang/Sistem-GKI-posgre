@@ -13,7 +13,7 @@ const Landing = () => {
           </h1>
           <h4>Welcome to GKI Taman Cibunut Integrated Management System</h4>
           <br />
-          <p>Welcome to GKI Taman Cibunut Integrated Management System</p>
+          {/* <p>Welcome to GKI Taman Cibunut Integrated Management System</p> */}
           {/* <Link to="/register" className="btn register-link">
             Register
           </Link>
