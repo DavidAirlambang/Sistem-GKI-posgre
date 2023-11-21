@@ -16,6 +16,7 @@ const Laporan = () => {
   const [pengeluaranData, setPengeluaranData] = useState([]);
   const [totalPenerimaan, setTotalPenerimaan] = useState(0);
   const [totalPengeluaran, setTotalPengeluaran] = useState(0);
+  const [saldoAwal, setSaldoAwal] = useState(0);
 
   const FormatMoney = (money) => {
     return new Intl.NumberFormat("id-ID", {
@@ -43,6 +44,8 @@ const Laporan = () => {
         setTotalPenerimaan,
         totalPengeluaran,
         setTotalPengeluaran,
+        saldoAwal,
+        setSaldoAwal,
       }}
     >
       <div className="py-4">
@@ -85,13 +88,14 @@ const Laporan = () => {
             Export
           </Button>
         </div>
+        <h3>{FormatMoney(saldoAwal)}</h3>
       </div>
       {/* Bagian yang akan dicetak */}
       <div
         ref={printRef}
-        className="flex items-center justify-normal bg-black p-5 print:visible print:absolute print:left-0 print:top-0 print:font-sans print:text-black"
+        className=" items-center justify-normal bg-black p-5 print:visible print:absolute print:left-0 print:top-0 print:font-sans print:text-black"
       >
-        <div className="p-3">
+        <div>
           <div className="flex justify-between items-center ">
             <h5 className="font-bold">Penerimaan</h5>
             <p className="mr-3">{`Total Penerimaan : ${FormatMoney(

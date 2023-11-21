@@ -57,7 +57,32 @@ export const getAllAdministrasiDateRange = async (req, res) => {
     0
   )
 
-  res.status(StatusCodes.OK).json({ administrasi, totalNominal })
+  // #SALDO AWAL
+  const startDate = new Date(req.body.startDate);
+  const queryAwal = {
+    where: {
+      tanggalAdministrasi: {
+        gte: new Date(2000, 0, 1),
+        lte: new Date(startDate.getTime() - 24 * 60 * 60 * 1000)
+      },
+      tipeAdministrasi: req.body.tipeAdministrasi
+    },
+    orderBy: { namaProgram: 'asc' }
+  }
+
+  if (req.body.penerima !== 'All' || undefined) {
+    queryAwal.where.penerimaAdministrasi = req.body.penerima
+  }
+
+  const awal = await prisma.administrasiKeuangan.findMany(queryAwal)
+
+  // Menghitung total nominal administrasi
+  const saldoAwal = administrasi.reduce(
+    (acc, curr) => acc + curr.nominalAdministrasi,
+    0
+  )
+
+  res.status(StatusCodes.OK).json({ administrasi, totalNominal, saldoAwal })
 }
 
 export const getAdministrasi = async (req, res) => {

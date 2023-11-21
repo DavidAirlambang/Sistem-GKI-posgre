@@ -27,6 +27,7 @@ export function DatePickerLaporan({
     filterKomisi,
     setTotalPenerimaan,
     setTotalPengeluaran,
+    setSaldoAwal,
   } = useAllLaporanContext();
 
   const fetchData = async () => {
@@ -54,8 +55,11 @@ export function DatePickerLaporan({
         }
       );
 
-      const { administrasi: penerimaan, totalNominal: nominalPenerimaan } =
-        debitResponse.data;
+      const {
+        administrasi: penerimaan,
+        totalNominal: nominalPenerimaan,
+        saldoAwal,
+      } = debitResponse.data;
       const { administrasi: pengeluaran, totalNominal: nominalPengeluaran } =
         kreditResponse.data;
 
@@ -63,6 +67,7 @@ export function DatePickerLaporan({
       setPengeluaranData(pengeluaran);
       setTotalPenerimaan(nominalPenerimaan);
       setTotalPengeluaran(nominalPengeluaran);
+      setSaldoAwal(saldoAwal);
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
     }
