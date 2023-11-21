@@ -1,6 +1,6 @@
 import Wrapper from "../assets/wrappers/JobsContainer";
 
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
 import { Link, useLoaderData, useOutletContext } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
@@ -21,6 +21,8 @@ const Ruang = () => {
   const { user } = useOutletContext();
   const { data } = useLoaderData();
   const { ruangans } = data;
+  const [ruangData, setRuangData] = useState(ruangans);
+
   if (ruangans.length === 0) {
     return (
       <>
@@ -39,7 +41,7 @@ const Ruang = () => {
     );
   }
   return (
-    <AllRuangsContext.Provider value={{ data }}>
+    <AllRuangsContext.Provider value={{ data, ruangData, setRuangData }}>
       {user.role === "admin" || user.role === "staff kantor" ? (
         <Link
           to="/dashboard/ruangs/createRuangan"
@@ -50,7 +52,7 @@ const Ruang = () => {
       ) : null}
       <Wrapper>
         <div className="jobs">
-          {ruangans?.map((ruangan) => {
+          {ruangans.map((ruangan) => {
             return <Ruangan key={ruangan.noRuangan} {...ruangan} />;
           })}
         </div>
@@ -60,5 +62,4 @@ const Ruang = () => {
 };
 
 export const useAllRuangsContext = () => useContext(AllRuangsContext);
-
 export default Ruang;

@@ -53,21 +53,6 @@ const Ruangan = ({
     }
   }
 
-  const deleteRuang = async (noRuangan) => {
-    try {
-      await customFetch.delete(`/ruangs/${noRuangan}`);
-      toast.success("Item deleted successfully");
-      return redirect("/dashboard/ruangs");
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.msg) {
-        toast.error(error.response.data.msg);
-      } else {
-        toast.error("An error occurred while deleting the item.");
-      }
-      return error;
-    }
-  };
-
   const showButton = (buatan) => {
     if (button === "Selesai") {
       return (
@@ -97,33 +82,20 @@ const Ruangan = ({
       );
     } else {
       return (
-        <>
-          <Form method="post" action={`../approve/${noRuangan}`}>
-            <input type="hidden" name="userId" value={user.id} />
-            <button
-              type="submit"
-              className="btn delete-btn"
-              disabled={
-                user.role === "admin" || user.role === "staff kantor"
-                  ? false
-                  : true
-              }
-            >
-              {button}
-            </button>
-          </Form>
-
-          {/* delete */}
-          {user.role !== "admin" || user.role !== "staff kantor" ? (
-            <button
-              type="button"
-              className="btn delete-btn"
-              onClick={() => deleteRuang(noRuangan)}
-            >
-              delete
-            </button>
-          ) : null}
-        </>
+        <Form method="post" action={`../approve/${noRuangan}`}>
+          <input type="hidden" name="userId" value={user.id} />
+          <button
+            type="submit"
+            className="btn delete-btn"
+            disabled={
+              user.role === "admin" || user.role === "staff kantor"
+                ? false
+                : true
+            }
+          >
+            {button}
+          </button>
+        </Form>
       );
     }
   };
@@ -147,7 +119,18 @@ const Ruangan = ({
           <JobInfo icon={<BsFillMicFill />} text={keteranganSoundSystem} />
         </div>
 
-        <footer className="actions">{showButton(komisi)}</footer>
+        <footer className="actions">
+          {showButton(komisi)}
+          {/* delete */}
+          {user.role === "admin" || user.role === "staff kantor" ? (
+            <Link
+              to={`/dashboard/ruangs/${noRuangan}`}
+              className="btn form-btn delete-btn ml-2"
+            >
+              Edit
+            </Link>
+          ) : null}
+        </footer>
       </div>
     </Wrapper>
   );

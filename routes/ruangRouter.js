@@ -22,11 +22,13 @@ router.route('/').get(getAllRuangan).post(validateRuangInput, createRuangan)
 
 router
   .route('/booking/:id')
-  // .patch(validateRuangUpdateInput, validateIdRuangParam, updateRuangan)
   .patch(validateBookingRuangInput, bookingRuangan)
   .get(getRuangan)
 
-router.route('/:id').delete(validateIdRuangParam, deleteRuangan)
+router
+  .route('/:noRuangan')
+  .delete(deleteRuangan)
+  .patch(validateRuangInput, updateRuangan)
 
 router.route('/approve/:id').patch(approveRuangan)
 router.route('/reset/:id').patch(resetRuangan)

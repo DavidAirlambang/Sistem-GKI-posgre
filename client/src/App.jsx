@@ -25,6 +25,7 @@ import {
   EditUser,
   Landing,
   CreateRuangan,
+  EditRuangan,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -77,6 +78,8 @@ import { loader as userLoader } from "./pages/User";
 import { action as userEditAction } from "./pages/EditUser";
 import { loader as userEditLoader } from "./pages/EditUser";
 import { action as createRuanganAction } from "./pages/CreateRuangan";
+import { action as RuanganEditAction } from "./pages/EditRuangan";
+import { loader as RuanganEditLoader } from "./pages/EditRuangan";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -130,6 +133,12 @@ const router = createBrowserRouter([
             path: "ruangs/createRuangan",
             element: <CreateRuangan />,
             action: createRuanganAction(),
+          },
+          {
+            path: "ruangs/:noRuangan",
+            element: <EditRuangan />,
+            action: RuanganEditAction(),
+            loader: RuanganEditLoader,
           },
           {
             path: "home",

@@ -26,9 +26,8 @@ export const getRuangan = async (req, res) => {
 }
 
 export const updateRuangan = async (req, res) => {
-  req.body.noRuangan = req.params.id
   const ruang = await prisma.ruangan.update({
-    where: { noRuangan: req.params.id },
+    where: { noRuangan: req.params.noRuangan },
     data: req.body
   })
   res.status(StatusCodes.OK).json({ ruang })
@@ -36,7 +35,7 @@ export const updateRuangan = async (req, res) => {
 
 export const deleteRuangan = async (req, res) => {
   const ruang = await prisma.ruangan.delete({
-    where: { noRuangan: req.params.id }
+    where: { noRuangan: req.params.noRuangan }
   })
   res.status(StatusCodes.OK).json({ ruang })
 }
