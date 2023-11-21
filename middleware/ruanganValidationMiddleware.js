@@ -4,14 +4,10 @@ import { withValidationErrors } from './validationMiddleware.js'
 import { body, param } from 'express-validator'
 
 export const validateRuangInput = withValidationErrors([
-  body('noRuangan').notEmpty().withMessage('no ruangan is required'),
   body('namaRuangan').notEmpty().withMessage('nama ruangan is required'),
   body('kapasitasRuangan')
     .notEmpty()
-    .withMessage('kapasitas ruangan is required'),
-  body('statusRuangan')
-    .isIn(Object.values(RUANGAN_STATUS))
-    .withMessage('invalid status ruangan')
+    .withMessage('kapasitas ruangan is required')
 ])
 
 export const validateRuangUpdateInput = withValidationErrors([
@@ -22,7 +18,7 @@ export const validateRuangUpdateInput = withValidationErrors([
 ])
 
 export const validateBookingRuangInput = withValidationErrors([
-  body('jadwal').notEmpty().withMessage('jadwal is required'),
+  body('jadwal').notEmpty().withMessage('jadwal is required')
   // body('statusRuangan')
   //   .isIn(Object.values(RUANGAN_STATUS))
   //   .withMessage('invalid status ruangan')

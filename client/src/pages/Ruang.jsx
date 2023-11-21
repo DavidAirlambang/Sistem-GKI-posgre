@@ -1,7 +1,7 @@
 import Wrapper from "../assets/wrappers/JobsContainer";
 
 import { useContext, createContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useOutletContext } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 import Ruangan from "../components/Ruangan";
@@ -18,17 +18,36 @@ export const loader = async () => {
 
 const AllRuangsContext = createContext();
 const Ruang = () => {
+  const { user } = useOutletContext();
   const { data } = useLoaderData();
   const { ruangans } = data;
   if (ruangans.length === 0) {
     return (
-      <Wrapper>
-        <h2>Belum ada ruangan</h2>
-      </Wrapper>
+      <>
+        {user.role === "admin" || user.role === "staff kantor" ? (
+          <Link
+            to="/dashboard/ruangs/createRuangan"
+            className="btn form-btn delete-btn"
+          >
+            Create
+          </Link>
+        ) : null}
+        <Wrapper>
+          <h2>Belum ada ruangan</h2>
+        </Wrapper>
+      </>
     );
   }
   return (
     <AllRuangsContext.Provider value={{ data }}>
+      {user.role === "admin" || user.role === "staff kantor" ? (
+        <Link
+          to="/dashboard/ruangs/createRuangan"
+          className="btn form-btn delete-btn"
+        >
+          Create
+        </Link>
+      ) : null}
       <Wrapper>
         <div className="jobs">
           {ruangans?.map((ruangan) => {

@@ -11,7 +11,7 @@ export const getAllRuangan = async (req, res) => {
 }
 
 export const createRuangan = async (req, res) => {
-  req.body.user = { connect: { id: req.user.userId } }
+  req.body.User = { connect: { id: req.user.userId } }
   const ruang = await prisma.ruangan.create({
     data: req.body
   })

@@ -15,8 +15,7 @@ import {
 import {
   validateBookingRuangInput,
   validateIdRuangParam,
-  validateRuangInput,
-  validateRuangUpdateInput
+  validateRuangInput
 } from '../middleware/ruanganValidationMiddleware.js'
 
 router.route('/').get(getAllRuangan).post(validateRuangInput, createRuangan)
@@ -25,8 +24,9 @@ router
   .route('/booking/:id')
   // .patch(validateRuangUpdateInput, validateIdRuangParam, updateRuangan)
   .patch(validateBookingRuangInput, bookingRuangan)
-  .delete(validateIdRuangParam, deleteRuangan)
   .get(getRuangan)
+
+router.route('/:id').delete(validateIdRuangParam, deleteRuangan)
 
 router.route('/approve/:id').patch(approveRuangan)
 router.route('/reset/:id').patch(resetRuangan)
