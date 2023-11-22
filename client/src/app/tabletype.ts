@@ -75,6 +75,7 @@ export type ProgramKerja = {
   realisasi: number;
   statusProker: string;
   tanggalProker: string;
+  tahun: number;
 };
 
 export type Viatikum = {

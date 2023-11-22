@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Log" ALTER COLUMN "tanggalLog" SET DATA TYPE TIMESTAMP(3);

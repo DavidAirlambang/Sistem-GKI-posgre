@@ -35,7 +35,7 @@ const DetailLaporanProker = () => {
         </h5>
         <Label htmlFor="message">Detail</Label>
         <Textarea
-          disabled
+          readOnly
           className="form-textarea"
           value={programKerja.laporanProker}
         />

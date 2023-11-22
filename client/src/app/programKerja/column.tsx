@@ -75,6 +75,10 @@ export const columns: ColumnDef<ProgramKerja>[] = [
     accessorKey: "namaProgram",
   },
   {
+    header: "Tahun Program",
+    accessorKey: "tahun",
+  },
+  {
     header: "Penanggung Jawab",
     accessorKey: "penanggungJawab",
   },
@@ -241,8 +245,21 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                 <Link to={`../editProgramKerja/${noProker}`}>edit proker</Link>
               </DropdownMenuItem>
             ) : null}
-            {/* process */}
 
+            {/* duplicate */}
+            <DropdownMenuItem
+              className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(noProker.toString());
+              }}
+            >
+              {" "}
+              <Link to={`../duplicateProgramKerja/${noProker}`}>
+                duplicate proker
+              </Link>
+            </DropdownMenuItem>
+
+            {/* process */}
             {(status !== "Approved" &&
               status !== "Done" &&
               (user.role === "majelis" || user.role === "staff keuangan")) ||
@@ -317,7 +334,6 @@ export const columns: ColumnDef<ProgramKerja>[] = [
                 </DropdownMenuItem>
               </>
             ) : null}
-
             {status === "Approved" ? (
               <DropdownMenuItem
                 className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"

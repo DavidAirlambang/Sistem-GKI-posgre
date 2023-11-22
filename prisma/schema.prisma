@@ -100,7 +100,8 @@ model AdministrasiKeuangan {
 
 model ProgramKerja {
   noProker         Int      @id @default(autoincrement())
-  kodeProgram      String   @unique
+  kodeProgram      String
+  tahun            Int      @default(dbgenerated("EXTRACT(YEAR FROM CURRENT_DATE)"))
   komisi           String
   namaProgram      String
   penanggungJawab  String

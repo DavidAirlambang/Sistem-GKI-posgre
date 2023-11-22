@@ -3,38 +3,9 @@ import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { Link, useLoaderData, useOutletContext } from "react-router-dom";
 import { ROLE_SELECT } from "../../../utils/constants";
-import { Form, redirect } from "react-router-dom";
-import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
-import { format } from "date-fns";
+import { Form } from "react-router-dom";
 
-export const loader = async ({ params }) => {
-  try {
-    const { data } = await customFetch.get(`/proker/${params.noProker}`);
-    return data;
-  } catch (error) {
-    toast.error(error.response.data.msg);
-    return redirect("/dashboard/programKerja");
-  }
-};
-
-export const action = () => {
-  return async ({ request, params }) => {
-    const formData = await request.formData();
-    const data = Object.fromEntries(formData);
-    try {
-      await customFetch.patch(`/proker/${params.noProker}`, data);
-
-      toast.success("Item Updated");
-      return redirect("/dashboard/programKerja");
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-      return error;
-    }
-  };
-};
-
-const EditProgramKerja = () => {
+const DuplicateProgramKerja = () => {
   const { user } = useOutletContext();
   const { programKerja } = useLoaderData();
   const filteredRoles = Object.values(ROLE_SELECT).filter(
@@ -50,13 +21,8 @@ const EditProgramKerja = () => {
             name="kodeProgram"
             labelText="kode program"
             defaultValue={programKerja.kodeProgram}
-            readOnly
           />
-          <FormRow
-            name="tahun"
-            labelText="tahun program"
-            defaultValue={programKerja.tahun}
-          />
+          <FormRow name="tahun" labelText="tahun program" />
           <FormRowSelect
             name="komisi"
             labelText="komisi"
@@ -99,15 +65,7 @@ const EditProgramKerja = () => {
             labelText="total anggaran"
             defaultValue={programKerja.totalAnggaran}
           />
-          <FormRow
-            type={"date"}
-            name="tanggalProker"
-            labelText="tanggal"
-            defaultValue={format(
-              new Date(programKerja.tanggalProker),
-              "yyyy-MM-dd"
-            )}
-          />
+          <FormRow type={"date"} name="tanggalProker" labelText="tanggal" />
           <FormRow
             type={"textarea"}
             name="rincianRencana"
@@ -127,4 +85,4 @@ const EditProgramKerja = () => {
     </Wrapper>
   );
 };
-export default EditProgramKerja;
+export default DuplicateProgramKerja;

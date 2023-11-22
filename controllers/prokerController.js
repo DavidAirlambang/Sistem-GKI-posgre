@@ -7,17 +7,22 @@ import { promisify } from 'util'
 
 export const createProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
+  req.body.tahun = parseInt(req.body.tahun)
   req.body.realisasi = parseInt(req.body.realisasi) || 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
 
   // check
-  const checkProker = await prisma.programKerja.findUnique({
-    where: { kodeProgram: req.body.kodeProgram }
+  const checkProker = await prisma.programKerja.findMany({
+    where: {
+      kodeProgram: req.body.kodeProgram,
+      tahun: req.body.tahun
+    }
   })
-  if (checkProker) {
+
+  if (checkProker.length > 0) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: 'Kode Program sudah digunakan' })
+      .json({ msg: 'Kode Program dengan tahun tersebut sudah ada' })
   }
 
   // bikin
@@ -33,7 +38,7 @@ export const getAllProgramKerja = async (req, res) => {
   }
   const programKerja = await prisma.programKerja.findMany({
     where: { komisi: req.body.komisi, statusProker: req.body.status },
-    orderBy: { kodeProgram: 'asc' }
+    orderBy: { noProker: 'asc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
@@ -58,7 +63,7 @@ export const getAllProgramKerjaNama = async (req, res) => {
       komisi: req.body.komisi,
       statusProker: 'Approved'
     },
-    orderBy: { kodeProgram: 'asc' }
+    orderBy: { noProker: 'asc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
@@ -88,7 +93,7 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
       },
       statusProker: req.body.status
     },
-    orderBy: { kodeProgram: 'asc' }
+    orderBy: { noProker: 'asc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
@@ -120,6 +125,7 @@ export const getProgramKerja = async (req, res) => {
 
 export const editProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
+  req.body.tahun = parseInt(req.body.tahun)
   req.body.realisasi = 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
   req.body.statusProker = 'Pending'
@@ -216,6 +222,7 @@ export const CreateManyProgramKerja = async (req, res) => {
       return {
         kodeProgram: row['Kode Program'],
         namaProgram: row['Nama Program'],
+        tahun: row['Tahun Program'],
         penanggungJawab: row['Penanggung Jawab'],
         tujuanKegiatan: row['Tujuan Kegiatan'],
         targetPeserta: row['Target Peserta'],

@@ -200,6 +200,7 @@ export function downloadToExcelProgramKerja(data: any, komisi: string) {
       columns: [
         { label: "Kode Program", value: "kodeProgram" },
         { label: "Nama Program", value: "namaProgram" },
+        { label: "Tahun Program", value: "tahunProgram" },
         { label: "Penanggung Jawab", value: "penanggungJawab" },
         { label: "Tujuan Kegiatan", value: "tujuanKegiatan" },
         { label: "Target Peserta", value: "targetPeserta" },

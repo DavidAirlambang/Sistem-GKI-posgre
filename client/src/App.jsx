@@ -26,6 +26,7 @@ import {
   Landing,
   CreateRuangan,
   EditRuangan,
+  DuplicateProgramKerja,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -231,6 +232,12 @@ const router = createBrowserRouter([
             path: "createProgramKerja",
             element: <CreateProgramKerja />,
             action: createProgramKerjaAction(),
+          },
+          {
+            path: "duplicateProgramKerja/:noProker",
+            element: <DuplicateProgramKerja />,
+            action: createProgramKerjaAction(),
+            loader: programKerjaEditLoader,
           },
           {
             path: "editProgramKerja/:noProker",

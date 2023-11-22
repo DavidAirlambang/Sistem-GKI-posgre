@@ -30,6 +30,7 @@ const CreateProgramKerja = () => {
   );
   const reset = () => {
     document.getElementById("kodeProgram").reset();
+    document.getElementById("tahun").reset();
     document.getElementById("namaProgram").reset();
     document.getElementById("penanggungJawab").reset();
     document.getElementById("tujuanKegiatan").reset();
@@ -57,6 +58,7 @@ const CreateProgramKerja = () => {
             }
           />
           <FormRow name="kodeProgram" labelText="kode program" />
+          <FormRow name="tahun" labelText="tahun program" />
           <FormRow name="namaProgram" labelText="nama program" />
           <FormRow name="penanggungJawab" labelText="penaggung jawab" />
           <FormRow name="tujuanKegiatan" labelText="tujuan kegiatan" />
@@ -70,7 +72,6 @@ const CreateProgramKerja = () => {
             name="rincianRencana"
             labelText="rincian rencana"
           />
-          <div></div>
           <div></div>
           <SubmitBtn formBtn />
           <button
