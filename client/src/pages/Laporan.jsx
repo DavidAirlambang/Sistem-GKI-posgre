@@ -88,7 +88,6 @@ const Laporan = () => {
             Export
           </Button>
         </div>
-        <h3>{FormatMoney(saldoAwal)}</h3>
       </div>
       {/* Bagian yang akan dicetak */}
       <div
@@ -112,6 +111,15 @@ const Laporan = () => {
             )}`}</p>
           </div>
           <LaporanDataTable columns={columns} data={pengeluaranData} />
+        </div>
+        <div className="flex justify-between">
+          <h4>{`Saldo Periode dipilih : ${FormatMoney(
+            totalPenerimaan - totalPengeluaran
+          )}`}</h4>
+          <h4>{`Saldo Awal : ${FormatMoney(saldoAwal)}`}</h4>
+          <h4>{`Saldo Akhir : ${FormatMoney(
+            saldoAwal + totalPenerimaan - totalPengeluaran
+          )}`}</h4>
         </div>
       </div>
     </AllLaporanContext.Provider>

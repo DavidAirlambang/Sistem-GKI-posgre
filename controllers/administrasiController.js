@@ -58,12 +58,11 @@ export const getAllAdministrasiDateRange = async (req, res) => {
   )
 
   // #SALDO AWAL
-  const startDate = new Date(req.body.startDate);
   const queryAwal = {
     where: {
       tanggalAdministrasi: {
-        gte: new Date(2000, 0, 1),
-        lte: new Date(startDate.getTime() - 24 * 60 * 60 * 1000)
+        gte: new Date('01-01-2000'),
+        lte: new Date(req.body.startDate)
       },
       tipeAdministrasi: req.body.tipeAdministrasi
     },
@@ -76,8 +75,10 @@ export const getAllAdministrasiDateRange = async (req, res) => {
 
   const awal = await prisma.administrasiKeuangan.findMany(queryAwal)
 
+  console.log(awal)
+
   // Menghitung total nominal administrasi
-  const saldoAwal = administrasi.reduce(
+  const saldoAwal = awal.reduce(
     (acc, curr) => acc + curr.nominalAdministrasi,
     0
   )

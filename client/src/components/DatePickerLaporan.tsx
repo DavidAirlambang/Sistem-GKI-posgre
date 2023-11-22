@@ -58,16 +58,19 @@ export function DatePickerLaporan({
       const {
         administrasi: penerimaan,
         totalNominal: nominalPenerimaan,
-        saldoAwal,
+        saldoAwal: awalPenerimaan,
       } = debitResponse.data;
-      const { administrasi: pengeluaran, totalNominal: nominalPengeluaran } =
-        kreditResponse.data;
+      const {
+        administrasi: pengeluaran,
+        totalNominal: nominalPengeluaran,
+        saldoAwal: awalPengeluaran,
+      } = kreditResponse.data;
 
       setPenerimaanData(penerimaan);
       setPengeluaranData(pengeluaran);
       setTotalPenerimaan(nominalPenerimaan);
       setTotalPengeluaran(nominalPengeluaran);
-      setSaldoAwal(saldoAwal);
+      setSaldoAwal(awalPenerimaan - awalPengeluaran);
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
     }
