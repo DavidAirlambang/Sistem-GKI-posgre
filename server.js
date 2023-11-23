@@ -24,6 +24,7 @@ import prokerRouter from './routes/prokerRouter.js'
 import logRouter from './routes/LogRouter.js'
 import userManagementRouter from './routes/userManagementRouter.js'
 import viatikumRouter from './routes/viatikumRouter.js'
+import limitRouter from './routes/limitRouter.js'
 
 // public
 import { dirname } from 'path'
@@ -142,11 +143,19 @@ app.use(
   authorizePermissions('admin'),
   logRouter
 )
+
 app.use(
   '/api/v1/user',
   authenticateUser,
   authorizePermissions('admin'),
   userManagementRouter
+)
+
+app.use(
+  '/api/v1/limit',
+  authenticateUser,
+  authorizePermissions('admin'),
+  limitRouter
 )
 
 app.get('*', (req, res) => {

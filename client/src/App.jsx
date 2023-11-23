@@ -27,6 +27,7 @@ import {
   CreateRuangan,
   EditRuangan,
   DuplicateProgramKerja,
+  Limit,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -81,6 +82,8 @@ import { loader as userEditLoader } from "./pages/EditUser";
 import { action as createRuanganAction } from "./pages/CreateRuangan";
 import { action as RuanganEditAction } from "./pages/EditRuangan";
 import { loader as RuanganEditLoader } from "./pages/EditRuangan";
+import { action as LimiterAction } from "./pages/Limit";
+import { loader as LimiterLoader } from "./pages/Limit";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -272,6 +275,12 @@ const router = createBrowserRouter([
             element: <EditUser />,
             action: userEditAction(),
             loader: userEditLoader,
+          },
+          {
+            path: "limiter",
+            element: <Limit />,
+            action: LimiterAction(),
+            loader: LimiterLoader,
           },
 
           { path: "approve/:noRuangan", action: approveAction },

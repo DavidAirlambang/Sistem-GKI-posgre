@@ -1,23 +1,23 @@
-import { toast } from 'react-toastify';
-import { JobsContainer, SearchContainer } from '../components';
-import customFetch from '../utils/customFetch';
-import { useLoaderData } from 'react-router-dom';
-import { useContext, createContext } from 'react';
-import { useQuery } from '@tanstack/react-query';
+/* eslint-disable react-refresh/only-export-components */
+import { JobsContainer, SearchContainer } from "../components";
+import customFetch from "../utils/customFetch";
+import { useLoaderData } from "react-router-dom";
+import { useContext, createContext } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const allJobsQuery = (params) => {
   const { search, jobStatus, jobType, sort, page } = params;
-  return { 
+  return {
     queryKey: [
-      'jobs',
-      search ?? '',
-      jobStatus ?? 'all',
-      jobType ?? 'all',
-      sort ?? 'newest',
+      "jobs",
+      search ?? "",
+      jobStatus ?? "all",
+      jobType ?? "all",
+      sort ?? "newest",
       page ?? 1,
     ],
     queryFn: async () => {
-      const { data } = await customFetch.get('/jobs', {
+      const { data } = await customFetch.get("/jobs", {
         params,
       });
       return data;
@@ -47,7 +47,7 @@ const AllJobs = () => {
     </AllJobsContext.Provider>
   );
 };
- 
+
 export const useAllJobsContext = () => useContext(AllJobsContext);
 
 export default AllJobs;

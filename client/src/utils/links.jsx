@@ -57,26 +57,11 @@ const links = [
     path: "user",
     icon: <FaWpforms />,
   },
-  // {
-  //   text: "all jobs",
-  //   path: "all-jobs",
-  //   icon: <MdQueryStats />,
-  // },
-  // {
-  //   text: 'stats',
-  //   path: 'stats',
-  //   icon: <IoBarChartSharp />,
-  // },
-  // {
-  //   text: 'profile',
-  //   path: 'profile',
-  //   icon: <ImProfile />,
-  // },
-  // {
-  //   text: 'admin',
-  //   path: 'admin',
-  //   icon: <MdAdminPanelSettings />,
-  // },
+  {
+    text: "Admin Setting",
+    path: "limiter",
+    icon: <FaWpforms />,
+  },
 ];
 
 export default links;

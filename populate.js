@@ -48,5 +48,22 @@ async function populateRuangan () {
   }
 }
 
+async function populateLimit () {
+  try {
+    await prisma.limiter.create({
+      data: {
+        awal: new Date('2000-01-01T00:00:00Z'),
+        akhir: new Date('2030-12-12T00:00:00Z')
+      }
+    })
+    console.log('Data limit berhasil dipopulasi.')
+  } catch (error) {
+    console.error('Gagal mempopulasi data limit:', error)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
 // Panggil fungsi untuk memulai proses populasi
 populateRuangan()
+populateLimit()

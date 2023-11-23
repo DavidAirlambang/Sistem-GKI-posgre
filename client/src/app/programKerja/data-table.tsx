@@ -111,14 +111,14 @@ export function ProgramKerjaDataTable<TData, TValue>({
 
   return (
     <div className="mt-5">
-      <div className="flex flex-wrap items-center py-4">
+      <div className="flex flex-wrap items-center pt-4">
         {/* SelectItems */}
-        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full sm:w-auto pb-4 sm:mr-2 mb-4 sm:mb-0">
           <SelectItems komisi={user.role} />
         </div>
 
         {/* Input */}
-        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full sm:w-auto pb-4 sm:mr-2 mb-4 sm:mb-0">
           <Input
             placeholder="Cari kode"
             value={
@@ -130,7 +130,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
             className="max-w-xs text-black form-input"
           />
         </div>
-        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
           <Input
             placeholder="Cari nama program"
             value={
@@ -144,12 +144,12 @@ export function ProgramKerjaDataTable<TData, TValue>({
         </div>
 
         {/* DatePicker */}
-        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
           <DatePickerWithRange filterFor="programKerja" />
         </div>
 
         {/* Export Button */}
-        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
           <Button
             disabled={tableRole === "admin" || tableRole === "majelis"}
             onClick={() => {
@@ -165,7 +165,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
         </div>
 
         {/* CSVUploader */}
-        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
           <CSVUploader
             aktif={tableRole === "admin" || tableRole === "majelis"}
             komisi={tableRole}
@@ -175,15 +175,15 @@ export function ProgramKerjaDataTable<TData, TValue>({
         </div>
 
         {/* SelectStatus */}
-        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
           <SelectStatus />
         </div>
 
         {/* Create Button */}
-        <div className="w-full sm:w-auto">
+        <div className="w-full pb-4 sm:w-auto">
           <Button className="btn p-0">
             <Link
-              className="w-full h-full flex items-center justify-center"
+              className="w-full  h-full flex items-center justify-center"
               to="/dashboard/createProgramKerja"
             >
               Create

@@ -21,6 +21,7 @@ const NavLinks = ({ isBigSidebar }) => {
           "programKerja",
           "viatikum",
           "user",
+          "limiter",
         ];
 
         const kantorAccess = [

@@ -136,3 +136,9 @@ model Log {
   actionLog   String
   keterangan  String
 }
+
+model Limiter {
+  id    Int      @id @unique @default(1)
+  awal  DateTime @default(now())
+  akhir DateTime @default(now())
+}
