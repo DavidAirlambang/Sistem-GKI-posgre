@@ -89,9 +89,7 @@ export function UserDataTable<TData, TValue>({
         <Input
           placeholder="Cari nama user"
           value={(table.getColumn("name")?.getFilterValue() as string) || ""}
-          onChange={(e) => {
-            console.log(e.target.value);
-            console.log(sorting);
+          onChange={(e: any) => {
             table.getColumn("name")?.setFilterValue(e.target.value);
           }}
           className="max-w-sm text-black form-input"

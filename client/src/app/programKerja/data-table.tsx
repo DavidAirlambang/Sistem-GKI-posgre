@@ -66,13 +66,9 @@ export function ProgramKerjaDataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    // kalo ada perubahan panggil set sorting
     onSortingChange: setSorting,
-    // kalo ada filter panggil set column filter
     onColumnFiltersChange: setColumnFilters,
-    // atur visibility
     onColumnVisibilityChange: setColumnVisibility,
-    // define hook yang dipake
     state: {
       sorting,
       columnFilters,
@@ -115,80 +111,93 @@ export function ProgramKerjaDataTable<TData, TValue>({
 
   return (
     <div className="mt-5">
-      {/* input */}
-      <div className="flex items-center py-4">
-        <SelectItems komisi={user.role} />
-        {/* <Input*/}
+      <div className="flex flex-wrap items-center py-4">
+        {/* SelectItems */}
+        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+          <SelectItems komisi={user.role} />
+        </div>
 
-        <DatePickerWithRange filterFor="programKerja" />
-
-        {/* export */}
-        <Button
-          disabled={
-            tableRole === "admin" || tableRole === "majelis" ? true : false
-          }
-          onClick={() => {
-            try {
-              downloadToExcel(dataTable, tableRole);
-            } catch (error: any) {
-              toast.error(error.response.data.msg);
+        {/* Input */}
+        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+          <Input
+            placeholder="Cari kode"
+            value={
+              (table.getColumn("kodeProgram")?.getFilterValue() as string) || ""
             }
-          }}
-          className="ml-6 mr-2"
-        >
-          Export
-        </Button>
+            onChange={(e: any) => {
+              table.getColumn("kodeProgram")?.setFilterValue(e.target.value);
+            }}
+            className="max-w-xs text-black form-input"
+          />
+        </div>
+        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+          <Input
+            placeholder="Cari nama program"
+            value={
+              (table.getColumn("namaProgram")?.getFilterValue() as string) || ""
+            }
+            onChange={(e: any) => {
+              table.getColumn("namaProgram")?.setFilterValue(e.target.value);
+            }}
+            className="max-w-xs text-black form-input"
+          />
+        </div>
 
-        {/* import */}
-        <CSVUploader
-          aktif={
-            tableRole === "admin" || tableRole === "majelis" ? true : false
-          }
-          komisi={tableRole}
-          path="/proker/upload"
-          refresh={() => refreshTable()}
-        />
+        {/* DatePicker */}
+        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+          <DatePickerWithRange filterFor="programKerja" />
+        </div>
 
-        {/* filter status */}
-        <SelectStatus />
-
-        {/* visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4 mr-4 text-black btn">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="rounded bg-slate-100">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: boolean) => {
-                      column.toggleVisibility(!!value);
-                    }}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        {/* create */}
-        <Button className="ml-auto btn p-0">
-          <Link
-            className="w-full h-full flex items-center justify-center"
-            to="/dashboard/createProgramKerja"
+        {/* Export Button */}
+        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+          <Button
+            disabled={tableRole === "admin" || tableRole === "majelis"}
+            onClick={() => {
+              try {
+                downloadToExcel(dataTable, tableRole);
+              } catch (error: any) {
+                toast.error(error.response.data.msg);
+              }
+            }}
           >
-            Create
-          </Link>
-        </Button>
+            Export
+          </Button>
+        </div>
+
+        {/* CSVUploader */}
+        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+          <CSVUploader
+            aktif={tableRole === "admin" || tableRole === "majelis"}
+            komisi={tableRole}
+            path="/proker/upload"
+            refresh={() => refreshTable()}
+          />
+        </div>
+
+        {/* SelectStatus */}
+        <div className="w-full sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+          <SelectStatus />
+        </div>
+
+        {/* Create Button */}
+        <div className="w-full sm:w-auto">
+          <Button className="btn p-0">
+            <Link
+              className="w-full h-full flex items-center justify-center"
+              to="/dashboard/createProgramKerja"
+            >
+              Create
+            </Link>
+          </Button>
+        </div>
+
+        {/* Additional Style for Small Screens */}
+        <div className="w-full sm:hidden">
+          {/* Add additional styling or content for small screens */}
+          <p className="text-sm text-gray-500 mt-2">
+            This is only visible on small screens.
+          </p>
+        </div>
       </div>
 
       {/* table */}

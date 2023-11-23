@@ -95,8 +95,6 @@ export function GudangDataTable<TData, TValue>({
             (table.getColumn("namaBarang")?.getFilterValue() as string) || ""
           }
           onChange={(e) => {
-            console.log(e.target.value);
-            console.log(sorting);
             table.getColumn("namaBarang")?.setFilterValue(e.target.value);
           }}
           className="max-w-sm text-black form-input"
