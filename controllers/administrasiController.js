@@ -8,6 +8,23 @@ import { promisify } from 'util'
 export const createAdministrasi = async (req, res) => {
   req.body.nominalAdministrasi = parseInt(req.body.nominalAdministrasi)
   req.body.tanggalAdministrasi = `${req.body.tanggalAdministrasi}T00:00:00Z`
+
+  // kalo pengeluaran
+  if (req.body.tipeAdministrasi === 'kredit') {
+    const limit = await prisma.limiter.findUnique({
+      where: { id: 1 }
+    })
+    const awalDate = new Date(limit.awal)
+    const akhirDate = new Date(limit.akhir)
+    const tanggalDate = new Date(req.body.tanggalAdministrasi)
+
+    if (!(tanggalDate >= awalDate && tanggalDate <= akhirDate)) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: 'Periode tidak diizinkan' })
+    }
+  }
+
   const administrasi = await prisma.administrasiKeuangan.create({
     data: req.body
   })

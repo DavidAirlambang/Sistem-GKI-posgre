@@ -35,7 +35,8 @@ const Pengeluaran = () => {
       const { programKerja } = await data;
 
       const namaPrograms = programKerja.map(
-        (program) => `(${program.kodeProgram}) ${program.namaProgram}`
+        (program) =>
+          `(${program.kodeProgram}-${program.tahun}) ${program.namaProgram}`
       );
 
       setDataKomisi(namaPrograms);

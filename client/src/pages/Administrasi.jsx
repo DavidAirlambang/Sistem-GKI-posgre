@@ -46,13 +46,11 @@ export const action = () => {
       });
 
       // update realisasi
-      if (data.tipeAdministrasi === "kredit") {
-        await customFetch.post("/proker/realisasi", {
-          namaProgram: data.namaProgram,
-          realisasi: data.nominalAdministrasi,
-          laporan: laporanProker,
-        });
-      }
+      await customFetch.post("/proker/realisasi", {
+        namaProgram: data.namaProgram,
+        realisasi: data.nominalAdministrasi,
+        laporan: laporanProker,
+      });
       return toast.success("Item added successfully ");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
@@ -78,7 +76,8 @@ const Administrasi = () => {
       const { programKerja } = await data;
       // Menggunakan map untuk mengembalikan nama program
       const namaPrograms = programKerja.map(
-        (program) => `(${program.kodeProgram}) ${program.namaProgram}`
+        (program) =>
+          `(${program.kodeProgram}-${program.tahun}) ${program.namaProgram}`
       );
 
       // Mengatur state dataKomisi dengan nilai yang baru
