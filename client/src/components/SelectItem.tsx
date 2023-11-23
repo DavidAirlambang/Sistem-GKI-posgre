@@ -150,7 +150,7 @@ export function SelectStatus() {
   );
 }
 
-export function SelectLaporan() {
+export function SelectLaporan(width = "w-[500px]") {
   const { user } = useOutletContext() as { user: User };
   const { setFilterKomisi } = useAllLaporanContext();
   let items;
@@ -168,7 +168,7 @@ export function SelectLaporan() {
         setFilterKomisi(val);
       }}
     >
-      <SelectTrigger className="w-[500px] text-black mr-2">
+      <SelectTrigger className={`${width} text-black mr-2 sm:w-auto`}>
         <SelectValue placeholder={"Pilih Komisi atau Urusan"} />
       </SelectTrigger>
       <SelectContent>

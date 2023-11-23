@@ -48,45 +48,54 @@ const Laporan = () => {
         setSaldoAwal,
       }}
     >
-      <div className="py-4">
+      <div className="pt-4">
         <h4 className="form-title">Laporan Adminstrasi Keuangan</h4>
-        <div className="flex items-center mt-4 w-full">
-          <SelectLaporan />
-          <DatePickerLaporan />
-          <Button
-            onClick={handlePrint}
-            className="ml-4"
-            disabled={
-              penerimaanData.length !== 0 || pengeluaranData.length !== 0
-                ? false
-                : true
-            }
-          >
-            Print
-          </Button>
+        <div className="flex flex-col sm:flex-row items-center mt-4 w-full">
+          {/* SelectLaporan */}
+          <div className={`pb-4 mb-2 sm:mb-0 sm:mr-2 w-full lg:w-1/4`}>
+            <SelectLaporan width={"sm:w-1/2"} />
+          </div>
 
-          {/* export */}
-          <Button
-            onClick={() => {
-              try {
-                downloadToExcelLaporan(
-                  penerimaanData,
-                  pengeluaranData,
-                  filterKomisi
-                );
-              } catch (error) {
-                toast.error(error.response.data.msg);
+          {/* DatePickerLaporan */}
+          <div className="pb-4 mb-2 sm:mb-0 sm:mr-2 w-full sm:w-1/2 lg:w-1/4">
+            <DatePickerLaporan />
+          </div>
+
+          {/* Print and Export Buttons */}
+          <div className="pb-4 w-full sm:w-1/2 lg:w-2/4 flex justify-end">
+            <Button
+              onClick={handlePrint}
+              className="pb-4 ml-0 mb-2 sm:ml-4 sm:mb-0"
+              disabled={
+                penerimaanData.length !== 0 || pengeluaranData.length !== 0
+                  ? false
+                  : true
               }
-            }}
-            className="ml-2"
-            disabled={
-              penerimaanData.length !== 0 || pengeluaranData.length !== 0
-                ? false
-                : true
-            }
-          >
-            Export
-          </Button>
+            >
+              Print
+            </Button>
+            <Button
+              onClick={() => {
+                try {
+                  downloadToExcelLaporan(
+                    penerimaanData,
+                    pengeluaranData,
+                    filterKomisi
+                  );
+                } catch (error) {
+                  toast.error(error.response.data.msg);
+                }
+              }}
+              className="pb-4 ml-2 sm:ml-2 mb-2 sm:mb-0"
+              disabled={
+                penerimaanData.length !== 0 || pengeluaranData.length !== 0
+                  ? false
+                  : true
+              }
+            >
+              Export
+            </Button>
+          </div>
         </div>
       </div>
       {/* Bagian yang akan dicetak */}
