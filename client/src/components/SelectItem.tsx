@@ -188,10 +188,13 @@ export function SelectLaporan(width = "w-[500px]") {
 }
 
 export function SelectUserRole() {
-  const { setFilterRole, filterRole, setDataTable } = useAllUserContext();
+  const { setFilterRole, userStatus, setDataTable } = useAllUserContext();
 
   const refreshTable = async (role: string) => {
-    const { data } = await customFetch.post("/user", { role });
+    const { data } = await customFetch.post("/user", {
+      role,
+      status: userStatus,
+    });
     const { user } = data;
 
     setDataTable(user);
@@ -201,6 +204,7 @@ export function SelectUserRole() {
   return (
     <Select
       onValueChange={async (val) => {
+        setFilterRole(val);
         refreshTable(val);
       }}
     >
@@ -213,6 +217,46 @@ export function SelectUserRole() {
           {items.map((item: any) => {
             return (
               <SelectItem className="tipe" key={item} value={item}>
+                {item}
+              </SelectItem>
+            );
+          })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function SelectUserStatus() {
+  const { setUserStatus, filterRole, setDataTable } = useAllUserContext();
+
+  const refreshTable = async (status: string) => {
+    const { data } = await customFetch.post("/user", {
+      role: filterRole,
+      status,
+    });
+    const { user } = data;
+
+    setDataTable(user);
+  };
+
+  const items = ["All", "Active", "Inactive"];
+  return (
+    <Select
+      onValueChange={async (val) => {
+        setUserStatus(val);
+        refreshTable(val);
+      }}
+    >
+      <SelectTrigger className="w-[180px] text-black ml-4">
+        <SelectValue placeholder={"Pilih Status"} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>{"Pilih Status"}</SelectLabel>
+          {items.map((item: any) => {
+            return (
+              <SelectItem className="status" key={item} value={item}>
                 {item}
               </SelectItem>
             );

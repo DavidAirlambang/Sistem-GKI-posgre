@@ -61,7 +61,7 @@ export const getAllAdministrasiDateRange = async (req, res) => {
     },
     orderBy: { namaProgram: 'asc' }
   }
-
+ 
   if (req.body.penerima !== 'All' || undefined) {
     query.where.penerimaAdministrasi = req.body.penerima
   }

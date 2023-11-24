@@ -35,7 +35,7 @@ import { downloadToExcelUser as downloadToExcel } from "@/lib/xlsx";
 import { useAllUserContext } from "@/pages/User";
 import { CSVUploader } from "@/lib/CSVUploader";
 import customFetch from "@/utils/customFetch";
-import { SelectUserRole } from "@/components/SelectItem";
+import { SelectUserRole, SelectUserStatus } from "@/components/SelectItem";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -96,6 +96,7 @@ export function UserDataTable<TData, TValue>({
         />
 
         <SelectUserRole />
+        <SelectUserStatus />
 
         {/* export */}
         <Button onClick={() => downloadToExcel(data)} className="ml-4">

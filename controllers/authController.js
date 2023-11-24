@@ -19,15 +19,27 @@ export const register = async (req, res) => {
 }
 
 export const getAllUser = async (req, res) => {
+  const query = {
+    orderBy: { name: 'asc' },
+    where: {}
+  }
+
   if (req.body.role && req.body.role !== 'All') {
-    const user = await prisma.user.findMany({
-      where: { role: req.body.role },
-      orderBy: { name: 'asc' }
-    })
+    query.where.role = req.body.role
+  }
+  if (req.body.status && req.body.status !== 'All') {
+    req.body.status = req.body.status === 'Active' ? true : false
+    query.where.active = req.body.status
+  }
+
+  try {
+    const user = await prisma.user.findMany(query)
     res.status(StatusCodes.OK).json({ user })
-  } else {
-    const user = await prisma.user.findMany({ orderBy: { name: 'asc' } })
-    res.status(StatusCodes.OK).json({ user })
+  } catch (error) {
+    console.error('Error fetching user:', error)
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: 'Internal Server Error' })
   }
 }
 
