@@ -150,30 +150,36 @@ export function SelectStatus() {
   );
 }
 
-export function SelectLaporan(width = "w-[500px]") {
+export function SelectLaporan() {
   const { user } = useOutletContext() as { user: User };
   const { setFilterKomisi } = useAllLaporanContext();
+
   let items;
-  user.role === "admin" ||
-  user.role === "majelis" ||
-  user.role === "staff keuangan"
-    ? (items = [
-        "All",
-        ...Object.values(ROLE_SELECT).filter((role) => role !== "admin"),
-      ])
-    : (items = [user.role]);
+  if (
+    user.role === "admin" ||
+    user.role === "majelis" ||
+    user.role === "staff keuangan"
+  ) {
+    items = [
+      "All",
+      ...Object.values(ROLE_SELECT).filter((role) => role !== "admin"),
+    ];
+  } else {
+    items = [user.role];
+  }
+
   return (
     <Select
       onValueChange={(val) => {
         setFilterKomisi(val);
       }}
     >
-      <SelectTrigger className={`${width} text-black mr-2 sm:w-auto`}>
-        <SelectValue placeholder={"Pilih Komisi atau Urusan"} />
+      <SelectTrigger className="text-black mr-2 xl:min-w-[600px] sm:w-auto">
+        <SelectValue placeholder="Pilih Komisi atau Urusan" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>{"Pilih Komisi atau Urusan"}</SelectLabel>
+          <SelectLabel>Pilih Komisi atau Urusan</SelectLabel>
           {items.map((item: any) => {
             return (
               <SelectItem className="tipe" key={item} value={item}>

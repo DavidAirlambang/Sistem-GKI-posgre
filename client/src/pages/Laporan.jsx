@@ -53,7 +53,7 @@ const Laporan = () => {
         <div className="flex flex-col sm:flex-row items-center mt-4 w-full">
           {/* SelectLaporan */}
           <div className={`pb-4 mb-2 sm:mb-0 sm:mr-2 w-full lg:w-1/4`}>
-            <SelectLaporan width={"sm:w-1/2"} />
+            <SelectLaporan />
           </div>
 
           {/* DatePickerLaporan */}
@@ -98,6 +98,7 @@ const Laporan = () => {
           </div>
         </div>
       </div>
+
       {/* Bagian yang akan dicetak */}
       <div
         ref={printRef}
