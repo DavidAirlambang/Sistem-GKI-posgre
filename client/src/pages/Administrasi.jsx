@@ -46,11 +46,12 @@ export const action = () => {
       });
 
       // update realisasi
-      await customFetch.post("/proker/realisasi", {
-        namaProgram: data.namaProgram,
-        realisasi: data.nominalAdministrasi,
-        laporan: laporanProker,
-      });
+      if (data.tipeAdministrasi === "kredit")
+        await customFetch.post("/proker/realisasi", {
+          namaProgram: data.namaProgram,
+          realisasi: data.nominalAdministrasi,
+          laporan: laporanProker,
+        });
       return toast.success("Item added successfully ");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
