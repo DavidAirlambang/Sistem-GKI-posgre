@@ -2,7 +2,7 @@
   "name": "System-GKI-Cibunut",
   "version": "1.0.0",
   "description": "Integrated Management System for GKI Taman Cibunut",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "setup-project": "npm i && cd client && npm i",
@@ -10,7 +10,9 @@
     "server": "nodemon server",
     "client": "cd client && npm run dev",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "populate": "node populate.js"
+    "populate": "node populate.js",
+    "migrate": "npx prisma migrate dev",
+    "update": "npm update"
   },
   "keywords": [],
   "author": "",
