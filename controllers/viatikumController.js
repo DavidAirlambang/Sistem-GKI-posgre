@@ -11,13 +11,13 @@ export const createViatikum = async (req, res) => {
   req.body.tahun = parseInt(req.body.tahun)
 
   // check
-  const checkViatikum = await prisma.viatikum.findUnique({
-    where: { kodeProgram: req.body.kodeProgram }
+  const checkViatikum = await prisma.viatikum.findFirst({
+    where: { kodeProgram: req.body.kodeProgram, tahun: req.body.tahun }
   })
   if (checkViatikum) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: 'Kode Program sudah digunakan' })
+      .json({ msg: 'Viatikum dengan tahun tersebut sudah ada' })
   }
 
   const viatikum = await prisma.viatikum.create({
@@ -52,6 +52,7 @@ export const editViatikum = async (req, res) => {
   req.body.viatikum = parseInt(req.body.viatikum)
   req.body.pertahun = parseInt(req.body.pertahun)
   req.body.tahun = parseInt(req.body.tahun)
+
   const viatikum = await prisma.viatikum.update({
     where: { noViatikum: parseInt(req.params.noViatikum) },
     data: req.body

@@ -118,7 +118,7 @@ model ProgramKerja {
 
 model Viatikum {
   noViatikum  Int    @id @default(autoincrement())
-  kodeProgram String @unique
+  kodeProgram String
   nama        String
   kelompok    String
   viatikum    Int
