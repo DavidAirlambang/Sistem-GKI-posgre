@@ -17,6 +17,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -86,6 +87,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
     setTotalAnggaran,
     tipeStatus,
     setTipeStatus,
+    totalRealisasi,
   } = useAllProgramKerjaContext();
 
   const refreshTable = async () => {
@@ -104,10 +106,11 @@ export function ProgramKerjaDataTable<TData, TValue>({
   const { user } = useOutletContext() as { user: any };
 
   // format total anggarna
-  const formattedMoney = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  }).format(totalAnggaran as number);
+  const formattedMoney = (target: any) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(target as number);
 
   return (
     <div className="mt-5">
@@ -242,6 +245,16 @@ export function ProgramKerjaDataTable<TData, TValue>({
               </TableRow>
             )}
           </TableBody>
+
+          {/* footer */}
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={8}>Total</TableCell>
+              <TableCell>{formattedMoney(totalAnggaran)}</TableCell>
+              <TableCell>{formattedMoney(totalRealisasi)}</TableCell>
+              <TableCell colSpan={3}></TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
       </div>
 
@@ -269,10 +282,6 @@ export function ProgramKerjaDataTable<TData, TValue>({
         >
           Next
         </Button>
-
-        <h5 className="ml-auto">
-          Total Anggaran yang disetujui : <b>{formattedMoney}</b>
-        </h5>
       </div>
     </div>
   );

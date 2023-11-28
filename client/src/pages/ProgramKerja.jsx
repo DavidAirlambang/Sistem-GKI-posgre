@@ -6,35 +6,41 @@ import { useContext, createContext, useState, useEffect } from "react";
 
 import { columns } from "../app/programKerja/column";
 import ProgramKerjaDataTable from "@/app/programKerja/data-table";
- 
+
 const AllProgramKerjaContext = createContext();
 
 const ProgramKerja = () => {
-  const { user } = useOutletContext(); 
+  const { user } = useOutletContext();
   const [dataTable, setDataTable] = useState([]);
   const [tableRole, setTableRole] = useState(user.role);
   const [totalAnggaran, setTotalAnggaran] = useState(0);
+  const [totalRealisasi, setTotalRealisasi] = useState(0);
   const [tipeStatus, setTipeStatus] = useState();
+  const [startDate, setStartDate] = useState(new Date("2000-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2100-01-01"));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await customFetch.post("/proker", {
+        const { data } = await customFetch.post("/proker/filter", {
           komisi: tableRole,
+          startDate: startDate,
+          endDate: endDate,
           status: tipeStatus,
         });
         const { programKerja, totalAnggaranSemua } = await data;
         const { _sum } = totalAnggaranSemua;
-        const { totalAnggaran } = _sum;
+        const { totalAnggaran, realisasi } = _sum;
         setDataTable(programKerja);
         setTotalAnggaran(totalAnggaran);
+        setTotalRealisasi(realisasi);
       } catch (error) {
         toast.error(error?.response?.data?.msg);
       }
     };
 
     fetchData();
-  }, [tableRole, tipeStatus, totalAnggaran, user.role]);
+  }, [endDate, startDate, tableRole, tipeStatus, totalAnggaran, user.role]);
 
   return (
     <AllProgramKerjaContext.Provider
@@ -47,6 +53,10 @@ const ProgramKerja = () => {
         setTotalAnggaran,
         tipeStatus,
         setTipeStatus,
+        setStartDate,
+        setEndDate,
+        totalRealisasi,
+        setTotalRealisasi,
       }}
     >
       <ProgramKerjaDataTable columns={columns} data={dataTable} />

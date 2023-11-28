@@ -38,7 +38,7 @@ export const getAllProgramKerja = async (req, res) => {
   }
   const programKerja = await prisma.programKerja.findMany({
     where: { komisi: req.body.komisi, statusProker: req.body.status },
-    orderBy: { noProker: 'asc' }
+    orderBy: { noProker: 'desc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
@@ -63,7 +63,7 @@ export const getAllProgramKerjaNama = async (req, res) => {
       komisi: req.body.komisi,
       statusProker: 'Approved'
     },
-    orderBy: { noProker: 'asc' }
+    orderBy: { noProker: 'desc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
@@ -93,13 +93,14 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
       },
       statusProker: req.body.status
     },
-    orderBy: { noProker: 'asc' }
+    orderBy: { noProker: 'desc' }
   })
 
   // Menghitung total anggaran untuk semua data dalam tabel ProgramKerja
   const totalAnggaranSemua = await prisma.programKerja.aggregate({
     _sum: {
-      totalAnggaran: true
+      totalAnggaran: true,
+      realisasi: true
     },
     where: {
       komisi: req.body.komisi,
@@ -111,6 +112,7 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
     }
   })
 
+  // console.log(programKerja)
   res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })
 }
 

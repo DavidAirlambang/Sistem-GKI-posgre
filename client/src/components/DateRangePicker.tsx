@@ -26,7 +26,14 @@ export function DatePickerWithRange({ className, filterFor }: any) {
   const [date, setDate] = React.useState<DateRange | undefined>();
 
   // jenis table
-  const { setDataTable, tableRole, tipeStatus, filterKomisi } =
+  const {
+    setDataTable,
+    tableRole,
+    tipeStatus,
+    filterKomisi,
+    setStartDate,
+    setEndDate,
+  } =
     filterFor === "suratMasuk"
       ? useAllSuratMasukContext()
       : filterFor === "suratKeluar"
@@ -126,16 +133,9 @@ export function DatePickerWithRange({ className, filterFor }: any) {
   const refreshTableProgramKerja = async () => {
     const start = format(date!.from!, "yyyy-MM-dd");
     const end = format(date!.to!, "yyyy-MM-dd");
-    try {
-      const { data } = await customFetch.post("/proker/filter", {
-        komisi: tableRole,
-        startDate: start,
-        endDate: end,
-        status: tipeStatus,
-      });
-      const { programKerja } = data;
 
-      setDataTable(programKerja);
+    try {
+      setStartDate(start), setEndDate(end);
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
       return error;
@@ -143,12 +143,8 @@ export function DatePickerWithRange({ className, filterFor }: any) {
   };
 
   const resetTableProgramKerja = async () => {
-    const { data } = await customFetch.post("/proker", {
-      komisi: tableRole,
-      status: tipeStatus,
-    });
-    const { programKerja } = data;
-    setDataTable(programKerja);
+    setStartDate(new Date("2000-01-01"));
+    setEndDate(new Date("2100-01-01"));
   };
 
   return (
