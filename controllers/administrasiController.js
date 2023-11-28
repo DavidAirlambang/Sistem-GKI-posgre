@@ -92,8 +92,6 @@ export const getAllAdministrasiDateRange = async (req, res) => {
 
   const awal = await prisma.administrasiKeuangan.findMany(queryAwal)
 
-  console.log(awal)
-
   // Menghitung total nominal administrasi
   const saldoAwal = awal.reduce(
     (acc, curr) => acc + curr.nominalAdministrasi,

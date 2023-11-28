@@ -7,6 +7,7 @@ import { DatePickerLaporan } from "@/components/DatePickerLaporan";
 import { Button } from "@/components/ui/button";
 import { downloadToExcelLaporan } from "@/lib/xlsx";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const AllLaporanContext = createContext();
 
@@ -63,9 +64,9 @@ const Laporan = () => {
 
           {/* Print and Export Buttons */}
           <div className="pb-4 w-full sm:w-1/2 lg:w-2/4 flex justify-end">
-            <Button
+            {/* <Button
               onClick={handlePrint}
-              className="pb-4 ml-0 mb-2 sm:ml-4 sm:mb-0"
+              className=" ml-0 mb-4 sm:ml-4 sm:mb-0"
               disabled={
                 penerimaanData.length !== 0 || pengeluaranData.length !== 0
                   ? false
@@ -73,7 +74,25 @@ const Laporan = () => {
               }
             >
               Print
-            </Button>
+            </Button> */}
+
+            <Link
+              to={`/printLaporan?filterKomisi=${encodeURIComponent(
+                filterKomisi
+              )}&penerimaanData=${encodeURIComponent(
+                JSON.stringify(penerimaanData)
+              )}&pengeluaranData=${encodeURIComponent(
+                JSON.stringify(pengeluaranData)
+              )}&totalPenerimaan=${encodeURIComponent(
+                totalPenerimaan
+              )}&totalPengeluaran=${encodeURIComponent(
+                totalPengeluaran
+              )}&saldoAwal=${encodeURIComponent(saldoAwal)}`}
+              className="btn form-btn delete-btn p-4"
+            >
+              Print
+            </Link>
+
             <Button
               onClick={() => {
                 try {
@@ -86,7 +105,7 @@ const Laporan = () => {
                   toast.error(error.response.data.msg);
                 }
               }}
-              className="pb-4 ml-2 sm:ml-2 mb-2 sm:mb-0"
+              className="mb-4 ml-2 sm:ml-2  sm:mb-0"
               disabled={
                 penerimaanData.length !== 0 || pengeluaranData.length !== 0
                   ? false

@@ -28,6 +28,7 @@ import {
   EditRuangan,
   DuplicateProgramKerja,
   Limit,
+  Print,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -121,7 +122,10 @@ const router = createBrowserRouter([
         element: <Register />,
         action: registerAction,
       },
-
+      {
+        path: "printLaporan",
+        element: <Print />,
+      },
       {
         path: "dashboard",
         element: <DashboardLayout queryClient={queryClient} />,
@@ -236,6 +240,7 @@ const router = createBrowserRouter([
             element: <CreateProgramKerja />,
             action: createProgramKerjaAction(),
           },
+
           {
             path: "duplicateProgramKerja/:noProker",
             element: <DuplicateProgramKerja />,
@@ -253,6 +258,7 @@ const router = createBrowserRouter([
             element: <DetailLaporanProker />,
             loader: programKerjaEditLoader,
           },
+
           {
             path: "viatikum",
             element: <Viatikum />,

@@ -93,7 +93,7 @@ model AdministrasiKeuangan {
   namaProgram          String
   tanggalAdministrasi  DateTime @default(now()) @db.Date
   nominalAdministrasi  Int
-  tipeAdministrasi     String
+  tipeAdministrasi     String 
   penerimaAdministrasi String
   uraianAdministrasi   String   @default("")
 }
