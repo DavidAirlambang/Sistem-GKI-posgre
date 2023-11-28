@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { format } from "date-fns";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export function Print() {
@@ -49,14 +49,25 @@ export function Print() {
         <h2 className="pb-4 text-center">{`Laporan Keuangan ${filterKomisi}`}</h2>
 
         {/* print */}
-        <Button
-          onClick={handlePrintClick}
-          className={`flex justify-between p-3  ${
-            isPrinted ? "invisible" : ""
-          }`}
-        >
-          Print
-        </Button>
+        <div className="flex justify-between">
+          <Link
+            to="/dashboard/administrasi"
+            className={`flex justify-between p-3 btn form-btn delete-btn ${
+              isPrinted ? "invisible" : ""
+            }`}
+          >
+            Back
+          </Link>
+
+          <Button
+            onClick={handlePrintClick}
+            className={`flex justify-between btn form-btn delete-btn ${
+              isPrinted ? "invisible" : ""
+            }`}
+          >
+            Print
+          </Button>
+        </div>
 
         {/* Penerimaan */}
         <h3 className="pt-4">Penerimaan</h3>

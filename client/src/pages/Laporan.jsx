@@ -28,10 +28,6 @@ const Laporan = () => {
 
   const printRef = useRef();
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <AllLaporanContext.Provider
       value={{
@@ -64,34 +60,29 @@ const Laporan = () => {
 
           {/* Print and Export Buttons */}
           <div className="pb-4 w-full sm:w-1/2 lg:w-2/4 flex justify-end">
-            {/* <Button
-              onClick={handlePrint}
-              className=" ml-0 mb-4 sm:ml-4 sm:mb-0"
+            <Button
               disabled={
                 penerimaanData.length !== 0 || pengeluaranData.length !== 0
                   ? false
                   : true
               }
             >
-              Print
-            </Button> */}
-
-            <Link
-              to={`/printLaporan?filterKomisi=${encodeURIComponent(
-                filterKomisi
-              )}&penerimaanData=${encodeURIComponent(
-                JSON.stringify(penerimaanData)
-              )}&pengeluaranData=${encodeURIComponent(
-                JSON.stringify(pengeluaranData)
-              )}&totalPenerimaan=${encodeURIComponent(
-                totalPenerimaan
-              )}&totalPengeluaran=${encodeURIComponent(
-                totalPengeluaran
-              )}&saldoAwal=${encodeURIComponent(saldoAwal)}`}
-              className="btn form-btn delete-btn p-4"
-            >
-              Print
-            </Link>
+              <Link
+                to={`/printLaporan?filterKomisi=${encodeURIComponent(
+                  filterKomisi
+                )}&penerimaanData=${encodeURIComponent(
+                  JSON.stringify(penerimaanData)
+                )}&pengeluaranData=${encodeURIComponent(
+                  JSON.stringify(pengeluaranData)
+                )}&totalPenerimaan=${encodeURIComponent(
+                  totalPenerimaan
+                )}&totalPengeluaran=${encodeURIComponent(
+                  totalPengeluaran
+                )}&saldoAwal=${encodeURIComponent(saldoAwal)}`}
+              >
+                Print
+              </Link>
+            </Button>
 
             <Button
               onClick={() => {
