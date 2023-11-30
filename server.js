@@ -7,6 +7,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import cloudinary from 'cloudinary'
 import helmet from 'helmet'
+import cors from 'cors'
 
 // routers
 import authRouter from './routes/authRouter.js'
@@ -52,6 +53,7 @@ app.use(express.static(path.resolve(__dirname, './client/dist')))
 app.use(cookieParser())
 app.use(express.json())
 app.use(helmet())
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Hello World')
@@ -178,4 +180,3 @@ try {
   console.log(error)
   process.exit(1)
 }
-
