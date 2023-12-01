@@ -73,6 +73,7 @@ export const login = async (req, res) => {
   if (!userActive)
     throw new UnauthenticatedError('Account disable, contact administrator')
 
+  console.log(user)
   const token = createJWT({ userId: user.id, role: user.role }) // !!!!!!!!!!!!!!!!!!
 
   const oneDay = 1000 * 60 * 60 * 24
