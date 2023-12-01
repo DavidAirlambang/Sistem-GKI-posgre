@@ -53,7 +53,14 @@ app.use(express.static(path.resolve(__dirname, './client/dist')))
 app.use(cookieParser())
 app.use(express.json())
 app.use(helmet())
-app.use(cors())
+
+// cors
+app.use(
+  cors({
+    origin: 'https://proker.gkitamancibunut.org',
+    credentials: true
+  })
+)
 
 app.get('/', (req, res) => {
   res.send('Hello World')
