@@ -12,11 +12,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000/api',
-        // target: 'http://34.101.188.146:5000/api',
+        // target: 'http://localhost:5000/api',
+        target: 'http://34.101.188.146:5000/api'
         // target: 'http://api-proker.gkitamancibunut.org/api',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
+        // changeOrigin: true,
+        // rewrite: path => path.replace(/^\/api/, '')
       }
     }
   },
