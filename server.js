@@ -55,12 +55,7 @@ app.use(express.json())
 app.use(helmet())
 
 // cors
-app.use(
-  cors({
-    origin: 'https://proker.gkitamancibunut.org',
-    credentials: true
-  })
-)
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Hello World')
