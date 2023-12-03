@@ -89,7 +89,7 @@ const Gudang = () => {
           </div>
         </Form>
       </Wrapper>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
         <GudangDataTable columns={columns} data={dataTable} />
       </ThemeProvider>
       {/* data={data} */}
