@@ -12,6 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
+        // #target tergantung di deploy dimana
         target: 'http://localhost:5000/api',
         // target: 'http://34.101.188.146:5000/api'
         // target: 'http://api-proker.gkitamancibunut.org/api',
