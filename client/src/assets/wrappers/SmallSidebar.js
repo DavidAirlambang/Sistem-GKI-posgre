@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Wrapper = styled.aside`
   @media (min-width: 992px) {
@@ -24,7 +24,7 @@ const Wrapper = styled.aside`
   .content {
     background: var(--background-secondary-color);
     width: var(--fluid-width);
-    height: 95vh;
+    height: 100vh;
     border-radius: var(--border-radius);
     padding: 4rem 2rem;
     position: relative;
@@ -34,7 +34,7 @@ const Wrapper = styled.aside`
   }
   .close-btn {
     position: absolute;
-    top: 10px;
+    top: 35px;
     left: 10px;
     background: transparent;
     border-color: transparent;
@@ -43,7 +43,7 @@ const Wrapper = styled.aside`
     cursor: pointer;
   }
   .nav-links {
-    padding-top: 2rem;
+    padding-top: 1rem;
     display: flex;
     flex-direction: column;
   }
@@ -67,5 +67,13 @@ const Wrapper = styled.aside`
   .active {
     color: var(--primary-500);
   }
-`;
-export default Wrapper;
+  @media (max-width: 380px) {
+    .content {
+      height: 112vh;
+    }
+    .close-btn {
+      top: 55px;
+    }
+  }
+`
+export default Wrapper

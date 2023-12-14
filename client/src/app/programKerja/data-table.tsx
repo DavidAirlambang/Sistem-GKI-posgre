@@ -93,6 +93,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
 
   const refreshTable = async () => {
     setFilterTahun(undefined);
+    (document.getElementById("filterTahun") as HTMLInputElement).value = "";
   };
 
   const filterTahun = async () => {
