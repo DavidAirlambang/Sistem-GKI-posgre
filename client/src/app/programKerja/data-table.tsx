@@ -92,21 +92,12 @@ export function ProgramKerjaDataTable<TData, TValue>({
   } = useAllProgramKerjaContext();
 
   const refreshTable = async () => {
-    const { data } = await customFetch.post("/proker", {
-      komisi: tableRole,
-      status: tipeStatus,
-    });
-    const { programKerja, totalAnggaranSemua } = await data;
-    const { _sum } = totalAnggaranSemua;
-    const { totalAnggaran } = _sum;
-    setDataTable(programKerja);
-    setTotalAnggaran(totalAnggaran);
-    (document.getElementById("filterTahun") as HTMLInputElement).value = "";
+    setFilterTahun(undefined);
   };
 
   const filterTahun = async () => {
     const tahun = document.getElementById("filterTahun") as HTMLInputElement;
-    setFilterTahun(tahun);
+    setFilterTahun(tahun.value);
   };
 
   // ambil role

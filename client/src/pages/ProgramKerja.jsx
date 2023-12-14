@@ -18,6 +18,7 @@ const ProgramKerja = () => {
   const [tipeStatus, setTipeStatus] = useState();
   const [startDate, setStartDate] = useState(new Date("2000-01-01"));
   const [endDate, setEndDate] = useState(new Date("2100-01-01"));
+  const [filterTahun, setFilterTahun] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,7 @@ const ProgramKerja = () => {
           startDate: startDate,
           endDate: endDate,
           status: tipeStatus,
+          tahun: filterTahun,
         });
         const { programKerja, totalAnggaranSemua } = await data;
         const { _sum } = totalAnggaranSemua;
@@ -40,7 +42,15 @@ const ProgramKerja = () => {
     };
 
     fetchData();
-  }, [endDate, startDate, tableRole, tipeStatus, totalAnggaran, user.role]);
+  }, [
+    endDate,
+    filterTahun,
+    startDate,
+    tableRole,
+    tipeStatus,
+    totalAnggaran,
+    user.role,
+  ]);
 
   return (
     <AllProgramKerjaContext.Provider
@@ -57,6 +67,8 @@ const ProgramKerja = () => {
         setEndDate,
         totalRealisasi,
         setTotalRealisasi,
+        filterTahun,
+        setFilterTahun,
       }}
     >
       <ProgramKerjaDataTable columns={columns} data={dataTable} />

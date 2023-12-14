@@ -7,9 +7,18 @@ import { promisify } from 'util'
 
 export const createProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
-  req.body.tahun = parseInt(req.body.tahun)
   req.body.realisasi = parseInt(req.body.realisasi) || 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
+  req.body.tahun = req.body.tahun.replace(/\s/g, '')
+
+  // check tahun
+  const tahunFormatValid = /^\d{4}-\d{4}$/g.test(req.body.tahun)
+
+  if (!tahunFormatValid) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: 'Format tahun tidak valid (ex: 2023-2024)' })
+  }
 
   // check
   const checkProker = await prisma.programKerja.findMany({
@@ -36,8 +45,17 @@ export const getAllProgramKerja = async (req, res) => {
   if (req.body.status === 'All') {
     req.body.status = undefined
   }
+
+  // tambah tahun
+  const { komisi, status, tahun } = req.body
+  const whereClause = {
+    komisi,
+    statusProker: status,
+    ...(tahun && { tahun: tahun.replace(/\s/g, '') })
+  }
+
   const programKerja = await prisma.programKerja.findMany({
-    where: { komisi: req.body.komisi, statusProker: req.body.status },
+    where: whereClause,
     orderBy: { noProker: 'desc' }
   })
 
@@ -56,8 +74,6 @@ export const getAllProgramKerja = async (req, res) => {
 }
 
 export const getAllProgramKerjaNama = async (req, res) => {
-  const totalAnggaran = await prisma.programKerja.find
-
   const programKerja = await prisma.programKerja.findMany({
     where: {
       komisi: req.body.komisi,
@@ -84,15 +100,21 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
   if (req.body.status === 'All') {
     req.body.status = null
   }
-  const programKerja = await prisma.programKerja.findMany({
-    where: {
-      komisi: req.body.komisi,
-      tanggalProker: {
-        gte: new Date(req.body.startDate),
-        lte: new Date(req.body.endDate)
-      },
-      statusProker: req.body.status
+
+  const { komisi, startDate, endDate, status, tahun } = req.body
+
+  const whereClause = {
+    komisi,
+    tanggalProker: {
+      gte: new Date(startDate),
+      lte: new Date(endDate)
     },
+    statusProker: status,
+    ...(tahun && { tahun: tahun.replace(/\s/g, '') })
+  }
+
+  const programKerja = await prisma.programKerja.findMany({
+    where: whereClause,
     orderBy: { noProker: 'desc' }
   })
 
@@ -103,16 +125,11 @@ export const getAllProgramKerjaDateRange = async (req, res) => {
       realisasi: true
     },
     where: {
-      komisi: req.body.komisi,
-      statusProker: 'Approved',
-      tanggalProker: {
-        gte: new Date(req.body.startDate),
-        lte: new Date(req.body.endDate)
-      }
+      ...whereClause,
+      statusProker: 'Approved'
     }
   })
 
-  // console.log(programKerja)
   res.status(StatusCodes.OK).json({ programKerja, totalAnggaranSemua })
 }
 
@@ -127,15 +144,17 @@ export const getProgramKerja = async (req, res) => {
 
 export const editProgramKerja = async (req, res) => {
   req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
-  req.body.tahun = parseInt(req.body.tahun)
-  req.body.realisasi = 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
   req.body.statusProker = 'Pending'
+  req.body.tahun = req.body.tahun.replace(/\s/g, '')
 
-  if (req.body.totalAnggaran < req.body.realisasi) {
+  // check tahun
+  const tahunFormatValid = /^\d{4}-\d{4}$/g.test(req.body.tahun)
+
+  if (!tahunFormatValid) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: 'Realisasi tidak boleh lebih besar dari total anggaran' })
+      .json({ msg: 'Format tahun tidak valid (ex: 2023-2024)' })
   }
 
   const programKerja = await prisma.programKerja.update({
