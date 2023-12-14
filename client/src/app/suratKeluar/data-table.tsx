@@ -90,9 +90,12 @@ export function SuratKeluarDataTable<TData, TValue>({
   return (
     <div className="mt-5">
       {/* input */}
-      <div className="flex items-center py-4">
+      <div className="flex flex-wrap items-center py-4">
         {/* <Input*/}
-        <DatePickerWithRange filterFor="suratKeluar" />
+        <DatePickerWithRange
+          filterFor="suratKeluar"
+          className="w-full md:w-auto mb-4 md:mb-0 mr-4"
+        />
 
         {/* export */}
         <Button
@@ -103,7 +106,7 @@ export function SuratKeluarDataTable<TData, TValue>({
               toast.error(error.response.data.msg);
             }
           }}
-          className="ml-6 mr-2"
+          className="mr-4 w-full md:w-auto mb-4 md:mb-0"
         >
           Export
         </Button>
@@ -112,35 +115,41 @@ export function SuratKeluarDataTable<TData, TValue>({
         <CSVUploader
           path="/suratKeluar/upload"
           refresh={() => refreshTable()}
+          className="w-full md:w-auto mb-4 md:mb-0"
         />
 
         {/* visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4 text-black btn">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="rounded bg-slate-100">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: boolean) => {
-                      column.toggleVisibility(!!value);
-                    }}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {/* <div className="w-full md:w-auto mb-4 md:mb-0">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button
+                variant="outline"
+                className="ml-4 text-black btn w-full md:w-auto"
+              >
+                Columns
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="rounded bg-slate-100">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value: boolean) => {
+                        column.toggleVisibility(!!value);
+                      }}
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div> */}
       </div>
 
       {/* table */}

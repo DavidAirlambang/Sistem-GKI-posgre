@@ -39,7 +39,7 @@ export function CSVUploader({ path, refresh, komisi, aktif }: any) {
   };
 
   return (
-    <div className="mx-4 grid grid-flow-col max-w-sm items-center gap-1.5 formInput">
+    <div className="mr-4 grid grid-flow-col max-w-sm items-center gap-1.5 formInput">
       <Input
         type="file"
         accept=".csv"

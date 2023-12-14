@@ -148,7 +148,9 @@ export function DatePickerWithRange({ className, filterFor }: any) {
   };
 
   return (
-    <div className={cn("gap-2 text-black  grid grid-flow-col", className)}>
+    <div
+      className={cn("gap-2 text-black flex flex-wrap items-center", className)}
+    >
       <Popover>
         <PopoverTrigger
           asChild
@@ -164,7 +166,7 @@ export function DatePickerWithRange({ className, filterFor }: any) {
             id="date"
             variant={"outline"}
             className={cn(
-              "w-[300px] justify-start text-left font-normal",
+              "w-auto justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
           >
