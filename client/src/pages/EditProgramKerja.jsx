@@ -56,6 +56,7 @@ const EditProgramKerja = () => {
             name="tahun"
             labelText="tahun program"
             defaultValue={programKerja.tahun}
+            readOnly
           />
           <FormRowSelect
             name="komisi"

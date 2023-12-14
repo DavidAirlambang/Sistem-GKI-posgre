@@ -85,6 +85,7 @@ export function ProgramKerjaDataTable<TData, TValue>({
     setTableRole,
     totalAnggaran,
     setTotalAnggaran,
+    setFilterTahun,
     tipeStatus,
     setTipeStatus,
     totalRealisasi,
@@ -100,6 +101,12 @@ export function ProgramKerjaDataTable<TData, TValue>({
     const { totalAnggaran } = _sum;
     setDataTable(programKerja);
     setTotalAnggaran(totalAnggaran);
+    (document.getElementById("filterTahun") as HTMLInputElement).value = "";
+  };
+
+  const filterTahun = async () => {
+    const tahun = document.getElementById("filterTahun") as HTMLInputElement;
+    setFilterTahun(tahun);
   };
 
   // ambil role
@@ -168,13 +175,26 @@ export function ProgramKerjaDataTable<TData, TValue>({
         </div>
 
         {/* CSVUploader */}
-        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        {/* <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
           <CSVUploader
             aktif={tableRole === "admin" || tableRole === "majelis"}
             komisi={tableRole}
             path="/proker/upload"
             refresh={() => refreshTable()}
           />
+        </div> */}
+
+        {/* filter tahun */}
+        <div className="flex w-full max-w-sm items-center space-x-2 mb-4 ml-2 mr-4">
+          <Input
+            id="filterTahun"
+            placeholder="Filter Tahun..."
+            className="text-black"
+          />
+          <Button type="submit" onClick={() => filterTahun()}>
+            Go
+          </Button>
+          <Button onClick={() => refreshTable()}>Reset</Button>
         </div>
 
         {/* SelectStatus */}

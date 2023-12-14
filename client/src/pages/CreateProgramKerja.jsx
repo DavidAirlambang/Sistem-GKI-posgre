@@ -41,6 +41,10 @@ const CreateProgramKerja = () => {
     document.getElementById("rincianRencana").reset();
   };
 
+  // tahun
+  const currentYear = new Date().getFullYear();
+  const nextYear = currentYear + 1;
+
   return (
     <Wrapper>
       <Form method="post" className="form">
@@ -58,14 +62,18 @@ const CreateProgramKerja = () => {
             }
           />
           <FormRow name="kodeProgram" labelText="kode program" />
-          <FormRow name="tahun" labelText="tahun program" />
+          <FormRow
+            name="tahun"
+            labelText="tahun program"
+            defaultValue={`${currentYear}-${nextYear}`}
+            placeholder={'Pisahkan dengan "-" ex: 2023-2024'}
+          />
           <FormRow name="namaProgram" labelText="nama program" />
           <FormRow name="penanggungJawab" labelText="penaggung jawab" />
           <FormRow name="tujuanKegiatan" labelText="tujuan kegiatan" />
           <FormRow name="targetPeserta" labelText="target peserta" />
           <FormRow name="waktuPelaksanaan" labelText="waktu pelaksanaan" />
           <FormRow name="totalAnggaran" labelText="total anggaran" />
-          {/* <FormRow name="realisasi" labelText="realisasi" /> */}
           <FormRow type={"date"} name="tanggalProker" labelText="tanggal" />
           <FormRow
             type={"textarea"}

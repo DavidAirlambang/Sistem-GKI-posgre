@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")  
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -93,7 +93,7 @@ model AdministrasiKeuangan {
   namaProgram          String
   tanggalAdministrasi  DateTime @default(now()) @db.Date
   nominalAdministrasi  Int
-  tipeAdministrasi     String 
+  tipeAdministrasi     String
   penerimaAdministrasi String
   uraianAdministrasi   String   @default("")
 }
@@ -101,7 +101,7 @@ model AdministrasiKeuangan {
 model ProgramKerja {
   noProker         Int      @id @default(autoincrement())
   kodeProgram      String
-  tahun            Int      @default(dbgenerated("EXTRACT(YEAR FROM CURRENT_DATE)"))
+  tahun            String   @default(dbgenerated("EXTRACT(YEAR FROM CURRENT_DATE)"))
   komisi           String
   namaProgram      String
   penanggungJawab  String
