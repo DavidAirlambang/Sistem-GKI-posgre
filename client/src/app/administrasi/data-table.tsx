@@ -106,7 +106,7 @@ export function AdministrasiDataTable<TData, TValue>({
                 toast.error(error.response.data.msg);
               }
             }}
-            className="w-auto ml-0 md:ml-2 md:mr-2"
+            className="w-auto"
           >
             Export
           </Button>

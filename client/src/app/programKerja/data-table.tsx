@@ -114,96 +114,92 @@ export function ProgramKerjaDataTable<TData, TValue>({
   return (
     <div className="mt-5">
       <div className="flex flex-wrap items-center pt-4">
-        {/* SelectItems */}
-        <div className="w-full sm:w-auto pb-4 sm:mr-2 mb-4 sm:mb-0">
-          <SelectItems komisi={user.role} />
-        </div>
+        <div className="flex mr-4">
+          {/* SelectItems */}
+          <div className="w-full sm:w-auto pb-4 sm:mr-2 sm:mb-0">
+            <SelectItems komisi={user.role} />
+          </div>
 
-        {/* Input */}
-        <div className="w-full sm:w-auto pb-4 sm:mr-2 mb-4 sm:mb-0">
-          <Input
-            placeholder="Cari kode"
-            value={
-              (table.getColumn("kodeProgram")?.getFilterValue() as string) || ""
-            }
-            onChange={(e: any) => {
-              table.getColumn("kodeProgram")?.setFilterValue(e.target.value);
-            }}
-            className="max-w-xs text-black form-input"
-          />
-        </div>
-        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
-          <Input
-            placeholder="Cari nama program"
-            value={
-              (table.getColumn("namaProgram")?.getFilterValue() as string) || ""
-            }
-            onChange={(e: any) => {
-              table.getColumn("namaProgram")?.setFilterValue(e.target.value);
-            }}
-            className="max-w-xs text-black form-input"
-          />
+          {/* Input */}
+          <div className="w-full sm:w-auto pb-4 sm:mr-2 sm:mb-0">
+            <Input
+              placeholder="Cari kode"
+              value={
+                (table.getColumn("kodeProgram")?.getFilterValue() as string) ||
+                ""
+              }
+              onChange={(e: any) => {
+                table.getColumn("kodeProgram")?.setFilterValue(e.target.value);
+              }}
+              className="max-w-xs text-black form-input"
+            />
+          </div>
+          <div className="w-full pb-4 sm:w-auto sm:mr-2 sm:mb-0">
+            <Input
+              placeholder="Cari nama program"
+              value={
+                (table.getColumn("namaProgram")?.getFilterValue() as string) ||
+                ""
+              }
+              onChange={(e: any) => {
+                table.getColumn("namaProgram")?.setFilterValue(e.target.value);
+              }}
+              className="max-w-xs text-black form-input ml-2"
+            />
+          </div>
         </div>
 
         {/* DatePicker */}
-        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+        <div className="w-full pb-4 sm:w-auto sm:mr-2 sm:mb-0">
           <DatePickerWithRange filterFor="programKerja" />
         </div>
 
-        {/* Export Button */}
-        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
-          <Button
-            disabled={tableRole === "admin" || tableRole === "majelis"}
-            onClick={() => {
-              try {
-                downloadToExcel(dataTable, tableRole);
-              } catch (error: any) {
-                toast.error(error.response.data.msg);
-              }
-            }}
-          >
-            Export
-          </Button>
-        </div>
-
-        {/* CSVUploader */}
-        {/* <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
-          <CSVUploader
-            aktif={tableRole === "admin" || tableRole === "majelis"}
-            komisi={tableRole}
-            path="/proker/upload"
-            refresh={() => refreshTable()}
-          />
-        </div> */}
-
         {/* filter tahun */}
-        <div className="flex w-full max-w-sm items-center space-x-2 mb-4 ml-2 mr-4">
+        <div className="flex w-full max-w-sm items-center space-x-2 mb-4 mr-4">
           <Input
             id="filterTahun"
             placeholder="Filter Tahun..."
             className="text-black"
           />
           <Button type="submit" onClick={() => filterTahun()}>
-            Go
+            Filter
           </Button>
           <Button onClick={() => refreshTable()}>Reset</Button>
         </div>
 
-        {/* SelectStatus */}
-        <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
-          <SelectStatus />
-        </div>
+        <div className="flex">
+          {/* SelectStatus */}
+          <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 sm:mb-0">
+            <SelectStatus />
+          </div>
 
-        {/* Create Button */}
-        <div className="w-full pb-4 sm:w-auto">
-          <Button className="btn p-0">
-            <Link
-              className="w-full  h-full flex items-center justify-center"
-              to="/dashboard/createProgramKerja"
+          {/* Export Button */}
+          <div className="w-full pb-4 sm:w-auto sm:mr-2 mb-4 mr-2 sm:mb-0">
+            <Button
+              disabled={tableRole === "admin" || tableRole === "majelis"}
+              onClick={() => {
+                try {
+                  downloadToExcel(dataTable, tableRole);
+                } catch (error: any) {
+                  toast.error(error.response.data.msg);
+                }
+              }}
             >
-              Create
-            </Link>
-          </Button>
+              Export
+            </Button>
+          </div>
+
+          {/* Create Button */}
+          <div className="w-full pb-4 sm:w-auto">
+            <Button className="btn p-0">
+              <Link
+                className="w-full  h-full flex items-center justify-center"
+                to="/dashboard/createProgramKerja"
+              >
+                Create
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Additional Style for Small Screens */}
