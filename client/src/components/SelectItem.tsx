@@ -94,8 +94,8 @@ export function SelectItemsAdministrasi({ komisi, tipe }: any) {
         loader(val);
       }}
     >
-      <SelectTrigger className="w-[180px] text-black mr-2">
-        <SelectValue placeholder={"--Pilih Komisi / Urusan--"} />
+      <SelectTrigger className="w-[200px] text-black mr-2">
+        <SelectValue placeholder={"Pilih"} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

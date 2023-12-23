@@ -88,58 +88,33 @@ export function PengeluaranDataTable<TData, TValue>({
   return (
     <div className="mt-5">
       {/* input */}
-      <div className="flex items-center py-4">
-        {/* <Input*/}
-        <SelectItemsAdministrasi komisi={user.role} tipe={"kredit"} />
-        <DatePickerWithRange filterFor="pengeluaran" />
+      <div className="flex flex-col md:flex-row items-center py-4">
+        <div className="flex items-center">
+          <SelectItemsAdministrasi komisi={user.role} tipe={"kredit"} />
 
-        {/* export */}
-        <Button
-          onClick={() => {
-            try {
-              downloadToExcel(dataTable, filterKomisi, "Pengeluaran");
-            } catch (error: any) {
-              toast.error(error.response.data.msg);
-            }
-          }}
-          className="ml-6 mr-2"
-        >
-          Export
-        </Button>
+          <Button
+            onClick={() => {
+              try {
+                downloadToExcel(dataTable, filterKomisi, "Pengeluaran");
+              } catch (error: any) {
+                toast.error(error.response.data.msg);
+              }
+            }}
+            className="ml-0 md:mr-2"
+          >
+            Export
+          </Button>
+        </div>
 
-        {/* import */}
+        <DatePickerWithRange filterFor="pengeluaran" className="mt-2 md:mt-0" />
+
+        {/* Uncomment the following lines if you want to include the CSVUploader */}
         {/* <CSVUploader
-          path="/administrasi/upload"
-          refresh={() => refreshTable()}
-        /> */}
+    path="/administrasi/upload"
+    refresh={() => refreshTable()}
+  /> */}
 
-        {/* visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4 text-black btn">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="rounded bg-slate-100">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: boolean) => {
-                      column.toggleVisibility(!!value);
-                    }}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {/* Include your visibility components here */}
       </div>
 
       {/* table */}

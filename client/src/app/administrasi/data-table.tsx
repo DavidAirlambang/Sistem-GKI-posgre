@@ -94,58 +94,28 @@ export function AdministrasiDataTable<TData, TValue>({
   return (
     <div className="mt-5">
       {/* input */}
-      <div className="flex items-center py-4">
-        {/* <Input*/}
-        <SelectItemsAdministrasi komisi={user.role} tipe={"debit"} />
-        <DatePickerWithRange filterFor="administrasi" />
+      <div className="flex flex-col md:flex-row items-center py-4">
+        <div className="flex flex-row items-center">
+          <SelectItemsAdministrasi komisi={user.role} tipe={"debit"} />
 
-        {/* export */}
-        <Button
-          onClick={() => {
-            try {
-              downloadToExcel(dataTable, filterKomisi, "Penerimaan");
-            } catch (error: any) {
-              toast.error(error.response.data.msg);
-            }
-          }}
-          className="ml-6 mr-2"
-        >
-          Export
-        </Button>
+          <Button
+            onClick={() => {
+              try {
+                downloadToExcel(dataTable, filterKomisi, "Penerimaan");
+              } catch (error: any) {
+                toast.error(error.response.data.msg);
+              }
+            }}
+            className="w-auto ml-0 md:ml-2 md:mr-2"
+          >
+            Export
+          </Button>
+        </div>
 
-        {/* import */}
-        {/* <CSVUploader
-          path="/administrasi/upload"
-          refresh={() => refreshTable()}
-        /> */}
-
-        {/* visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4 text-black btn">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="rounded bg-slate-100">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: boolean) => {
-                      column.toggleVisibility(!!value);
-                    }}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DatePickerWithRange
+          filterFor="administrasi"
+          className="mt-2 md:mt-0 md:ml-2"
+        />
       </div>
 
       {/* table */}
