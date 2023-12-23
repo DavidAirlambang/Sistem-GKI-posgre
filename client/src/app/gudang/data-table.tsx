@@ -103,7 +103,7 @@ export function GudangDataTable<TData, TValue>({
         {/* <ModeToggle /> */}
 
         {/* export */}
-        <Button onClick={() => downloadToExcel(data)} className="ml-4">
+        <Button onClick={() => downloadToExcel(data)} className="mx-4">
           Export
         </Button>
 
