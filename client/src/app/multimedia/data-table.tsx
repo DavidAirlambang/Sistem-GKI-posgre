@@ -89,58 +89,35 @@ export function MultimediaDataTable<TData, TValue>({
   return (
     <div className="mt-5">
       {/* input */}
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Cari nama Multimedia"
-          value={
-            (table.getColumn("namaMultimedia")?.getFilterValue() as string) ||
-            ""
-          }
-          onChange={(e) => {
-            console.log(e.target.value);
-            console.log(sorting);
-            table.getColumn("namaMultimedia")?.setFilterValue(e.target.value);
-          }}
-          className="max-w-sm text-black form-input"
-        />
+      <div className="flex flex-col sm:flex-row items-center py-4">
+        <div className="flex flex-row">
+          <Input
+            placeholder="Cari nama Multimedia"
+            value={
+              (table.getColumn("namaMultimedia")?.getFilterValue() as string) ||
+              ""
+            }
+            onChange={(e) => {
+              table.getColumn("namaMultimedia")?.setFilterValue(e.target.value);
+            }}
+            className="max-w-sm sm:w-auto text-black form-input mb-2 sm:mb-0 sm:mr-2"
+          />
 
-        {/* <ModeToggle /> */}
-
-        {/* export */}
-        <Button onClick={() => downloadToExcel(data)} className="mx-4">
-          Export
-        </Button>
+          {/* export */}
+          <Button
+            onClick={() => downloadToExcel(data)}
+            className="mx-4 mb-2 sm:mb-0"
+          >
+            Export
+          </Button>
+        </div>
 
         {/* import */}
-        <CSVUploader path="/multimedia/upload" refresh={() => refreshTable()} />
-
-        {/* visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4 text-black btn">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="rounded bg-slate-100">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: boolean) => {
-                      column.toggleVisibility(!!value);
-                    }}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <CSVUploader
+          path="/multimedia/upload"
+          refresh={() => refreshTable()}
+          className="mb-2 sm:mb-0"
+        />
       </div>
 
       {/* table */}
