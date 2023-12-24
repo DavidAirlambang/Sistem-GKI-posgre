@@ -25,8 +25,9 @@ export const createAdministrasi = async (req, res) => {
     }
   }
 
+  const { sisa, ...dataTanpaSisa } = req.body
   const administrasi = await prisma.administrasiKeuangan.create({
-    data: req.body
+    data: dataTanpaSisa
   })
   res.status(StatusCodes.CREATED).json({ administrasi })
 }
@@ -61,7 +62,7 @@ export const getAllAdministrasiDateRange = async (req, res) => {
     },
     orderBy: { namaProgram: 'asc' }
   }
- 
+
   if (req.body.penerima !== 'All' || undefined) {
     query.where.penerimaAdministrasi = req.body.penerima
   }

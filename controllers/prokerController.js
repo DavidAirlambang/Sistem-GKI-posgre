@@ -178,12 +178,12 @@ export const realisasiProgramKerja = async (req, res) => {
   const match = text.match(regex)
   const programDetails = match[1].split('-')
   const kodeProgram = programDetails[0]
-  const tahunProgram = programDetails[1]
+  const tahunProgram = `${programDetails[1]}-${programDetails[2]}`
 
   const program = await prisma.programKerja.findFirst({
     where: {
       kodeProgram: kodeProgram,
-      tahun: parseInt(tahunProgram),
+      tahun: tahunProgram,
       statusProker: 'Approved'
     }
   })
@@ -191,7 +191,7 @@ export const realisasiProgramKerja = async (req, res) => {
     parseInt(program.realisasi) + parseInt(req.body.realisasi)
 
   const programKerja = await prisma.programKerja.updateMany({
-    where: { kodeProgram: kodeProgram, tahun: parseInt(tahunProgram) },
+    where: { kodeProgram: kodeProgram, tahun: tahunProgram },
     data: { realisasi: realisasiTotal, laporanProker: req.body.laporan }
   })
   res.status(StatusCodes.OK).json({ programKerja })
@@ -202,13 +202,15 @@ export const sisaAnggaranProgramKerja = async (req, res) => {
   const regex = /\(([^)]+)\)/
   const match = text.match(regex)
   const programDetails = match[1].split('-')
+  // KA003
   const kodeProgram = programDetails[0]
-  const tahunProgram = programDetails[1]
+  // 2024-2025
+  const tahunProgram = `${programDetails[1]}-${programDetails[2]}`
 
   const program = await prisma.programKerja.findFirst({
     where: {
       kodeProgram: kodeProgram,
-      tahun: parseInt(tahunProgram),
+      tahun: tahunProgram,
       statusProker: 'Approved'
     }
   })

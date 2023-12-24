@@ -22,11 +22,6 @@ const Pengeluaran = () => {
   const [sisaAnggaran, setSisaAnggaran] = useState(0);
   const [laporanProker, setLaporanProker] = useState("-");
 
-  const formattedMoney = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  }).format(sisaAnggaran);
-
   const ambilNamaProgram = async () => {
     try {
       const { data } = await customFetch.post("/proker/nama", {
@@ -54,6 +49,10 @@ const Pengeluaran = () => {
       const { sisa, laporan } = data;
       setLaporanProker(laporan);
       setSisaAnggaran(sisa);
+      document.getElementById("sisa").value = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(sisa);
       document.getElementById("laporanProker").value = laporan;
     } catch (error) {
       toast.error(error?.response?.data?.msg);
@@ -88,7 +87,6 @@ const Pengeluaran = () => {
         <Form method="post" className="form">
           <div className="flex justify-between items-center form-title">
             <h4>Pengeluaran</h4>
-            <p className="text-right">Sisa Anggaran: {formattedMoney}</p>
           </div>
 
           <input type="hidden" name="tipeAdministrasi" value={"kredit"} />
@@ -121,7 +119,11 @@ const Pengeluaran = () => {
               required={true}
               onChange={() => checkSisaAnggaran()}
             />
+
             <FormRow name="uraianAdministrasi" labelText="uraian" />
+
+            <FormRow labelText="Sisa Anggaran" name="sisa" readOnly />
+
             <FormRow
               type={"textarea"}
               name="laporanProker"
