@@ -110,40 +110,54 @@ export function ViatikumDataTable<TData, TValue>({
   return (
     <div className="mt-5">
       {/* input */}
-      <div className="flex items-center py-4">
-        {/* <Input*/}
-        <div className="flex w-full max-w-sm items-center space-x-2">
+      <div className="flex flex-col sm:flex-row items-center py-4">
+        {/* Filter Section */}
+        <div className="flex w-full max-w-sm items-center mb-2 sm:mb-0">
           <Input
             id="tahunFilter"
             type="tahun"
             placeholder="Tahun"
             className="form-input py"
           />
-          {/* fiter tahun */}
-          <Button type="submit" className="btn" onClick={() => filterTable()}>
-            filter
-          </Button>
-          <Button type="submit" className="btn" onClick={() => refreshTable()}>
-            reset
-          </Button>
+          {/* Filter buttons */}
+          <div className="flex space-x-2 ml-2">
+            <Button type="submit" className="btn" onClick={() => filterTable()}>
+              Filter
+            </Button>
+            <Button
+              type="submit"
+              className="btn"
+              onClick={() => refreshTable()}
+            >
+              Reset
+            </Button>
+          </div>
         </div>
 
-        {/* export */}
-        <Button
-          onClick={() => {
-            try {
-              downloadToExcel(dataTable);
-            } catch (error: any) {
-              toast.error(error.response.data.msg);
-            }
-          }}
-          className="ml-6 mr-2"
-        >
-          Export
-        </Button>
+        {/* Export and Import Section */}
+        <div className="flex w-full sm:w-auto items-center space-y-2 sm:space-y-0 sm:ml-4">
+          {/* Export Button */}
+          <Button
+            onClick={() => {
+              try {
+                downloadToExcel(dataTable);
+              } catch (error: any) {
+                toast.error(error.response.data.msg);
+              }
+            }}
+            className="btn"
+          >
+            Export
+          </Button>
 
-        {/* import */}
-        <CSVUploader path="/viatikum/upload" refresh={() => refreshTable()} />
+          {/* Import Section */}
+          <div className="ml-2 pb-1">
+            <CSVUploader
+              path="/viatikum/upload"
+              refresh={() => refreshTable()}
+            />
+          </div>
+        </div>
       </div>
 
       {/* table */}

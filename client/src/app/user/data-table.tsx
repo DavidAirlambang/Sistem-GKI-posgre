@@ -102,34 +102,6 @@ export function UserDataTable<TData, TValue>({
         <Button onClick={() => downloadToExcel(data)} className="ml-4">
           Export
         </Button>
-
-        {/* visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="outline" className="ml-4 text-black btn">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="rounded bg-slate-100">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize text-black w-35 p-2 hover:bg-slate-200 cursor-pointer"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: boolean) => {
-                      column.toggleVisibility(!!value);
-                    }}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
 
       {/* table */}
