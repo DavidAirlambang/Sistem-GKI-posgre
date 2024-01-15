@@ -38,7 +38,7 @@ const Ruangan = () => {
     try {
       await customFetch.delete(`/ruangs/${noRuangan}`);
       toast.success("Item deleted successfully");
-      return (window.location.href = "/dashboard/ruangs");
+      return (window.location.href = "/dashboard/home");
     } catch (error) {
       if (error.response && error.response.data && error.response.data.msg) {
         toast.error(error.response.data.msg);
