@@ -55,15 +55,19 @@ export const columns: ColumnDef<Multimedia>[] = [
     accessorKey: "namaMultimedia",
   },
   {
-    header: "Jenis Multimedia",
+    header: "Jenis Multimedia dan Kesenian",
     accessorKey: "jenisMultimedia",
   },
   {
-    header: "Jumlah Multimedia",
+    header: "Jumlah Multimedia dan Kesenian",
     accessorKey: "jumlahMultimedia",
   },
   {
-    header: "Peminjam Multimedia",
+    header: "Penanggung Jawab Multimedia dan Kesenian",
+    accessorKey: "penaggungjawabMultimedia",
+  },
+  {
+    header: "Peminjam Multimedia dan Kesenian",
     accessorKey: "peminjamMultimedia",
   },
   {
@@ -114,11 +118,13 @@ export const columns: ColumnDef<Multimedia>[] = [
     cell: ({ row }) => {
       const Multimedia = row.original;
       const noMultimedia = Multimedia.noMultimedia;
-      const { setDataTable } = useAllMultimediaContext();
+      const { setDataTable, pilihKomisi } = useAllMultimediaContext();
 
       // fetch ulang
       const refreshTable = async () => {
-        const { data } = await customFetch.get("/multimedia");
+        const { data } = await customFetch.post("/multimedia/get", {
+          penaggungjawabKomisi: pilihKomisi,
+        });
         const { multimedia } = data;
         // console.log(multimedia);
         setDataTable(multimedia);

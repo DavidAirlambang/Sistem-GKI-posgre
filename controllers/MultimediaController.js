@@ -14,10 +14,18 @@ export const createMultimedia = async (req, res) => {
 }
 
 export const getAllMultimedia = async (req, res) => {
-  const multimedia = await prisma.multimedia.findMany({
-    orderBy: { namaMultimedia: 'asc' }
-  })
-  res.status(StatusCodes.OK).json({ multimedia })
+  if (req.body.penaggungjawabMultimedia != 'All') {
+    const multimedia = await prisma.multimedia.findMany({
+      where: { penaggungjawabMultimedia: req.body.penaggungjawabMultimedia },
+      orderBy: { penaggungjawabMultimedia: 'asc' }
+    })
+    res.status(StatusCodes.OK).json({ multimedia })
+  } else {
+    const multimedia = await prisma.multimedia.findMany({
+      orderBy: { penaggungjawabMultimedia: 'asc' }
+    })
+    res.status(StatusCodes.OK).json({ multimedia })
+  }
 }
 
 export const getMultimedia = async (req, res) => {
@@ -69,18 +77,19 @@ export const CreateManyMultimedia = async (req, res) => {
 
       function customRowFormat (row) {
         return {
-          namaMultimedia: row['Nama Multimedia'],
-          jenisMultimedia: row['Jenis Multimedia'],
-          jumlahMultimedia: parseInt(row['Jumlah Multimedia']),
-          peminjamMultimedia: row['Peminjam Multimedia'],
+          namaMultimedia: row['Nama'],
+          jenisMultimedia: row['Jenis'],
+          jumlahMultimedia: parseInt(row['Jumlah']),
+          // penaggungjawabMultimedia: row['Penanggung Jawab'],
+          peminjamMultimedia: row['Peminjam'],
           deskripsiMultimedia: row['Keterangan'],
-          lokasiMultimedia: row['Lokasi Multimedia'],
+          lokasiMultimedia: row['Lokasi'],
           nilaiAset: parseInt(row['Nilai Aset'])
         }
       }
 
       const jsonData = await convertCSVtoJSON(
-        'file/multimedia.csv',
+        'file/multimedia&kesenian.csv',
         customRowFormat
       )
       console.log(jsonData)

@@ -1,9 +1,10 @@
+"use client";
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { useLoaderData } from "react-router-dom";
-import { MULTIMEDIA } from "../../../utils/constants";
+import { useLoaderData, useOutletContext } from "react-router-dom";
+import { MULTIMEDIA, ROLE_SELECT } from "../../../utils/constants";
 import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -11,16 +12,6 @@ import { useContext, createContext, useState } from "react";
 
 import { columns } from "../app/multimedia/columns";
 import MultimediaDataTable from "@/app/multimedia/data-table";
-
-export const loader = async () => {
-  try {
-    const { data } = await customFetch.get("/multimedia");
-    return { data };
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
-    return error;
-  }
-};
 
 export const action = () => {
   return async ({ request }) => {
@@ -39,10 +30,10 @@ export const action = () => {
 
 const AllMultimediaContext = createContext();
 const Multimedia = () => {
-  const { data } = useLoaderData();
-  const { multimedia } = data;
+  const { user } = useOutletContext();
 
-  const [dataTable, setDataTable] = useState(multimedia);
+  const [dataTable, setDataTable] = useState([]);
+  const [pilihKomisi, setPilihKomisi] = useState(user.role);
 
   const reset = () => {
     document.getElementById("namaMultimedia").reset();
@@ -50,17 +41,33 @@ const Multimedia = () => {
     document.getElementById("deskripsiMultimedia").reset();
     document.getElementById("peminjamMultimedia").reset();
     document.getElementById("lokasiMultimedia").reset();
+    document.getElementById("penaggungjawabMultimedia").reset();
   };
 
+  const filteredRoles = Object.values(ROLE_SELECT).filter(
+    (role) => role !== "admin"
+  );
+
   return (
-    <AllMultimediaContext.Provider value={{ data, dataTable, setDataTable }}>
+    <AllMultimediaContext.Provider
+      value={{ pilihKomisi, setPilihKomisi, dataTable, setDataTable }}
+    >
       <Wrapper>
         <Form method="post" className="form">
-          <h4 className="form-title">Multimedia</h4>
+          <h4 className="form-title">Multimedia dan Kesenian</h4>
           <div className="form-center">
-            <FormRow labelText="nama Multimedia" name="namaMultimedia" />
-            <FormRow labelText="jenis Multimedia" name="jenisMultimedia" />
-            <FormRow labelText="jumlah Multimedia" name="jumlahMultimedia" />
+            <FormRow
+              labelText="nama Multimedia dan Kesenian"
+              name="namaMultimedia"
+            />
+            <FormRow
+              labelText="jenis Multimedia dan Kesenian"
+              name="jenisMultimedia"
+            />
+            <FormRow
+              labelText="jumlah Multimedia dan Kesenian"
+              name="jumlahMultimedia"
+            />
             <FormRow labelText="lokasi" name="lokasiMultimedia" />
             <FormRow
               type="text"
@@ -68,13 +75,25 @@ const Multimedia = () => {
               labelText="deskripsi"
               placeholder='isikan "-" jika tidak ada deskripsi'
             />
+            <FormRowSelect
+              labelText="Penanggung Jawab Multimedia dan Kesenian"
+              name="penaggungjawabMultimedia"
+              list={
+                user.role === "admin" ||
+                user.role === "majelis" ||
+                user.role === "staff kantor"
+                  ? ["--pilih komisi--", ...filteredRoles]
+                  : ["--pilih komisi--", user.role]
+              }
+            />
             <FormRow
-              labelText="peminjam Multimedia"
+              labelText="peminjam Multimedia dan Kesenian"
               name="peminjamMultimedia"
               placeholder='isikan "-" jika tidak ada yang pinjam'
             />
             <FormRow type="text" name="nilaiAset" labelText="nilai Aset" />
-            <SubmitBtn formBtn />
+            <div></div>
+            <SubmitBtn formBtn onclick={() => reset()} />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back
       </Link> */}

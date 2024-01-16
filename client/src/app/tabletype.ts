@@ -16,6 +16,7 @@ export type Multimedia = {
   namaMultimedia: string;
   jenisMultimedia: string;
   jumlahMultimedia: number;
+  penanggungjawabMultimedia: string;
   peminjamMultimedia: string;
   deskripsiMultimedia: string;
   lokasiMultimedia: string;

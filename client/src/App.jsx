@@ -47,7 +47,6 @@ import { loader as gudangEditLoader } from "./pages/EditGudang";
 import { action as gudangEditAction } from "./pages/EditGudang";
 import { action as gudangDelete } from "./pages/DeleteGudang";
 import { action as multimediaAction } from "./pages/Multimedia";
-import { loader as multimediaLoader } from "./pages/Multimedia";
 import EditMultimedia, {
   loader as multimediaEditLoader,
 } from "./pages/EditMultimedia";
@@ -173,7 +172,6 @@ const router = createBrowserRouter([
             path: "multimedia",
             element: <Multimedia />,
             action: multimediaAction(),
-            loader: multimediaLoader,
           },
           {
             path: "multimedia/:noMultimedia",

@@ -11,10 +11,9 @@ import {
 } from '../controllers/MultimediaController.js'
 import { validateMultimediaInput } from '../middleware/multimediaValidationMiddleware.js'
 
-router
-  .route('/')
-  .get(getAllMultimedia)
-  .post(validateMultimediaInput, createMultimedia)
+router.route('/').post(validateMultimediaInput, createMultimedia)
+
+router.route('/get').post(getAllMultimedia)
 
 router
   .route('/:noMultimedia')

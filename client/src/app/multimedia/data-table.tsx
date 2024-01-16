@@ -36,6 +36,8 @@ import { useAllGudangContext } from "@/pages/Gudang";
 import { CSVUploader } from "@/lib/CSVUploader";
 import { useAllMultimediaContext } from "@/pages/Multimedia";
 import customFetch from "@/utils/customFetch";
+import { SelectMultimedia } from "@/components/SelectItem";
+import { useOutletContext } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -78,19 +80,25 @@ export function MultimediaDataTable<TData, TValue>({
   });
 
   // state table
-  const { setDataTable } = useAllMultimediaContext();
+  const { setDataTable, pilihKomisi } = useAllMultimediaContext();
 
   const refreshTable = async () => {
-    const { data } = await customFetch.get("multimedia");
+    const { data } = await customFetch.post("multimedia", {
+      penanggungjawabMultimedia: pilihKomisi,
+    });
     const { multimedia } = data;
     setDataTable(multimedia);
   };
+
+  const { user } = useOutletContext() as any;
 
   return (
     <div className="mt-5">
       {/* input */}
       <div className="flex flex-col sm:flex-row items-center py-4">
         <div className="flex flex-row">
+          <SelectMultimedia komisi={user.role} />
+
           <Input
             placeholder="Cari nama Multimedia"
             value={
@@ -100,7 +108,7 @@ export function MultimediaDataTable<TData, TValue>({
             onChange={(e) => {
               table.getColumn("namaMultimedia")?.setFilterValue(e.target.value);
             }}
-            className="max-w-sm sm:w-auto text-black form-input mb-2 sm:mb-0 sm:mr-2"
+            className="max-w-sm sm:w-auto text-black form-input mb-2 ml-3 sm:mb-0 sm:mr-2"
           />
 
           {/* export */}
@@ -113,11 +121,11 @@ export function MultimediaDataTable<TData, TValue>({
         </div>
 
         {/* import */}
-        <CSVUploader
+        {/* <CSVUploader
           path="/multimedia/upload"
           refresh={() => refreshTable()}
           className="mb-2 sm:mb-0"
-        />
+        /> */}
       </div>
 
       {/* table */}

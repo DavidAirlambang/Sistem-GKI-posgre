@@ -33,9 +33,19 @@ const NavLinks = ({ isBigSidebar }) => {
           "suratKeluar",
         ];
 
-        const majelisAccess = ["administrasi", "programKerja", "viatikum"];
+        const majelisAccess = [
+          "administrasi",
+          "programKerja",
+          "multimedia",
+          "viatikum",
+        ];
 
-        const komisiAccess = ["ruangs", "administrasi", "programKerja"];
+        const komisiAccess = [
+          "ruangs",
+          "multimedia",
+          "administrasi",
+          "programKerja",
+        ];
 
         const keuanganAccess = ["administrasi", "programKerja", "viatikum"];
 

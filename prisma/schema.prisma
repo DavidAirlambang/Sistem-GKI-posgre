@@ -55,6 +55,7 @@ model Multimedia {
   jenisMultimedia     String
   lokasiMultimedia    String
   jumlahMultimedia    Int
+  penaggungjawabMultimedia  String @default("-")
   peminjamMultimedia  String @default("-")
   deskripsiMultimedia String @default("-")
   nilaiAset           Int    @default(0)

@@ -26,12 +26,13 @@ export function downloadToExcelMultimedia(data: any) {
     {
       sheet: "Multimedia",
       columns: [
-        { label: "Nama Multimedia", value: "namaMultimedia" },
-        { label: "Jenis Multimedia", value: "jenisMultimedia" },
-        { label: "Jumlah Multimedia", value: "jumlahMultimedia" },
-        { label: "Peminjam Multimedia", value: "peminjamMultimedia" },
+        { label: "Nama", value: "namaMultimedia" },
+        { label: "Jenis", value: "jenisMultimedia" },
+        { label: "Jumlah", value: "jumlahMultimedia" },
+        { label: "Peminjam", value: "peminjamMultimedia" },
+        { label: "Penanggung Jawab", value: "penaggungjawabMultimedia" },
         { label: "Keterangan", value: "deskripsiMultimedia" },
-        { label: "Lokasi Multimedia", value: "lokasiMultimedia" },
+        { label: "Lokasi", value: "lokasiMultimedia" },
         { label: "Nilai Aset", value: "nilaiAset" },
       ],
       content: data,
@@ -39,7 +40,7 @@ export function downloadToExcelMultimedia(data: any) {
   ];
 
   let settings = {
-    fileName: "Multimedia Excel",
+    fileName: "Multimedia dan Kesenian Excel",
   };
 
   xlsx(columns, settings);

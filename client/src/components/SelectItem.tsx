@@ -17,6 +17,7 @@ import { useAllLaporanContext } from "@/pages/Laporan";
 import { useAllUserContext } from "@/pages/User";
 import { useOutletContext } from "react-router-dom";
 import { User } from "@/app/tabletype";
+import { useAllMultimediaContext } from "@/pages/Multimedia";
 
 export function SelectItems({ komisi }: any) {
   const { setTableRole } = useAllProgramKerjaContext();
@@ -267,6 +268,64 @@ export function SelectUserStatus() {
               </SelectItem>
             );
           })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function SelectMultimedia({ komisi }: any) {
+  const { pilihKomisi, setPilihKomisi, setDataTable } =
+    useAllMultimediaContext();
+
+  const loader = async (val: string) => {
+    try {
+      const { data } = await customFetch.post("/multimedia/get", {
+        penaggungjawabMultimedia: val,
+      });
+      const { multimedia } = data;
+      setDataTable(multimedia);
+      return { multimedia };
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  };
+
+  const items = [
+    "All",
+    ...Object.values(ROLE_SELECT).filter((role) => role !== "admin"),
+  ];
+
+  return (
+    <Select
+      onValueChange={(val) => {
+        setPilihKomisi(val);
+        loader(val);
+      }}
+    >
+      <SelectTrigger className="w-[200px] text-black mr-2">
+        <SelectValue placeholder={"Pilih"} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>{"Pilih Komisi"}</SelectLabel>
+
+          {komisi === "admin" ||
+          komisi === "majelis" ||
+          komisi === "staff kantor" ? (
+            items.map((item: any) => {
+              return (
+                <SelectItem key={item} value={item}>
+                  {item}
+                </SelectItem>
+              );
+            })
+          ) : (
+            <SelectItem key={komisi} value={komisi}>
+              {komisi}
+            </SelectItem>
+          )}
         </SelectGroup>
       </SelectContent>
     </Select>
