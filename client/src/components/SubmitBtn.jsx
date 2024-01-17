@@ -1,5 +1,5 @@
 import { useNavigation } from "react-router-dom";
-const SubmitBtn = ({ formBtn, onclick }) => {
+const SubmitBtn = ({ formBtn }) => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   return (
@@ -7,10 +7,6 @@ const SubmitBtn = ({ formBtn, onclick }) => {
       type="submit"
       className={`btn btn-block ${formBtn && "form-btn"} `}
       disabled={isSubmitting}
-      onClick={() => {
-        console.log("Button clicked");
-        onclick();
-      }}
     >
       {isSubmitting ? "submitting" : "submit"}
     </button>

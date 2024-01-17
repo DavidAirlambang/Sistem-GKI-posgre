@@ -1,19 +1,14 @@
+"use client";
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useLoaderData, useOutletContext } from "react-router-dom";
 import { MULTIMEDIA, ROLE_SELECT } from "../../../utils/constants";
-import { Form, redirect } from "react-router-dom";
+import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
-import {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useContext, createContext, useState } from "react";
 
 import { columns } from "../app/multimedia/columns";
 import MultimediaDataTable from "@/app/multimedia/data-table";
@@ -25,10 +20,7 @@ export const action = () => {
 
     try {
       await customFetch.post("/multimedia", data);
-      toast.success("Item added successfully ");
-      document.getElementById("multimediaForm").reset();
-      document.getElementById("datanya").reset();
-      return redirect("/dashboard/multimedia");
+      return toast.success("Item added successfully ");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
       return error;
@@ -39,41 +31,18 @@ export const action = () => {
 const AllMultimediaContext = createContext();
 const Multimedia = () => {
   const { user } = useOutletContext();
+
   const [dataTable, setDataTable] = useState([]);
-  const [pilihKomisi, setPilihKomisi] = useState(
-    user.role === "admin" ||
-      user.role === "staff kantor" ||
-      user.role === "majelis"
-      ? "All"
-      : user.role
-  );
-
-  const loader = useCallback(async () => {
-    try {
-      const { data } = await customFetch.post("/multimedia/get", {
-        penaggungjawabMultimedia: pilihKomisi,
-      });
-      const { multimedia } = data;
-      setDataTable(multimedia);
-      return { multimedia };
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-      return error;
-    }
-  }, [pilihKomisi]);
-
-  // Panggil loader saat komponen dimount dan ketika pilihKomisi berubah
-  useEffect(() => {
-    loader();
-  }, [pilihKomisi, loader]);
+  const [pilihKomisi, setPilihKomisi] = useState(user.role);
 
   const reset = () => {
-    document.getElementById("multimediaForm").reset();
+    document.getElementById("namaMultimedia").reset();
+    document.getElementById("jumlahMultimedia").reset();
+    document.getElementById("deskripsiMultimedia").reset();
+    document.getElementById("peminjamMultimedia").reset();
+    document.getElementById("lokasiMultimedia").reset();
+    document.getElementById("penaggungjawabMultimedia").reset();
   };
-
-  useEffect(() => {
-    loader();
-  }, [dataTable, loader]);
 
   const filteredRoles = Object.values(ROLE_SELECT).filter(
     (role) => role !== "admin"
@@ -84,7 +53,7 @@ const Multimedia = () => {
       value={{ pilihKomisi, setPilihKomisi, dataTable, setDataTable }}
     >
       <Wrapper>
-        <Form id="multimediaForm" method="post" className="form">
+        <Form method="post" className="form">
           <h4 className="form-title">Multimedia dan Kesenian</h4>
           <div className="form-center">
             <FormRow
@@ -124,7 +93,10 @@ const Multimedia = () => {
             />
             <FormRow type="text" name="nilaiAset" labelText="nilai Aset" />
             <div></div>
-            <SubmitBtn formBtn />
+            <SubmitBtn formBtn onclick={() => reset()} />
+            {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
+        Back
+      </Link> */}
             <button
               className="btn form-btn delete-btn"
               type="reset"
@@ -135,9 +107,7 @@ const Multimedia = () => {
           </div>
         </Form>
       </Wrapper>
-      <div id="datanya">
-        <MultimediaDataTable columns={columns} data={dataTable} />
-      </div>
+      <MultimediaDataTable columns={columns} data={dataTable} />
     </AllMultimediaContext.Provider>
   );
 };
