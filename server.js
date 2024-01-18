@@ -102,7 +102,7 @@ app.use(
 app.use(
   '/api/v1/multimedia',
   authenticateUser,
-  authorizePermissions('admin', 'staff kantor', ...komisi),
+  authorizePermissions('admin', 'staff kantor', 'majelis', ...komisi),
   multimediaRouter
 )
 app.use(
