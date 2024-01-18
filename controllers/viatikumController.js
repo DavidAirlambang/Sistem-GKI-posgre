@@ -28,7 +28,7 @@ export const createViatikum = async (req, res) => {
 
 export const getAllViatikum = async (req, res) => {
   const viatikum = await prisma.viatikum.findMany({
-    orderBy: { kodeProgram: 'asc' }
+    orderBy: { kodeProgram: 'desc' }
   })
   res.status(StatusCodes.OK).json({ viatikum })
 }

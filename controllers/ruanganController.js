@@ -5,7 +5,7 @@ import { buatLog, createLog } from './LogController.js'
 
 export const getAllRuangan = async (req, res) => {
   const ruangans = await prisma.ruangan.findMany({
-    orderBy: { noRuangan: 'asc' }
+    orderBy: { noRuangan: 'desc' }
   })
   res.status(StatusCodes.OK).json({ ruangans })
 }

@@ -14,7 +14,9 @@ export const createSuratKeluar = async (req, res) => {
 }
 
 export const getAllSuratKeluar = async (req, res) => {
-  const suratKeluar = await prisma.suratKeluar.findMany()
+  const suratKeluar = await prisma.suratKeluar.findMany({
+    orderBy: { tanggalSuratKeluar: 'desc' }
+  })
   res.status(StatusCodes.OK).json({ suratKeluar })
 }
 
@@ -26,7 +28,8 @@ export const getAllSuratKeluarDateRange = async (req, res) => {
         gte: new Date(req.body.startDate), // "gte" berarti lebih besar dari atau sama dengan tanggal awal
         lte: new Date(req.body.endDate) // "lte" berarti kurang dari atau sama dengan tanggal akhir
       }
-    }
+    },
+    orderBy: { tanggalSuratKeluar: 'desc' }
   })
   res.status(StatusCodes.OK).json({ suratKeluar })
 }

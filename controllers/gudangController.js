@@ -17,7 +17,7 @@ export const getAllBarangGudang = async (req, res) => {
   const lokasiGudang = req.lokasiGudang
   const barangs = await prisma.gudang.findMany({
     where: { lokasiGudang },
-    orderBy: { namaBarang: 'asc' }
+    orderBy: { noBarang: 'desc' }
   })
   res.status(StatusCodes.OK).json({ barangs })
 }

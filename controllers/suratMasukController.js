@@ -4,7 +4,7 @@ import multer from 'multer'
 import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
 import { promisify } from 'util'
- 
+
 export const createSuratMasuk = async (req, res) => {
   req.body.tanggalMasuk = `${req.body.tanggalMasuk}T00:00:00Z`
   req.body.tanggalSuratMasuk = `${req.body.tanggalSuratMasuk}T00:00:00Z`
@@ -15,7 +15,9 @@ export const createSuratMasuk = async (req, res) => {
 }
 
 export const getAllSuratMasuk = async (req, res) => {
-  const suratMasuk = await prisma.suratMasuk.findMany()
+  const suratMasuk = await prisma.suratMasuk.findMany({
+    orderBy: { tanggalMasuk: 'desc' }
+  })
   res.status(StatusCodes.OK).json({ suratMasuk })
 }
 
@@ -27,7 +29,8 @@ export const getAllSuratMasukDateRange = async (req, res) => {
         gte: new Date(req.body.startDate), // "gte" berarti lebih besar dari atau sama dengan tanggal awal
         lte: new Date(req.body.endDate) // "lte" berarti kurang dari atau sama dengan tanggal akhir
       }
-    }
+    },
+    orderBy: { tanggalMasuk: 'desc' }
   })
   res.status(StatusCodes.OK).json({ suratMasuk })
 }
@@ -38,7 +41,7 @@ export const getSuratMasuk = async (req, res) => {
   })
   res.status(StatusCodes.OK).json({ suratMasuk })
 }
- 
+
 export const editSuratMasuk = async (req, res) => {
   req.body.tanggalMasuk = `${req.body.tanggalMasuk}T00:00:00Z`
   req.body.tanggalSuratMasuk = `${req.body.tanggalSuratMasuk}T00:00:00Z`

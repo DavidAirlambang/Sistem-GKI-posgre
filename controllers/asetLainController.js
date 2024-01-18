@@ -15,7 +15,7 @@ export const createAsetLain = async (req, res) => {
 
 export const getAllAsetLain = async (req, res) => {
   const asetLain = await prisma.asetLain.findMany({
-    orderBy: { namaAsetLain: 'asc' }
+    orderBy: { noAsetLain: 'desc' }
   })
   res.status(StatusCodes.OK).json({ asetLain })
 }

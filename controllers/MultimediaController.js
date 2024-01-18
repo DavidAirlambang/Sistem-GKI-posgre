@@ -17,12 +17,12 @@ export const getAllMultimedia = async (req, res) => {
   if (req.body.penaggungjawabMultimedia != 'All') {
     const multimedia = await prisma.multimedia.findMany({
       where: { penaggungjawabMultimedia: req.body.penaggungjawabMultimedia },
-      orderBy: { penaggungjawabMultimedia: 'asc' }
+      orderBy: { noMultimedia: 'desc' }
     })
     res.status(StatusCodes.OK).json({ multimedia })
   } else {
     const multimedia = await prisma.multimedia.findMany({
-      orderBy: { penaggungjawabMultimedia: 'asc' }
+      orderBy: { noMultimedia: 'desc' }
     })
     res.status(StatusCodes.OK).json({ multimedia })
   }

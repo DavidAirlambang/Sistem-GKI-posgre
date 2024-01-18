@@ -20,7 +20,7 @@ export const register = async (req, res) => {
 
 export const getAllUser = async (req, res) => {
   const query = {
-    orderBy: { name: 'asc' },
+    orderBy: { id: 'desc' },
     where: {}
   }
 
