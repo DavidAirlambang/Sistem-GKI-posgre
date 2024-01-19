@@ -24,9 +24,22 @@ import {
 async function deleteAdministrasiItem(
   noAdministrasi: any,
   nominalAdministrasi: any,
-  namaProgram: string
+  namaProgram: string,
+  tanggalAdministrasi: any
 ) {
   try {
+    const { data } = await customFetch.get("/limit");
+    const { limit } = data;
+
+    const today = new Date(tanggalAdministrasi);
+    const startDate = new Date(limit.awal);
+    const endDate = new Date(limit.akhir);
+
+    if (today < startDate || today > endDate) {
+      toast.error("Periode tidak diizinkan");
+      return;
+    }
+
     await customFetch.delete(`/administrasi/${noAdministrasi}`);
 
     // kurangin pengeluaran
@@ -120,6 +133,7 @@ export const columns: ColumnDef<Administrasi>[] = [
       const namaProgram = Administrasi.namaProgram;
       const noAdministrasi = Administrasi.noAdministrasi;
       const nominalAdministrasi = Administrasi.nominalAdministrasi;
+      const tanggalAdministrasi = Administrasi.tanggalAdministrasi;
       const { setDataTable, komisiTable } = useAllPengeluaranContext();
 
       // fetch ulang
@@ -159,7 +173,8 @@ export const columns: ColumnDef<Administrasi>[] = [
                   await deleteAdministrasiItem(
                     noAdministrasi,
                     nominalAdministrasi,
-                    namaProgram
+                    namaProgram,
+                    tanggalAdministrasi
                   );
                   refreshTable();
                 } catch (error: any) {

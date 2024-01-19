@@ -5,6 +5,7 @@ export const getLimit = async (req, res) => {
   const limit = await prisma.limiter.findUnique({
     where: { id: 1 }
   })
+  console.log(limit)
   res.status(StatusCodes.OK).json({ limit })
 }
 

@@ -9,7 +9,7 @@ export const createAdministrasi = async (req, res) => {
   req.body.nominalAdministrasi = parseInt(req.body.nominalAdministrasi)
   req.body.tanggalAdministrasi = `${req.body.tanggalAdministrasi}T00:00:00Z`
 
-  // kalo pengeluaran
+  // kalo pengeluaran 
   if (req.body.tipeAdministrasi === 'kredit') {
     const limit = await prisma.limiter.findUnique({
       where: { id: 1 }
