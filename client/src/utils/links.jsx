@@ -18,7 +18,7 @@ const links = [
     icon: <FaWpforms />,
   },
   {
-    text: "Multimedia",
+    text: "Multimedia & Kesenian",
     path: "multimedia",
     icon: <FaWpforms />,
   },

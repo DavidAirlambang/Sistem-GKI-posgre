@@ -74,14 +74,14 @@ const Ruangan = () => {
           <Link to="/dashboard/ruangs" className="btn form-btn delete-btn">
             Back
           </Link>
-          <button
+          {/* <button
             className="btn form-btn delete-btn"
             onClick={async () => {
               deleteRuang(ruang.noRuangan);
             }}
           >
             Delete
-          </button>
+          </button> */}
         </div>
       </Form>
     </Wrapper>
