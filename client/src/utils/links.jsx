@@ -2,40 +2,49 @@
 import { FaWpforms } from "react-icons/fa";
 
 const links = [
-  // {
-  //   text: "Add jobs",
-  //   path: ".",
-  //   icon: <FaWpforms />,
-  // },
   {
     text: "Ruangan",
     path: "ruangs",
     icon: <FaWpforms />,
   },
   {
-    text: "Gudang",
-    path: "gudang",
+    text: "Aset",
+    path: "aset",
     icon: <FaWpforms />,
+    subcategories: [
+      {
+        text: "Gudang",
+        path: "gudang",
+        icon: <FaWpforms />,
+      },
+      {
+        text: "Multimedia & Kesenian",
+        path: "multimedia",
+        icon: <FaWpforms />,
+      },
+      {
+        text: "Aset Lain",
+        path: "asetLain",
+        icon: <FaWpforms />,
+      },
+    ],
   },
   {
-    text: "Multimedia & Kesenian",
-    path: "multimedia",
+    text: "Surat",
+    path: "surat",
     icon: <FaWpforms />,
-  },
-  {
-    text: "Aset Lain",
-    path: "asetLain",
-    icon: <FaWpforms />,
-  },
-  {
-    text: "Surat Masuk",
-    path: "suratMasuk",
-    icon: <FaWpforms />,
-  },
-  {
-    text: "Surat Keluar",
-    path: "suratKeluar",
-    icon: <FaWpforms />,
+    subcategories: [
+      {
+        text: "Surat Masuk",
+        path: "suratMasuk",
+        icon: <FaWpforms />,
+      },
+      {
+        text: "Surat Keluar",
+        path: "suratKeluar",
+        icon: <FaWpforms />,
+      },
+    ],
   },
   {
     text: "Administrasi Keuangan",

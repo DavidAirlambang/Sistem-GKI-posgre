@@ -96,7 +96,7 @@ app.use(
 app.use(
   '/api/v1/gudang',
   authenticateUser,
-  authorizePermissions('admin', 'staff kantor'),
+  authorizePermissions('admin', 'staff kantor', 'urusan 7'),
   gudangRouter
 )
 app.use(
@@ -108,7 +108,7 @@ app.use(
 app.use(
   '/api/v1/asetLain',
   authenticateUser,
-  authorizePermissions('admin', 'staff kantor'),
+  authorizePermissions('admin', 'staff kantor', 'urusan 7'),
   asetLainRouter
 )
 app.use(
