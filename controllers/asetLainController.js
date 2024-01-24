@@ -5,8 +5,8 @@ import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
 
 export const createAsetLain = async (req, res) => {
-  req.body.jumlahAsetLain = parseInt(req.body.jumlahAsetLain)
-  req.body.nilaiAset = parseInt(req.body.nilaiAset)
+  req.body.jumlahAsetLain = Math.abs(parseInt(req.body.jumlahAsetLain))
+  req.body.nilaiAset = Math.abs(parseInt(req.body.nilaiAset))
   const asetLain = await prisma.asetLain.create({
     data: req.body
   })
@@ -28,8 +28,8 @@ export const getAsetLain = async (req, res) => {
 }
 
 export const editAsetLain = async (req, res) => {
-  req.body.jumlahAsetLain = parseInt(req.body.jumlahAsetLain)
-  req.body.nilaiAset = parseInt(req.body.nilaiAset)
+  req.body.jumlahAsetLain = Math.abs(parseInt(req.body.jumlahAsetLain))
+  req.body.nilaiAset = Math.abs(parseInt(req.body.nilaiAset))
   const asetLain = await prisma.asetLain.update({
     where: { noAsetLain: parseInt(req.params.noAsetLain) },
     data: req.body
@@ -71,11 +71,11 @@ export const CreateManyAsetLain = async (req, res) => {
         return {
           namaAsetLain: row['Nama AsetLain'],
           jenisAsetLain: row['Jenis AsetLain'],
-          jumlahAsetLain: parseInt(row['Jumlah AsetLain']),
+          jumlahAsetLain: Math.abs(parseInt(row['Jumlah AsetLain'])),
           peminjamAsetLain: row['Peminjam AsetLain'],
           deskripsiAsetLain: row['Keterangan'],
           lokasiAsetLain: row['Lokasi AsetLain'],
-          nilaiAset: parseInt(row['Nilai Aset'])
+          nilaiAset: Math.abs(parseInt(row['Nilai Aset']))
         }
       }
 

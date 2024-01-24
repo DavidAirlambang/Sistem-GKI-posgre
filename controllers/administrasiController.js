@@ -6,10 +6,13 @@ import { convertCSVtoJSON } from '../utils/csvParser.js'
 import { promisify } from 'util'
 
 export const createAdministrasi = async (req, res) => {
-  req.body.nominalAdministrasi = parseInt(req.body.nominalAdministrasi)
+  req.body.nominalAdministrasi = Math.abs(
+    parseInt(req.body.nominalAdministrasi)
+  )
+
   req.body.tanggalAdministrasi = `${req.body.tanggalAdministrasi}T00:00:00Z`
 
-  // kalo pengeluaran 
+  // kalo pengeluaran
   if (req.body.tipeAdministrasi === 'kredit') {
     const limit = await prisma.limiter.findUnique({
       where: { id: 1 }
@@ -110,7 +113,9 @@ export const getAdministrasi = async (req, res) => {
 }
 
 export const editAdministrasi = async (req, res) => {
-  req.body.nominalAdministrasi = parseInt(req.body.nominalAdministrasi)
+  req.body.nominalAdministrasi = Math.abs(
+    parseInt(req.body.nominalAdministrasi)
+  )
   req.body.tanggalAdministrasi = `${req.body.tanggalAdministrasi}T00:00:00Z`
   const administrasi = await prisma.administrasiKeuangan.update({
     where: { noAdministrasi: parseInt(req.params.noAdministrasi) },
@@ -154,7 +159,7 @@ export const CreateManyAdministrasi = async (req, res) => {
     function customRowFormat (row) {
       return {
         tanggalAdministrasi: `${row['Tanggal']}T00:00:00Z`,
-        nominalAdministrasi: parseInt(row['Nominal']),
+        nominalAdministrasi: Math.abs(parseInt(row['Nominal'])),
         tipeAdministrasi: row['Tipe'],
         penerimaAdministrasi: row['Penerima'],
         uraianAdministrasi: row['Uraian']

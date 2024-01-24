@@ -23,7 +23,8 @@ import {
 
 async function deleteSuratKeluarItem(noSuratKeluar: any) {
   try {
-    await customFetch.delete(`/suratKeluar/${noSuratKeluar}`);
+    const encodedNoSuratKeluar = encodeURIComponent(noSuratKeluar);
+    await customFetch.delete(`/suratKeluar/${encodedNoSuratKeluar}`);
     toast.success("Item deleted successfully");
     return redirect("/dashboard/suratKeluar");
   } catch (error: any) {
@@ -130,7 +131,7 @@ export const columns: ColumnDef<SuratKeluar>[] = [
               }}
             >
               {" "}
-              <Link to={`../suratKeluar/${noSuratKeluar}`}>edit surat</Link>
+              <Link to={`../suratKeluar/${encodeURIComponent(noSuratKeluar)}`}>edit surat</Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"

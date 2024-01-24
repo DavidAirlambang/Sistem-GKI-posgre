@@ -10,7 +10,7 @@ import { format } from "date-fns";
 export const loader = async ({ params }) => {
   try {
     const { data } = await customFetch.get(
-      `/suratKeluar/${params.noSuratKeluar}`
+      `/suratKeluar/${encodeURIComponent(params.noSuratKeluar)}`
     );
     return data;
   } catch (error) {
@@ -24,7 +24,10 @@ export const action = () => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      await customFetch.patch(`/suratKeluar/${params.noSuratKeluar}`, data);
+      await customFetch.patch(
+        `/suratKeluar/${encodeURIComponent(params.noSuratKeluar)}`,
+        data
+      );
       toast.success("Item Updated");
       return redirect("/dashboard/suratKeluar");
     } catch (error) {
@@ -65,6 +68,8 @@ const EditSuratKeluar = () => {
             labelText="perihal"
             defaultValue={suratKeluar.perihalKeluar}
           />
+          <div></div>
+          <div></div>
           <SubmitBtn formBtn />
           <Link to="/dashboard/suratKeluar" className="btn form-btn delete-btn">
             Back

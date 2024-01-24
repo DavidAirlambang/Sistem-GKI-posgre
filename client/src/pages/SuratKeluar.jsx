@@ -65,6 +65,8 @@ const SuratKeluar = () => {
             />
             <FormRow labelText="tujuan Surat" name="tujuanKeluar" />
             <FormRow name="perihalKeluar" labelText="perihal" />
+            <div></div>
+            <div></div>
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back

@@ -79,6 +79,8 @@ const AsetLain = () => {
               placeholder='isikan "-" jika tidak ada yang pinjam'
             />
             <FormRow type="text" name="nilaiAset" labelText="nilai Aset" />
+            <div></div>
+            <div></div>
             <SubmitBtn formBtn />
             <button
               className="btn form-btn delete-btn"

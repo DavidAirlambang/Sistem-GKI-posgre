@@ -1,5 +1,5 @@
 "use client";
-  
+
 import { toast } from "react-toastify";
 import customFetch from "../../utils/customFetch";
 import { Link, Form, redirect, useOutletContext } from "react-router-dom";
@@ -23,7 +23,8 @@ import {
 
 async function deleteSuratMasukItem(noSuratMasuk: any) {
   try {
-    await customFetch.delete(`/suratMasuk/${noSuratMasuk}`);
+    const encodedNoSuratMasuk = encodeURIComponent(noSuratMasuk);
+    await customFetch.delete(`/suratMasuk/${encodedNoSuratMasuk}`);
     toast.success("Item deleted successfully");
     return redirect("/dashboard/suratMasuk");
   } catch (error: any) {
@@ -171,7 +172,9 @@ export const columns: ColumnDef<SuratMasuk>[] = [
               }}
             >
               {" "}
-              <Link to={`../suratMasuk/${noSuratMasuk}`}>edit surat</Link>
+              <Link to={`../suratMasuk/${encodeURIComponent(noSuratMasuk)}`}>
+                edit surat
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"

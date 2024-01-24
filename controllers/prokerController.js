@@ -6,8 +6,8 @@ import { convertCSVtoJSON } from '../utils/csvParser.js'
 import { promisify } from 'util'
 
 export const createProgramKerja = async (req, res) => {
-  req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
-  req.body.realisasi = parseInt(req.body.realisasi) || 0
+  req.body.totalAnggaran = Math.abs(parseInt(req.body.totalAnggaran))
+  req.body.realisasi = Math.abs(parseInt(req.body.realisasi)) || 0
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
   req.body.tahun = req.body.tahun.replace(/\s/g, '')
 
@@ -143,7 +143,7 @@ export const getProgramKerja = async (req, res) => {
 }
 
 export const editProgramKerja = async (req, res) => {
-  req.body.totalAnggaran = parseInt(req.body.totalAnggaran)
+  req.body.totalAnggaran = Math.abs(parseInt(req.body.totalAnggaran))
   req.body.tanggalProker = `${req.body.tanggalProker}T00:00:00Z`
   req.body.statusProker = 'Pending'
   req.body.tahun = req.body.tahun.replace(/\s/g, '')
@@ -188,7 +188,7 @@ export const realisasiProgramKerja = async (req, res) => {
     }
   })
   const realisasiTotal =
-    parseInt(program.realisasi) + parseInt(req.body.realisasi)
+    parseInt(program.realisasi) + Math.abs(parseInt(req.body.realisasi))
 
   const programKerja = await prisma.programKerja.updateMany({
     where: { kodeProgram: kodeProgram, tahun: tahunProgram },

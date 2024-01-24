@@ -5,8 +5,8 @@ import path from 'path'
 import { convertCSVtoJSON } from '../utils/csvParser.js'
 
 export const createMultimedia = async (req, res) => {
-  req.body.jumlahMultimedia = parseInt(req.body.jumlahMultimedia)
-  req.body.nilaiAset = parseInt(req.body.nilaiAset)
+  req.body.jumlahMultimedia = Math.abs(parseInt(req.body.jumlahMultimedia))
+  req.body.nilaiAset = Math.abs(parseInt(req.body.nilaiAset))
   const multimedia = await prisma.multimedia.create({
     data: req.body
   })
@@ -36,8 +36,8 @@ export const getMultimedia = async (req, res) => {
 }
 
 export const editMultimedia = async (req, res) => {
-  req.body.jumlahMultimedia = parseInt(req.body.jumlahMultimedia)
-  req.body.nilaiAset = parseInt(req.body.nilaiAset)
+  req.body.jumlahMultimedia = Math.abs(parseInt(req.body.jumlahMultimedia))
+  req.body.nilaiAset = Math.abs(parseInt(req.body.nilaiAset))
   const multimedia = await prisma.multimedia.update({
     where: { noMultimedia: parseInt(req.params.noMultimedia) },
     data: req.body
@@ -79,12 +79,12 @@ export const CreateManyMultimedia = async (req, res) => {
         return {
           namaMultimedia: row['Nama'],
           jenisMultimedia: row['Jenis'],
-          jumlahMultimedia: parseInt(row['Jumlah']),
+          jumlahMultimedia: Math.abs(parseInt(row['Jumlah'])),
           // penaggungjawabMultimedia: row['Penanggung Jawab'],
           peminjamMultimedia: row['Peminjam'],
           deskripsiMultimedia: row['Keterangan'],
           lokasiMultimedia: row['Lokasi'],
-          nilaiAset: parseInt(row['Nilai Aset'])
+          nilaiAset: Math.abs(parseInt(row['Nilai Aset']))
         }
       }
 

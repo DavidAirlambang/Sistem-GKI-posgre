@@ -5,8 +5,8 @@ import multer from 'multer'
 import path from 'path'
 
 export const createBarangGudang = async (req, res) => {
-  req.body.jumlahBarang = parseInt(req.body.jumlahBarang)
-  req.body.nilaiAset = parseInt(req.body.nilaiAset)
+  req.body.jumlahBarang = Math.abs(parseInt(req.body.jumlahBarang))
+  req.body.nilaiAset = Math.abs(parseInt(req.body.nilaiAset))
   const barangGudang = await prisma.gudang.create({
     data: req.body
   })
@@ -30,8 +30,8 @@ export const getBarangGudang = async (req, res) => {
 }
 
 export const editBarangGudang = async (req, res) => {
-  req.body.jumlahBarang = parseInt(req.body.jumlahBarang)
-  req.body.nilaiAset = parseInt(req.body.nilaiAset)
+  req.body.jumlahBarang = Math.abs(parseInt(req.body.jumlahBarang))
+  req.body.nilaiAset = Math.abs(parseInt(req.body.nilaiAset))
   const barang = await prisma.gudang.update({
     where: { noBarang: parseInt(req.params.noBarang) },
     data: req.body
@@ -74,10 +74,10 @@ export const CreateManyBarangGudang = async (req, res) => {
       function customRowFormat (row) {
         return {
           namaBarang: row['Nama Barang'],
-          jumlahBarang: parseInt(row['Jumlah Barang']),
+          jumlahBarang: Math.abs(parseInt(row['Jumlah Barang'])),
           keterangan: row['Keterangan'],
           lokasiGudang: row['Lokasi Gudang'],
-          nilaiAset: parseInt(row['Nilai Aset'])
+          nilaiAset: Math.abs(parseInt(row['Nilai Aset']))
         }
       }
 

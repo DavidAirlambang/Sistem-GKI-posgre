@@ -123,6 +123,7 @@ const Multimedia = () => {
               placeholder='isikan "-" jika tidak ada yang pinjam'
             />
             <FormRow type="text" name="nilaiAset" labelText="nilai Aset" />
+            <div className="sm:hidden"></div>
             <div></div>
             <SubmitBtn formBtn />
             <button

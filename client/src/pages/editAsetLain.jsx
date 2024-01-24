@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
-import { FormRow, FormRowSelect, SubmitBtn } from "../components";
+import { FormRow, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { Link, useLoaderData } from "react-router-dom";
-import { ASETLAIN } from "../../../utils/constants";
+
 import { Form, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -84,6 +84,8 @@ const EditAsetLain = () => {
             labelText="nilai Aset"
             defaultValue={asetLain.nilaiAset.toString()}
           />
+          <div></div>
+          <div></div>
           <SubmitBtn formBtn />
           <Link to="/dashboard/asetLain" className="btn form-btn delete-btn">
             Back

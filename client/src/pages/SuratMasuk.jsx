@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-/* eslint-disable no-unused-vars */ 
+/* eslint-disable no-unused-vars */
 import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useLoaderData } from "react-router-dom";
@@ -18,7 +18,7 @@ export const loader = async () => {
   } catch (error) {
     toast.error(error?.response?.data?.msg);
     return error;
-  } 
+  }
 };
 
 export const action = () => {
@@ -34,9 +34,9 @@ export const action = () => {
       return error;
     }
   };
-}; 
+};
 
-const AllSuratMasukContext = createContext(); 
+const AllSuratMasukContext = createContext();
 const SuratMasuk = () => {
   const { data } = useLoaderData();
   const { suratMasuk } = data;
@@ -75,6 +75,8 @@ const SuratMasuk = () => {
             <FormRow name="perihalMasuk" labelText="perihal" />
             <FormRow labelText="event" name="eventMasuk" />
             <FormRow labelText="disposisi" name="disposisiMasuk" />
+            <div></div>
+            <div></div>
             <SubmitBtn formBtn />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back

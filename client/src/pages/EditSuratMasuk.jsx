@@ -10,10 +10,10 @@ import { format } from "date-fns";
 export const loader = async ({ params }) => {
   try {
     const { data } = await customFetch.get(
-      `/suratMasuk/${params.noSuratMasuk}`
+      `/suratMasuk/${encodeURIComponent(params.noSuratMasuk)}`
     );
     return data;
-  } catch (error) { 
+  } catch (error) {
     toast.error(error.response.data.msg);
     return redirect("/dashboard/suratMasuk");
   }
@@ -24,7 +24,10 @@ export const action = () => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      await customFetch.patch(`/suratMasuk/${params.noSuratMasuk}`, data);
+      await customFetch.patch(
+        `/suratMasuk/${encodeURIComponent(params.noSuratMasuk)}`,
+        data
+      );
       toast.success("Item Updated");
       return redirect("/dashboard/suratMasuk");
     } catch (error) {
@@ -60,9 +63,9 @@ const EditSuratMasuk = () => {
             labelText="tanggal Surat"
             name="tanggalSuratMasuk"
             defaultValue={format(
-                new Date(suratMasuk.tanggalSuratMasuk),
-                "yyyy-MM-dd"
-              )}
+              new Date(suratMasuk.tanggalSuratMasuk),
+              "yyyy-MM-dd"
+            )}
           />
           <FormRow
             labelText="pengirim Surat"
@@ -84,6 +87,8 @@ const EditSuratMasuk = () => {
             name="disposisiMasuk"
             defaultValue={suratMasuk.disposisiMasuk}
           />
+          <div></div>
+          <div></div>
           <SubmitBtn formBtn />
           <Link to="/dashboard/suratMasuk" className="btn form-btn delete-btn">
             Back

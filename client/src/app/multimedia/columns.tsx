@@ -47,7 +47,7 @@ export const columns: ColumnDef<Multimedia>[] = [
             column.toggleSorting(column.getIsSorted() === "asc");
           }}
         >
-          Nama Multimedia
+          Nama Multimedia dan Kesenian
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

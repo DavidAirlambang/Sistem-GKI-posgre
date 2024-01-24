@@ -80,6 +80,8 @@ const EditMultimedia = () => {
             labelText="nilai Aset"
             defaultValue={multimedia.nilaiAset.toString()}
           />
+          <div></div>
+          <div></div>
           <SubmitBtn formBtn />
           <Link to="/dashboard/multimedia" className="btn form-btn delete-btn">
             Back

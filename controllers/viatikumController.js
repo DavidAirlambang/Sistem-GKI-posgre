@@ -6,9 +6,9 @@ import { convertCSVtoJSON } from '../utils/csvParser.js'
 import { promisify } from 'util'
 
 export const createViatikum = async (req, res) => {
-  req.body.viatikum = parseInt(req.body.viatikum)
-  req.body.pertahun = parseInt(req.body.pertahun)
-  req.body.tahun = parseInt(req.body.tahun)
+  req.body.viatikum = Math.abs(parseInt(req.body.viatikum))
+  req.body.pertahun = Math.abs(parseInt(req.body.pertahun))
+  req.body.tahun = Math.abs(parseInt(req.body.tahun))
 
   // check
   const checkViatikum = await prisma.viatikum.findFirst({
@@ -42,16 +42,16 @@ export const getViatikum = async (req, res) => {
 
 export const getViatikumPeriode = async (req, res) => {
   const viatikum = await prisma.viatikum.findMany({
-    where: { tahun: parseInt(req.body.tahun) },
+    where: { tahun: Math.abs(parseInt(req.body.tahun)) },
     orderBy: { kodeProgram: 'asc' }
   })
   res.status(StatusCodes.OK).json({ viatikum })
 }
 
 export const editViatikum = async (req, res) => {
-  req.body.viatikum = parseInt(req.body.viatikum)
-  req.body.pertahun = parseInt(req.body.pertahun)
-  req.body.tahun = parseInt(req.body.tahun)
+  req.body.viatikum = Math.abs(parseInt(req.body.viatikum))
+  req.body.pertahun = Math.abs(parseInt(req.body.pertahun))
+  req.body.tahun = Math.abs(parseInt(req.body.tahun))
 
   const viatikum = await prisma.viatikum.update({
     where: { noViatikum: parseInt(req.params.noViatikum) },
@@ -97,9 +97,9 @@ export const CreateManyViatikum = async (req, res) => {
         kodeProgram: row['Kode Program'],
         nama: row['Nama'],
         kelompok: row['Kelompok'],
-        viatikum: parseInt(row['Viatikum']),
-        pertahun: parseInt(row['Pertahun']),
-        tahun: parseInt(row['Tahun']),
+        viatikum: Math.abs(parseInt(row['Viatikum'])),
+        pertahun: Math.abs(parseInt(row['Pertahun'])),
+        tahun: Math.abs(parseInt(row['Tahun'])),
         keterangan: row['Keterangan']
       }
     }
