@@ -4,7 +4,7 @@ import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { Form, useLoaderData, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import { ROLE_SELECT } from "../../../utils/constants";
 
 import { columns } from "../app/pengeluaran/column";
@@ -21,6 +21,7 @@ const Pengeluaran = () => {
   const [filterKomisi, setFilterKomisi] = useState("All");
   const [sisaAnggaran, setSisaAnggaran] = useState(0);
   const [laporanProker, setLaporanProker] = useState("-");
+  const [disable, setDisable] = useState(true);
 
   const ambilNamaProgram = async () => {
     try {
@@ -48,6 +49,9 @@ const Pengeluaran = () => {
       });
       const { sisa, laporan } = data;
       setLaporanProker(laporan);
+      if (document.getElementById("nominalAdministrasi").value <= sisa) {
+        setDisable(false);
+      }
       setSisaAnggaran(sisa);
       document.getElementById("sisa").value = new Intl.NumberFormat("id-ID", {
         style: "currency",
@@ -73,6 +77,28 @@ const Pengeluaran = () => {
     (role) => role !== "admin"
   );
 
+  useEffect(() => {
+    const nominalInput = document.getElementById("nominalAdministrasi");
+
+    const handleNominalChange = () => {
+      let nominalValue = Math.abs(parseFloat(nominalInput.value));
+
+      if (isNaN(nominalValue) || nominalValue < 0) {
+        nominalInput.value = ""; // Clear the input if a negative value is entered
+        nominalValue = 0;
+      }
+
+      const isDisabled = nominalValue <= sisaAnggaran ? false : true;
+      setDisable(isDisabled);
+    };
+
+    nominalInput.addEventListener("input", handleNominalChange);
+
+    return () => {
+      nominalInput.removeEventListener("input", handleNominalChange);
+    };
+  }, [sisaAnggaran]);
+
   return (
     <AllPengeluaranContext.Provider
       value={{
@@ -96,7 +122,12 @@ const Pengeluaran = () => {
               labelText="Tanggal"
               name="tanggalAdministrasi"
             />
-            <FormRow labelText="nominal" name="nominalAdministrasi" />
+            <FormRow
+              type={"number"}
+              labelText="nominal"
+              name="nominalAdministrasi"
+              defaultValue={0}
+            />
             <FormRowSelect
               labelText="penerima"
               name="penerimaAdministrasi"
@@ -132,7 +163,7 @@ const Pengeluaran = () => {
             />
             <div></div>
             <div></div>
-            <SubmitBtn formBtn />
+            <SubmitBtn formBtn disabled={disable} />
             {/* <Link to="/dashboard/Multimedia" className="btn form-btn delete-btn">
         Back
       </Link> */}

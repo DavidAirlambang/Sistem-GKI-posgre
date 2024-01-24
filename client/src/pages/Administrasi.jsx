@@ -46,7 +46,7 @@ export const action = () => {
       });
 
       // update realisasi
-      if (data.tipeAdministrasi === "kredit")
+      if (data.tipeAdministrasi === "kredit") 
         await customFetch.post("/proker/realisasi", {
           namaProgram: data.namaProgram,
           realisasi: data.nominalAdministrasi,

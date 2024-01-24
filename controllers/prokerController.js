@@ -188,7 +188,7 @@ export const realisasiProgramKerja = async (req, res) => {
     }
   })
   const realisasiTotal =
-    parseInt(program.realisasi) + Math.abs(parseInt(req.body.realisasi))
+    parseInt(program.realisasi) + parseInt(req.body.realisasi)
 
   const programKerja = await prisma.programKerja.updateMany({
     where: { kodeProgram: kodeProgram, tahun: tahunProgram },
