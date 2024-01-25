@@ -112,8 +112,6 @@ export const columns: ColumnDef<User>[] = [
                       error.response.data.msg
                     ) {
                       toast.error(error.response.data.msg);
-                    } else {
-                      toast.error("An error occurred while deleting the item.");
                     }
                     return error;
                   }
@@ -122,6 +120,51 @@ export const columns: ColumnDef<User>[] = [
                 {userItem.active ? "deactivate user" : "activate user"}
               </DropdownMenuItem>
             ) : null}
+            {/* reset password */}
+            <DropdownMenuItem
+              className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+              onClick={async () => {
+                try {
+                  await customFetch.patch(`/user/reset/${id}`);
+                  refreshTable();
+                  toast.success("Password berhasil di reset");
+                } catch (error: any) {
+                  if (
+                    error.response &&
+                    error.response.data &&
+                    error.response.data.msg
+                  ) {
+                    toast.error(error.response.data.msg);
+                  }
+                  return error;
+                }
+              }}
+            >
+              reset password
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="pb-2 pl-2 rounded hover:bg-slate-300 cursor-pointer"
+              onClick={async () => {
+                try {
+                  await customFetch.delete(`/user/${id}`);
+                  refreshTable();
+                  toast.success("User berhasil dihapus");
+                } catch (error: any) {
+                  if (
+                    error.response &&
+                    error.response.data &&
+                    error.response.data.msg
+                  ) {
+                    toast.error(error.response.data.msg);
+                  } else {
+                    toast.error("An error occurred while deleting the item.");
+                  }
+                  return error;
+                }
+              }}
+            >
+              delete user
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

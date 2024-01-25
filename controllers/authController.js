@@ -58,6 +58,21 @@ export const roleUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user })
 }
 
+export const resetPassword = async (req, res) => {
+  const user = await prisma.user.update({
+    where: { id: parseInt(req.params.id) },
+    data: { password: await hashPassword('gkitamancibunut') }
+  })
+  res.status(StatusCodes.OK).json({ user })
+}
+
+export const deleteUser = async (req, res) => {
+  const user = await prisma.user.delete({
+    where: { id: parseInt(req.params.id) }
+  })
+  res.status(StatusCodes.OK).json({ user })
+}
+
 export const editUser = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({

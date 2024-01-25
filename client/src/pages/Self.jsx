@@ -3,7 +3,7 @@ import { FormRow, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { Link, useOutletContext } from "react-router-dom";
 
-import { Form, redirect } from "react-router-dom";
+import { Form } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 
