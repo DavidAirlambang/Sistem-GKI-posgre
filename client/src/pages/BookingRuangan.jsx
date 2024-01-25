@@ -73,6 +73,8 @@ const BookingRuangan = () => {
             labelText="keterangan projector"
             placeholder='isikan "-" jika tidak ada keterangan'
           />
+          <div></div>
+          <div></div>
           <SubmitBtn formBtn />
           <Link to="/dashboard/ruangs" className="btn form-btn delete-btn">
             Back

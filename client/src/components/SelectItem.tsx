@@ -313,6 +313,7 @@ export function SelectMultimedia({ komisi }: any) {
 
           {komisi === "admin" ||
           komisi === "majelis" ||
+          // komisi === "urusan 7" ||
           komisi === "staff kantor" ? (
             items.map((item: any) => {
               return (

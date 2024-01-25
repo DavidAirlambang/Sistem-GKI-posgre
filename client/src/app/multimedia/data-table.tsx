@@ -121,7 +121,7 @@ export function MultimediaDataTable<TData, TValue>({
         </div>
 
         {/* import */}
-        {user.role === "admin" ? (
+        {user.role === "admin" || user.role === "staff kantor" ? (
           <CSVUploader
             path="/multimedia/upload"
             refresh={() => refreshTable()}

@@ -1,2 +1,3 @@
-Nama;Jenis;Jumlah;Peminjam;Penanggung Jawab;Keterangan;Lokasi;Nilai Aset
-multimedia 1;jenis a;100;-;komisi anak;-;multimedia A update;250000
+Nama AsetLain;Jenis AsetLain;Jumlah AsetLain;Peminjam AsetLain;Keterangan;Lokasi AsetLain;Nilai Aset
+nama aset;jenis aset ;1;nama peminjam (isikan - jika tidak ada yang meminjam);deskripsi dari aset;lokasi;100000
+nama aset 2;jenis aset 2;2;-;deskripsi dari aset;lokasi 2;150000
