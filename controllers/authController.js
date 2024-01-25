@@ -50,12 +50,54 @@ export const getUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user })
 }
 
-export const editUser = async (req, res) => {
+export const roleUser = async (req, res) => {
   const user = await prisma.user.update({
     where: { id: parseInt(req.params.id) },
     data: req.body
   })
   res.status(StatusCodes.OK).json({ user })
+}
+
+export const editUser = async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: req.body.email }
+    })
+
+    if (!user) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'User not found' })
+    }
+
+    if (req.body.oldPassword && req.body.newPassword) {
+      const isValidUser = await comparePassword(
+        req.body.oldPassword,
+        user.password
+      )
+      if (!isValidUser) {
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .json({ msg: 'password lama salah' })
+      }
+
+      const hashedPassword = await hashPassword(req.body.newPassword)
+      await prisma.user.update({
+        where: { email: req.body.email },
+        data: { password: hashedPassword, name: req.body.name }
+      })
+    } else {
+      await prisma.user.update({
+        where: { email: req.body.email },
+        data: req.body
+      })
+    }
+
+    res.status(StatusCodes.OK).json({ user })
+  } catch (error) {
+    console.error('Error updating user:', error)
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: 'Internal Server Error' })
+  }
 }
 
 export const login = async (req, res) => {
@@ -68,7 +110,7 @@ export const login = async (req, res) => {
 
   const userActive = isValidUser && user.active === true
 
-  if (!isValidUser) throw new UnauthenticatedError('invalid credentials')
+  if (!isValidUser) throw new UnauthenticatedError('Invalid credentials')
 
   if (!userActive)
     throw new UnauthenticatedError('Account disable, contact administrator')

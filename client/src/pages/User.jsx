@@ -1,11 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useState } from "react";
 import UserDataTable from "@/app/user/data-table";
 import { columns } from "@/app/user/columns";
+import { Self } from ".";
 
 export const loader = async () => {
   try {
@@ -20,6 +21,7 @@ export const loader = async () => {
 const AllUserContext = createContext();
 
 const User = () => {
+  const { user: self } = useOutletContext();
   const { data } = useLoaderData();
   const { user } = data;
 
@@ -38,7 +40,10 @@ const User = () => {
       }}
     >
       <h4>User Management</h4>
-      <UserDataTable columns={columns} data={dataTable} />
+
+      {self.role === "admin" ? (
+        <UserDataTable columns={columns} data={dataTable} />
+      ) : null}
     </AllUserContext.Provider>
   );
 };

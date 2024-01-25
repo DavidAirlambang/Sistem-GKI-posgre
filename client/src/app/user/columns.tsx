@@ -22,7 +22,7 @@ import { useAllUserContext } from "@/pages/User";
 
 async function changeStatusUser(id: any, active: boolean) {
   try {
-    await customFetch.post(`/user/${id}`, { active });
+    await customFetch.post(`/user/role/${id}`, { active });
     if (active === true) {
       toast.success("User Activated");
     } else {

@@ -65,6 +65,18 @@ const links = [
     text: "User",
     path: "user",
     icon: <FaWpforms />,
+    subcategories: [
+      {
+        text: "User Management",
+        path: "userManagement",
+        icon: <FaWpforms />,
+      },
+      {
+        text: "Profile",
+        path: "profile",
+        icon: <FaWpforms />,
+      },
+    ],
   },
   {
     text: "Admin Setting",

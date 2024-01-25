@@ -29,6 +29,7 @@ import {
   DuplicateProgramKerja,
   Limit,
   Print,
+  Self,
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
@@ -84,6 +85,7 @@ import { action as RuanganEditAction } from "./pages/EditRuangan";
 import { loader as RuanganEditLoader } from "./pages/EditRuangan";
 import { action as LimiterAction } from "./pages/Limit";
 import { loader as LimiterLoader } from "./pages/Limit";
+import { action as SelfAction } from "./pages/Self";
 
 import Ruang from "./pages/Ruang";
 import BookingRuangan from "./pages/BookingRuangan";
@@ -270,9 +272,14 @@ const router = createBrowserRouter([
             loader: viatikumEditLoader,
           },
           {
-            path: "user",
+            path: "userManagement",
             element: <User />,
             loader: userLoader,
+          },
+          {
+            path: "profile",
+            element: <Self />,
+            action: SelfAction(),
           },
           {
             path: "user/:id",

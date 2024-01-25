@@ -23,9 +23,9 @@ export const action = () => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     try {
-      await customFetch.post(`/user/${params.id}`, data);
+      await customFetch.post(`/user/role/${params.id}`, data);
       toast.success("Item Updated");
-      return redirect("/dashboard/user");
+      return redirect("/dashboard/userManagement");
     } catch (error) {
       toast.error(error?.response?.data?.msg);
       return error;
@@ -47,7 +47,12 @@ const EditUser = () => {
             defaultValue={user.email}
             readOnly
           />
-          <FormRow labelText="nama" name="name" defaultValue={user.name} />
+          <FormRow
+            labelText="nama"
+            name="name"
+            defaultValue={user.name}
+            readOnly
+          />
           <FormRowSelect
             labelText="role"
             name="role"

@@ -93,6 +93,8 @@ const NavLinks = ({ isBigSidebar }) => {
     "programKerja",
     "viatikum",
     "user",
+    "userManagement",
+    "profile",
     "limiter",
   ];
 
@@ -104,6 +106,7 @@ const NavLinks = ({ isBigSidebar }) => {
     "asetLain",
     "suratMasuk",
     "suratKeluar",
+    "profile",
   ];
 
   const majelisAccess = [
@@ -111,6 +114,7 @@ const NavLinks = ({ isBigSidebar }) => {
     "programKerja",
     "multimedia",
     "viatikum",
+    "profile",
   ];
 
   const komisiAccess = [
@@ -119,6 +123,7 @@ const NavLinks = ({ isBigSidebar }) => {
     "multimedia",
     "administrasi",
     "programKerja",
+    "profile",
   ];
 
   const u7 = [
@@ -129,9 +134,15 @@ const NavLinks = ({ isBigSidebar }) => {
     "asetLain",
     "administrasi",
     "programKerja",
+    "profile",
   ];
 
-  const keuanganAccess = ["administrasi", "programKerja", "viatikum"];
+  const keuanganAccess = [
+    "administrasi",
+    "programKerja",
+    "viatikum",
+    "profile",
+  ];
 
   return (
     <div className="nav-links">
