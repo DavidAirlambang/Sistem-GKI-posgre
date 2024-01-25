@@ -62,7 +62,7 @@ export const getAllAdministrasiDateRange = async (req, res) => {
         lte: new Date(req.body.endDate)
       },
       tipeAdministrasi: req.body.tipeAdministrasi
-    },
+    }, 
     orderBy: { tanggalAdministrasi: 'desc' }
   }
 

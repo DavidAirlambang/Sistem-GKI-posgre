@@ -20,6 +20,19 @@ export const createProgramKerja = async (req, res) => {
       .json({ msg: 'Format tahun tidak valid (ex: 2023-2024)' })
   }
 
+  const limit = await prisma.limiter.findUnique({
+    where: { id: 1 }
+  })
+  const awalDate = new Date(limit.awal)
+  const akhirDate = new Date(limit.akhir)
+  const tanggalDate = new Date(req.body.tanggalProker)
+
+  if (!(tanggalDate >= awalDate && tanggalDate <= akhirDate)) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: 'Periode tidak diizinkan' })
+  }
+
   // check
   const checkProker = await prisma.programKerja.findMany({
     where: {

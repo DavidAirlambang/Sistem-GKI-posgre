@@ -23,7 +23,7 @@ import {
 
 async function deleteAdministrasiItem(
   noAdministrasi: any,
-  nominalAdministrasi: any,
+  nominalAdministrasi: any, 
   namaProgram: string,
   tanggalAdministrasi: any
 ) {

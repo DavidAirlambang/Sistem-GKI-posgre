@@ -34,7 +34,11 @@ const Register = () => {
         <h4>Register</h4>
         <FormRow type="text" name="name" />
         <FormRow type="email" name="email" />
-        <FormRow type="password" name="password" />
+        <FormRow
+          type="password"
+          name="password"
+          placeholder={"min 8 character"}
+        />
         <FormRow
           type="password"
           name="checkPassword"
