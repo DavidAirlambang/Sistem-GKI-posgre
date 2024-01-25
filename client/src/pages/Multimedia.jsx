@@ -48,32 +48,32 @@ const Multimedia = () => {
       : user.role
   );
 
-  const loader = useCallback(async () => {
-    try {
-      const { data } = await customFetch.post("/multimedia/get", {
-        penaggungjawabMultimedia: pilihKomisi,
-      });
-      const { multimedia } = data;
-      setDataTable(multimedia);
-      return { multimedia };
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-      return error;
-    }
-  }, [pilihKomisi]);
+  // const loader = useCallback(async () => {
+  //   try {
+  //     const { data } = await customFetch.post("/multimedia/get", {
+  //       penaggungjawabMultimedia: pilihKomisi,
+  //     });
+  //     const { multimedia } = data;
+  //     setDataTable(multimedia);
+  //     return { multimedia };
+  //   } catch (error) {
+  //     toast.error(error?.response?.data?.msg);
+  //     return error;
+  //   }
+  // }, [pilihKomisi]);
 
-  // Panggil loader saat komponen dimount dan ketika pilihKomisi berubah
-  useEffect(() => {
-    loader();
-  }, [pilihKomisi, loader]);
+  // // Panggil loader saat komponen dimount dan ketika pilihKomisi berubah
+  // useEffect(() => {
+  //   loader();
+  // }, [pilihKomisi, loader]);
 
   const reset = () => {
     document.getElementById("multimediaForm").reset();
   };
 
-  useEffect(() => {
-    loader();
-  }, [dataTable, loader]);
+  // useEffect(() => {
+  //   loader();
+  // }, [dataTable, loader]);
 
   const filteredRoles = Object.values(ROLE_SELECT).filter(
     (role) => role !== "admin"

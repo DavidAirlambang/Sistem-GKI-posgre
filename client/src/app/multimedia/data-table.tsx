@@ -121,11 +121,13 @@ export function MultimediaDataTable<TData, TValue>({
         </div>
 
         {/* import */}
-        {/* <CSVUploader
-          path="/multimedia/upload"
-          refresh={() => refreshTable()}
-          className="mb-2 sm:mb-0"
-        /> */}
+        {user.role === "admin" ? (
+          <CSVUploader
+            path="/multimedia/upload"
+            refresh={() => refreshTable()}
+            className="mb-2 sm:mb-0"
+          />
+        ) : null}
       </div>
 
       {/* table */}

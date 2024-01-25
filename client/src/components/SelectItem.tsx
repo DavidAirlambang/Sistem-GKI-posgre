@@ -305,7 +305,7 @@ export function SelectMultimedia({ komisi }: any) {
       }}
     >
       <SelectTrigger className="w-[200px] text-black mr-2">
-        <SelectValue placeholder={pilihKomisi} />
+        <SelectValue placeholder={"Pilih Komisi"} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

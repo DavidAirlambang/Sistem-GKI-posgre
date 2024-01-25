@@ -118,7 +118,7 @@ export function AsetLainDataTable<TData, TValue>({
           refresh={() => refreshTable()}
           className="mb-2 sm:mb-0"
         />
-      </div>
+      </div> 
 
       {/* table */}
       <div className="rounded-md border">

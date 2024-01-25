@@ -69,7 +69,6 @@ export const CreateManyMultimedia = async (req, res) => {
   try {
     upload.single('file')(req, res, async err => {
       if (err) {
-        console.error('Error uploading file:', err)
         return res
           .status(400)
           .json({ error: 'Terjadi kesalahan saat mengunggah file.' })
@@ -80,8 +79,8 @@ export const CreateManyMultimedia = async (req, res) => {
           namaMultimedia: row['Nama'],
           jenisMultimedia: row['Jenis'],
           jumlahMultimedia: Math.abs(parseInt(row['Jumlah'])),
-          // penaggungjawabMultimedia: row['Penanggung Jawab'],
           peminjamMultimedia: row['Peminjam'],
+          penaggungjawabMultimedia: row['Penanggung Jawab'],
           deskripsiMultimedia: row['Keterangan'],
           lokasiMultimedia: row['Lokasi'],
           nilaiAset: Math.abs(parseInt(row['Nilai Aset']))
@@ -89,10 +88,9 @@ export const CreateManyMultimedia = async (req, res) => {
       }
 
       const jsonData = await convertCSVtoJSON(
-        'file/multimedia&kesenian.csv',
+        'file/multimedia.csv',
         customRowFormat
       )
-      console.log(jsonData)
       const upToPrisma = await prisma.multimedia.createMany({
         data: jsonData
       })

@@ -1,2 +1,2 @@
-Nama AsetLain;Jenis AsetLain;Jumlah AsetLain;Peminjam AsetLain;Keterangan;Lokasi AsetLain;Nilai Aset
-aset 1;jenis A;100;-;-;lokasi B;200000
+Nama;Jenis;Jumlah;Peminjam;Penanggung Jawab;Keterangan;Lokasi;Nilai Aset
+multimedia 1;jenis a;100;-;komisi anak;-;multimedia A update;250000
