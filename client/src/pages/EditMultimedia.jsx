@@ -1,10 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
-import { FormRow, SubmitBtn } from "../components";
+import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useOutletContext } from "react-router-dom";
 import { Form, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
+import { ROLE_SELECT } from "../../../utils/constants";
 
 export const loader = async ({ params }) => {
   try {
@@ -35,6 +36,10 @@ export const action = () => {
 
 const EditMultimedia = () => {
   const { multimedia } = useLoaderData();
+  const { user } = useOutletContext();
+  const filteredRoles = Object.values(ROLE_SELECT).filter(
+    (role) => role !== "admin"
+  );
   return (
     <Wrapper>
       <Form method="post" className="form">
@@ -68,6 +73,18 @@ const EditMultimedia = () => {
             defaultValue={multimedia.deskripsiMultimedia}
             placeholder='isikan "-" jika tidak ada deskripsi'
           />
+          <FormRowSelect
+            labelText="Penanggung Jawab Multimedia dan Kesenian"
+            name="penaggungjawabMultimedia"
+            list={
+              user.role === "admin" ||
+              user.role === "majelis" ||
+              user.role === "staff kantor"
+                ? ["--pilih komisi--", ...filteredRoles]
+                : ["--pilih komisi--", user.role]
+            }
+            defaultValue={multimedia.penaggungjawabMultimedia}
+          />
           <FormRow
             labelText="peminjam Multimedia"
             name="peminjamMultimedia"
@@ -80,7 +97,6 @@ const EditMultimedia = () => {
             labelText="nilai Aset"
             defaultValue={multimedia.nilaiAset.toString()}
           />
-          <div></div>
           <div></div>
           <SubmitBtn formBtn />
           <Link to="/dashboard/multimedia" className="btn form-btn delete-btn">
