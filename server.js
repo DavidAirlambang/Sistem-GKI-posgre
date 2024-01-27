@@ -162,6 +162,11 @@ app.use(
   limitRouter
 )
 
+app.get('/sitemap.xml', (req, res) => {
+  const filePath = path.join(__dirname, '/sitemap.xml')
+  res.sendFile(filePath)
+})
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'))
 })
@@ -173,11 +178,6 @@ app.use('*', (req, res) => {
 app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT || 5100
-
-app.get('/sitemap.xml', (req, res) => {
-  const filePath = path.join(__dirname, '/sitemap.xml')
-  res.sendFile(filePath)
-})
 
 try {
   app.listen(port, () => {
