@@ -174,6 +174,11 @@ app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT || 5100
 
+app.get('/sitemap.xml', (req, res) => {
+  const filePath = path.join(__dirname, '/sitemap.xml')
+  res.sendFile(filePath)
+})
+
 try {
   app.listen(port, () => {
     console.log(`server running on PORT ${port}...`)
