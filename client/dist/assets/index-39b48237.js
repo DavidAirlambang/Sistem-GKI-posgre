@@ -201,7 +201,7 @@ Error generating stack: `+t.message+`
   }
   .close-btn {
     position: absolute;
-    top: 35px;
+    top: 55px;
     left: 10px;
     background: transparent;
     border-color: transparent;
@@ -239,7 +239,7 @@ Error generating stack: `+t.message+`
       height: 112vh;
     }
     .close-btn {
-      top: 55px;
+      top: 80px;
     }
   }
 `,Dz=()=>{const{showSidebar:e,toggleSidebar:r}=Nu();return v.jsx(Tz,{children:v.jsx("div",{className:e?"sidebar-container show-sidebar":"sidebar-container",children:v.jsxs("div",{className:"content",children:[v.jsx("button",{type:"button",className:"close-btn",onClick:r,children:v.jsx(Ez,{})}),v.jsx(XE,{})]})})})},Rz=la.nav`

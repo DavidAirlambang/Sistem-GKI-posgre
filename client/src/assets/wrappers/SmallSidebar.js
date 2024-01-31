@@ -34,7 +34,7 @@ const Wrapper = styled.aside`
   }
   .close-btn {
     position: absolute;
-    top: 35px;
+    top: 55px;
     left: 10px;
     background: transparent;
     border-color: transparent;
@@ -72,7 +72,7 @@ const Wrapper = styled.aside`
       height: 112vh;
     }
     .close-btn {
-      top: 55px;
+      top: 80px;
     }
   }
 `
