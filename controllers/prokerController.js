@@ -111,7 +111,7 @@ export const getAllProgramKerjaNama = async (req, res) => {
 
 export const getAllProgramKerjaDateRange = async (req, res) => {
   if (req.body.status === 'All') {
-    req.body.status = null
+    req.body.status = undefined
   }
 
   const { komisi, startDate, endDate, status, tahun } = req.body

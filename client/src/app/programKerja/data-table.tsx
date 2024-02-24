@@ -161,7 +161,11 @@ export function ProgramKerjaDataTable<TData, TValue>({
             placeholder="Filter Tahun..."
             className="text-black"
           />
-          <Button type="submit" onClick={() => filterTahun()}>
+          <Button
+            disabled={dataTable.length === 0 ? true : false}
+            type="submit"
+            onClick={() => filterTahun()}
+          >
             Filter
           </Button>
           <Button onClick={() => refreshTable()}>Reset</Button>
